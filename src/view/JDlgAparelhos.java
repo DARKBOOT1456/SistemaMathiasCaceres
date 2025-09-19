@@ -4,13 +4,7 @@
  */
 package view;
 
-import bean.AparelhosBean;
-import dao.AparelhosDao;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import javax.swing.JOptionPane;
-
+import tools.Util;
 /**
  *
  * @author mathi
@@ -24,39 +18,13 @@ public class JDlgAparelhos extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setTitle("Cadastro de Aparelhos");
-        setLocationRelativeTo(null); //centraliza o frame
-        habilitar(false);
-    }
-     public void habilitar (boolean valor){
-    jBtnConfirmar.setEnabled(valor);
-        jBtnCancelar.setEnabled(valor);
-        jTxtCod.setEnabled(valor);
-        jTxtMarca.setEnabled(valor);
-        jTxtModelo.setEnabled(valor);
-        jTxtNumero.setEnabled(valor);
-        jCboTipo.setEnabled(valor);
-        jCboChip.setEnabled(valor);
-        jFmtData.setEnabled(valor);
-        jTxtCor.setEnabled(valor);
+        setLocationRelativeTo(null); 
+        Util.habilitar(false, jTxtCod,jTxtMarca,  jTxtNumero,
+                jFmtData, jCboTipo, jTxtModelo, jCboChip, 
+                jTxtCor,    jBtnConfirmar, jBtnCancelar);
         
-        jBtnIncluir.setEnabled(!valor);
-        jBtnAlterar.setEnabled(!valor);
-        jBtnExcluir.setEnabled(!valor);
-        jBtnPesquisar.setEnabled(!valor);
     }
-     public void limpar(){
     
-        jTxtCod.setText("");
-        jTxtCor.setText("");
-        jTxtMarca.setText("");
-        jTxtModelo.setText("");
-        jTxtNumero.setText("");
-        jCboTipo.setSelectedIndex(-1);
-        jCboChip.setSelectedIndex(-1);
-         jFmtData.setText("");
-        
-        
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -78,7 +46,7 @@ public class JDlgAparelhos extends javax.swing.JDialog {
         jLabel6 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jTxtCod = new javax.swing.JTextField();
-        jCboChip = new javax.swing.JComboBox<>();
+        jCboChip = new javax.swing.JComboBox<String>();
         jFmtData = new javax.swing.JFormattedTextField();
         jBtnIncluir = new javax.swing.JButton();
         jBtnAlterar = new javax.swing.JButton();
@@ -86,7 +54,7 @@ public class JDlgAparelhos extends javax.swing.JDialog {
         jBtnCancelar = new javax.swing.JButton();
         jBtnExcluir = new javax.swing.JButton();
         jBtnPesquisar = new javax.swing.JButton();
-        jCboTipo = new javax.swing.JComboBox<>();
+        jCboTipo = new javax.swing.JComboBox<String>();
         jLabel7 = new javax.swing.JLabel();
         jTxtCor = new javax.swing.JTextField();
 
@@ -130,7 +98,7 @@ public class JDlgAparelhos extends javax.swing.JDialog {
             }
         });
 
-        jCboChip.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Retirado", "Não retirado", "Sem chip", "Sem porta chip", "Apenas Chip", "Apenas Cartão de memoria", "Porta chip Retirado" }));
+        jCboChip.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Retirado", "Não retirado", "Sem chip", "Sem porta chip", "Apenas Chip", "Apenas Cartão de memoria", "Porta chip Retirado" }));
         jCboChip.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jCboChipItemStateChanged(evt);
@@ -142,7 +110,7 @@ public class JDlgAparelhos extends javax.swing.JDialog {
             }
         });
 
-        jBtnIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/incluir.png"))); // NOI18N
+        jBtnIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/incluir.png"))); // NOI18N
         jBtnIncluir.setText("Incluir");
         jBtnIncluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -150,7 +118,7 @@ public class JDlgAparelhos extends javax.swing.JDialog {
             }
         });
 
-        jBtnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/alterar.png"))); // NOI18N
+        jBtnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/alterar.png"))); // NOI18N
         jBtnAlterar.setText("Alterar");
         jBtnAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -158,7 +126,7 @@ public class JDlgAparelhos extends javax.swing.JDialog {
             }
         });
 
-        jBtnConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/ok.png"))); // NOI18N
+        jBtnConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ok.png"))); // NOI18N
         jBtnConfirmar.setText("Confirmar");
         jBtnConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -166,7 +134,7 @@ public class JDlgAparelhos extends javax.swing.JDialog {
             }
         });
 
-        jBtnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/exit.png"))); // NOI18N
+        jBtnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/exit.png"))); // NOI18N
         jBtnCancelar.setText("Cancelar");
         jBtnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -174,7 +142,7 @@ public class JDlgAparelhos extends javax.swing.JDialog {
             }
         });
 
-        jBtnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Excluir.png"))); // NOI18N
+        jBtnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Excluir.png"))); // NOI18N
         jBtnExcluir.setText("Excluir");
         jBtnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -182,7 +150,7 @@ public class JDlgAparelhos extends javax.swing.JDialog {
             }
         });
 
-        jBtnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pesquisar.png"))); // NOI18N
+        jBtnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/pesquisar.png"))); // NOI18N
         jBtnPesquisar.setText("Pesquisar");
         jBtnPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -190,7 +158,7 @@ public class JDlgAparelhos extends javax.swing.JDialog {
             }
         });
 
-        jCboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Celular", "Tablet", "Notebook", "Computador", "Televisão", "Console de Videogame", "Outros Aparelhos Eletrônicos", " " }));
+        jCboTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Celular", "Tablet", "Notebook", "Computador", "Televisão", "Console de Videogame", "Outros Aparelhos Eletrônicos", " " }));
 
         jLabel7.setText("Cor");
 
@@ -276,7 +244,7 @@ public class JDlgAparelhos extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jCboChip, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
                     .addComponent(jTxtCor))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jBtnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtnIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -314,98 +282,36 @@ public class JDlgAparelhos extends javax.swing.JDialog {
 
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
         // TODO add your handling code here:
-        habilitar(true);
-         limpar();
+        Util.habilitar(true, jTxtCod,jTxtMarca,  jTxtNumero,
+                jFmtData, jCboTipo, jTxtModelo, jCboChip, 
+                jTxtCor,    jBtnConfirmar, jBtnCancelar);
+       
+          Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
         // TODO add your handling code here:
-        habilitar(true);
+       
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
         // TODO add your handling code here:
-        //desabilitar();
-        habilitar(false);
-         AparelhosBean aparelhos = new AparelhosBean();
-    int cod = Integer.parseInt(jTxtCod.getText());
-    aparelhos.setIdAparelhos(cod);
-    aparelhos.setCor(jTxtCor.getText());
-    aparelhos.setMarca(jTxtMarca.getText());
-    aparelhos.setModelo(jTxtModelo.getText());
-    aparelhos.setNumero_de_serie(jTxtNumero.getText());
-    aparelhos.setChipRetirado(jCboChip.getSelectedItem().toString());
-     String dataTexto = jFmtData.getText().trim();
-    if (dataTexto.isEmpty() || dataTexto.contains(" ")) {
-        JOptionPane.showMessageDialog(this, "A data de nascimento é obrigatória!");
-        return;
-    }
-    try {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        Date data = sdf.parse(dataTexto);
-        aparelhos.setData_entrada(data);
-    } catch (ParseException e) {
-        JOptionPane.showMessageDialog(this, "Data inválida!");
-        return;
-    }
-    aparelhos.setTipodeEquipamento(jCboTipo.getSelectedItem().toString());
-
-     AparelhosDao dao = new AparelhosDao();
-    
-     AparelhosBean existente = (AparelhosBean) dao.list(cod);
-    if (existente == null) {
-        dao.insert(aparelhos);
-        JOptionPane.showMessageDialog(this, "Usuário cadastrado com sucesso!");
-    } else {
-        dao.update(aparelhos);
-        JOptionPane.showMessageDialog(this, "Usuário alterado com sucesso!");
-    }
-    
- limpar();
+       int cod = Util.strToInt(jTxtCod.getText());
     }//GEN-LAST:event_jBtnConfirmarActionPerformed
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
         // TODO add your handling code here:
-        //desabilitar();
-        habilitar(false);
-        limpar();
+        Util.habilitar(false, jTxtCod,jTxtMarca,  jTxtNumero,
+                jFmtData, jCboTipo, jTxtModelo, jCboChip, jTxtCor,    jBtnConfirmar, jBtnCancelar);
+                
+        Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+          Util.limpar(jTxtCod, jTxtMarca, jCboTipo);
         
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
         // TODO add your handling code here:
-        int resp = JOptionPane.showConfirmDialog(null, "Deseja excluir ?");
-        if(resp == JOptionPane.YES_OPTION){
-            AparelhosBean aparelhos = new AparelhosBean();
-            int cod = Integer.parseInt(jTxtCod.getText());
-            aparelhos.setIdAparelhos(cod);
-         aparelhos.setCor(jTxtCor.getText());
-        aparelhos.setMarca(jTxtMarca.getText());
-        aparelhos.setModelo(jTxtModelo.getText());
-        aparelhos.setNumero_de_serie(jTxtNumero.getText()); //jTxtApelido.getText());
-       String dataTexto = jFmtData.getText().trim();
-    if (dataTexto.isEmpty() || dataTexto.contains(" ")) {
-        JOptionPane.showMessageDialog(this, "A data de nascimento é obrigatória!");
-        return;
-    }
-    try {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        Date data = sdf.parse(dataTexto);
-        aparelhos.setData_entrada(data);
-    } catch (ParseException e) {
-        JOptionPane.showMessageDialog(this, "Data inválida!");
-        return;
-    }
-       aparelhos.setTipodeEquipamento(jCboTipo.getSelectedItem().toString());
-       aparelhos.setChipRetirado(jCboChip.getSelectedItem().toString());
-
-            AparelhosDao usuariosDao = new AparelhosDao();
-            usuariosDao.delete(aparelhos);
-            
-        }
-         JOptionPane.showMessageDialog(null, "Aparelho excluído com sucesso!");
-        
-        limpar();
+       Util.pergunta("Desja excluir??"); 
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
     private void jCboChipItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCboChipItemStateChanged
@@ -414,27 +320,7 @@ public class JDlgAparelhos extends javax.swing.JDialog {
 
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed
         // TODO add your handling code here:
-         String id = JOptionPane.showInputDialog(null, "Entre com o código");
-        int codigo = Integer.parseInt(id);
-        AparelhosDao aparelhosDao = new AparelhosDao();
-        AparelhosBean aparelhos = (AparelhosBean) aparelhosDao.list(codigo);
-        if (aparelhos ==  null){
-            JOptionPane.showMessageDialog(null, "Codigo Não encontrado");
-        }
-        else{
-            jTxtCod.setText(id);
-       jTxtCor.setText(String.valueOf(aparelhos.getCor()));
-        jTxtMarca.setText(aparelhos.getMarca());
-        jTxtModelo.setText(aparelhos.getModelo());
-         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-    String dataFormatada = sdf.format(aparelhos.getData_entrada());
-    jFmtData.setText(dataFormatada);
-        jTxtNumero.setText(aparelhos.getNumero_de_serie());
-        jCboTipo.setSelectedItem(aparelhos.getTipodeEquipamento());
-       jCboChip.setSelectedItem(aparelhos.getChipRetirado());
-
-      
-        }
+        
     }//GEN-LAST:event_jBtnPesquisarActionPerformed
 
     /**

@@ -4,12 +4,6 @@
  */
 package view;
 
-import bean.ServicosBean;
-import dao.ServicosDao;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -24,36 +18,10 @@ public class JDlgServicos extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setTitle("Cadastro de Serviços");
-        setLocationRelativeTo(null); //centraliza o frame
-        habilitar(false);
+        setLocationRelativeTo(null); 
+      
     }
-    public void habilitar (boolean valor){
-    jBtnConfirmar.setEnabled(valor);
-        jBtnCancelar.setEnabled(valor);
-        jTxtCodigo.setEnabled(valor);
-        jTxtDesc.setEnabled(valor);
-        jTxtNomeServ.setEnabled(valor);
-        jTxtTempo.setEnabled(valor);
-        jFmtValor.setEnabled(valor);
-        jCboCat.setEnabled(valor);
-        jFmtData.setEnabled(valor);
-        
-        jBtnIncluir.setEnabled(!valor);
-        jBtnAlterar.setEnabled(!valor);
-        jBtnExcluir.setEnabled(!valor);
-        jBtnPesquisar.setEnabled(!valor);
-    }
-    
-    public void limpar(){
-    
-        jTxtCodigo.setText("");
-        jTxtNomeServ.setText("");
-        jTxtDesc.setText("");
-        jFmtValor.setText("");
-        jTxtTempo.setText("");
-      jCboCat.setSelectedIndex(-1);
-        jFmtData.setText("");
-    }
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -296,83 +264,27 @@ public class JDlgServicos extends javax.swing.JDialog {
 
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
         // TODO add your handling code here:
-        habilitar(true);
-        limpar();
+        
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
         // TODO add your handling code here:
-        habilitar(true);
+        
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
         // TODO add your handling code here:
-        //desabilitar();
-        habilitar(false);
-         ServicosBean servicos = new ServicosBean();
-    int cod = Integer.parseInt(jTxtCodigo.getText());
-    servicos.setIdServicos(cod);
-    servicos.setNome_servico(jTxtNomeServ.getText());
-    servicos.setDescricao(jTxtDesc.getText());
-   servicos.setValor(Double.valueOf(jFmtValor.getText()));
-    servicos.setTempo_estimado(jTxtTempo.getText());
-    servicos.setCategoria(jCboCat.getSelectedItem().toString());
-    String dataTexto = jFmtData.getText().trim();
-    if (dataTexto.isEmpty() || dataTexto.contains(" ")) {
-        JOptionPane.showMessageDialog(this, "A data é obrigatória!");
-        return;
-    }
-    try {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        Date data = sdf.parse(dataTexto);
-        servicos.setData_cadastro(data);
-    } catch (ParseException e) {
-        JOptionPane.showMessageDialog(this, "Data inválida!");
-        return;
-    }
-  
-     ServicosDao dao = new ServicosDao();
-    
-     ServicosBean existente = (ServicosBean) dao.list(cod);
-    if (existente == null) {
-        dao.insert(servicos);
-        JOptionPane.showMessageDialog(this, "Serviço cadastrado com sucesso!");
-    } else {
-        dao.update(servicos);
-        JOptionPane.showMessageDialog(this, "Serviço alterado com sucesso!");
-    }
-
-    
-
-    limpar();
+       
     }//GEN-LAST:event_jBtnConfirmarActionPerformed
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
         // TODO add your handling code here:
-        //desabilitar();
-        habilitar(false);
-        limpar();
+       
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
         // TODO add your handling code here:
-        int resp = JOptionPane.showConfirmDialog(null, "Deseja excluir ?");
-        if(resp == JOptionPane.YES_OPTION){
-           ServicosBean servicos = new ServicosBean();
-            int cod = Integer.parseInt(jTxtCodigo.getText());
-        servicos.setIdServicos(cod);
-        servicos.setNome_servico(jTxtNomeServ.getText());
-        servicos.setDescricao(jTxtDesc.getText());
-        servicos.setValor(Double.valueOf(jFmtValor.getText()));
-        servicos.setTempo_estimado(jTxtTempo.getText()); //jTxtApelido.getText());
-        servicos.setCategoria(jCboCat.getSelectedItem().toString());
-       servicos.setData_cadastro(null);
-
-            
-            ServicosDao servicosDao = new ServicosDao();
-            servicosDao.delete(servicos);
-        }
-        limpar();
+        
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
     private void jFmtDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFmtDataActionPerformed
@@ -381,26 +293,10 @@ public class JDlgServicos extends javax.swing.JDialog {
 
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed
         // TODO add your handling code here:
-       String id = JOptionPane.showInputDialog(null, "Entre com o código");
-        int codigo = Integer.parseInt(id);
-        ServicosDao servicosDao = new ServicosDao();
-         ServicosBean servicos = (ServicosBean) servicosDao.list(codigo);
-        if (servicos ==  null){
-            JOptionPane.showMessageDialog(null, "Codigo Não encontrado");
-        }
-        else{
-            jTxtCodigo.setText(id);
-        jTxtNomeServ.setText(servicos.getNome_servico());
-        jTxtDesc.setText(servicos.getDescricao());
-         jFmtValor.setValue(servicos.getValor());
-        jTxtTempo.setText(servicos.getTempo_estimado());
-       jCboCat.setSelectedItem(servicos.getCategoria());
-         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-    String dataFormatada = sdf.format(servicos.getData_cadastro());
-    jFmtData.setText(dataFormatada);
+       
      
     }//GEN-LAST:event_jBtnPesquisarActionPerformed
-    }
+   
     /**
      * @param args the command line arguments
      */

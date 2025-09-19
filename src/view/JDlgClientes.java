@@ -4,12 +4,9 @@
  */
 package view;
 
-import bean.ClientesBean;
-import dao.ClientesDao;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import javax.swing.JOptionPane;
+import tools.Util;
+
+
 
 /**
  *
@@ -24,55 +21,14 @@ public class JDlgClientes extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setTitle("Cadastro de Clientes");
-        setLocationRelativeTo(null); //centraliza o frame
-        habilitar(false);
-    }
-     public void habilitar (boolean valor){
-    jBtnConfirmar.setEnabled(valor);
-        jBtnCancelar.setEnabled(valor);
-        jTxtCod.setEnabled(valor);
-        jTxtBairro.setEnabled(valor);
-        jTxtCidade.setEnabled(valor);
-        jTxtDefi.setEnabled(valor);
-        jTxtEmail.setEnabled(valor);
-        jTxtEnde.setEnabled(valor);
-        jTxtEstado.setEnabled(valor);
-        jTxtRg.setEnabled(valor);
-        jTxtTelefo.setEnabled(valor);
-        jFmtDataCadastro.setEnabled(valor);
-        jFtfCep.setEnabled(valor);
-        jTxtTelefo1.setEnabled(valor);
-         jFmtCpf.setEnabled(valor);
-           jFmtDataNascimento.setEnabled(valor);
-           jTtxtNome.setEnabled(valor);
-          
+        setLocationRelativeTo(null); 
         
-        
-        jBtnIncluir.setEnabled(!valor);
-        jBtnAlterar.setEnabled(!valor);
-        jBtnExcluir.setEnabled(!valor);
-        jBtnPesquisar.setEnabled(!valor);
-    }
-     
-     public void limpar(){
-    
-        jTxtCod.setText("");
-        jTtxtNome.setText("");
-        jFmtCpf.setText("");
-        jTxtRg.setText("");
-        jFmtDataNascimento.setText("");
-      jTxtTelefo1.setText("");
-        jTxtTelefo.setText("");
-        jTxtEmail.setText("");
-        jTxtEnde.setText("");
-        jTxtBairro.setText("");
-        jTxtCidade.setText("");
-        jTxtEstado.setText("");
-        jFtfCep.setText("");
-        jFmtDataCadastro.setText("");
-        jTxtDefi.setText("");
-        
-        
+         Util.habilitar(false, jTxtCod,jTtxtNome,  jFmtCpf,
+                jTxtRg, jFmtDataNascimento, jTxtTelefo1, jTxtTelefo, 
+                jTxtEmail,    jTxtEnde, jTxtBairro, jTxtCidade, jTxtEstado, jFtfCep,jFmtDataCadastro, 
+                jTxtDefi,  jBtnConfirmar, jBtnCancelar);
+       
+       
     }
 
     /**
@@ -211,7 +167,7 @@ public class JDlgClientes extends javax.swing.JDialog {
 
         jLabel8.setText("Bairro");
 
-        jBtnIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/incluir.png"))); // NOI18N
+        jBtnIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/incluir.png"))); // NOI18N
         jBtnIncluir.setText("Incluir");
         jBtnIncluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -219,7 +175,7 @@ public class JDlgClientes extends javax.swing.JDialog {
             }
         });
 
-        jBtnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/alterar.png"))); // NOI18N
+        jBtnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/alterar.png"))); // NOI18N
         jBtnAlterar.setText("Alterar");
         jBtnAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -227,7 +183,7 @@ public class JDlgClientes extends javax.swing.JDialog {
             }
         });
 
-        jBtnConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/ok.png"))); // NOI18N
+        jBtnConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ok.png"))); // NOI18N
         jBtnConfirmar.setText("Confirmar");
         jBtnConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -235,7 +191,7 @@ public class JDlgClientes extends javax.swing.JDialog {
             }
         });
 
-        jBtnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/exit.png"))); // NOI18N
+        jBtnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/exit.png"))); // NOI18N
         jBtnCancelar.setText("Cancelar");
         jBtnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -243,7 +199,7 @@ public class JDlgClientes extends javax.swing.JDialog {
             }
         });
 
-        jBtnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Excluir.png"))); // NOI18N
+        jBtnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Excluir.png"))); // NOI18N
         jBtnExcluir.setText("Excluir");
         jBtnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -251,7 +207,7 @@ public class JDlgClientes extends javax.swing.JDialog {
             }
         });
 
-        jBtnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pesquisar.png"))); // NOI18N
+        jBtnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/pesquisar.png"))); // NOI18N
         jBtnPesquisar.setText("Pesquisar");
         jBtnPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -377,7 +333,7 @@ public class JDlgClientes extends javax.swing.JDialog {
                     .addComponent(jTxtRg, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
                     .addComponent(jFmtDataNascimento, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTxtTelefo1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -406,7 +362,7 @@ public class JDlgClientes extends javax.swing.JDialog {
                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jFmtDataCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+                    .addComponent(jFmtDataCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
                     .addComponent(jFtfCep)
                     .addComponent(jTxtDefi, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
@@ -467,114 +423,38 @@ public class JDlgClientes extends javax.swing.JDialog {
 
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
         // TODO add your handling code here:
-        habilitar(true);
-        limpar();
+        Util.habilitar(true, jTxtCod,jTtxtNome,  jFmtCpf,
+                jTxtRg, jFmtDataNascimento, jTxtTelefo1, jTxtTelefo, 
+                jTxtEmail,    jTxtEnde, jTxtBairro, jTxtCidade, jTxtEstado, jFtfCep,jFmtDataCadastro, 
+                jTxtDefi,  jBtnConfirmar, jBtnCancelar);
+        
+        Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
         // TODO add your handling code here:
-        habilitar(true);
+       
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
         // TODO add your handling code here:
-        //desabilitar();
-        habilitar(false);  
-         ClientesBean clientes = new ClientesBean();
-    int cod = Integer.parseInt(jTxtCod.getText());
-    clientes.setIdclientes(cod);
-    clientes.setNome(jTtxtNome.getText());
-    clientes.setCpf(jFmtCpf.getText());
-   clientes.setRg(jTxtRg.getText());
-   String dataTexto = jFmtDataNascimento.getText().trim();
-    if (dataTexto.isEmpty() || dataTexto.contains(" ")) {
-        JOptionPane.showMessageDialog(this, "A data é obrigatória!");
-        return;
-    }
-    try {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        Date data = sdf.parse(dataTexto);
-        clientes.setData_nascimento(data);
-    } catch (ParseException e) {
-        JOptionPane.showMessageDialog(this, "Data inválida!");
-        return;
-    }
-    clientes.setTelefone(jTxtTelefo1.getText());
-    clientes.setTelefone_secundario(jTxtTelefo.getText());
-    
-    clientes.setEmail(jTxtEmail.getText());
-    clientes.setEndereco(jTxtEnde.getText());
-    clientes.setBairro(jTxtBairro.getText());
-    clientes.setCidade(jTxtCidade.getText());
-    clientes.setEstado(jTxtEstado.getText());
-    clientes.setCep(jFtfCep.getText());
-    String dataTextoCadastro = jFmtDataCadastro.getText().trim();
-if (dataTextoCadastro.isEmpty() || dataTextoCadastro.contains(" ")) {
-    JOptionPane.showMessageDialog(this, "A data de cadastro é obrigatória!");
-    return;
-}
-
-try {
-    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-   
-    Date dataCadastro = sdf.parse(dataTextoCadastro);
-    clientes.setData_cadastro(dataCadastro);
-} catch (ParseException e) {
-    JOptionPane.showMessageDialog(this, "Data de cadastro inválida!");
-    return;
-}
-
-
-    clientes.setDeficiencia(jTxtDefi.getText());
-    
-  
-     ClientesDao dao = new ClientesDao();
-    
-     ClientesBean existente = (ClientesBean) dao.list(cod);
-    if (existente == null) {
-        dao.insert(clientes);
-        JOptionPane.showMessageDialog(this, "Serviço cadastrado com sucesso!");
-    } else {
-        dao.update(clientes);
-        JOptionPane.showMessageDialog(this, "Serviço alterado com sucesso!");
-    }
-    limpar();
+        int cod = Util.strToInt(jTxtCod.getText());
     }//GEN-LAST:event_jBtnConfirmarActionPerformed
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
         // TODO add your handling code here:
-        //desabilitar();
-        habilitar(false);
-        limpar();
+        Util.habilitar(false, jTxtCod,jTtxtNome,  jFmtCpf,
+                jTxtRg, jFmtDataNascimento, jTxtTelefo1, jTxtTelefo, 
+                jTxtEmail,    jTxtEnde, jTxtBairro, jTxtCidade, jTxtEstado, jFtfCep,jFmtDataCadastro, 
+                jTxtDefi,  jBtnConfirmar, jBtnCancelar);
+        
+         Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+          Util.limpar(jTxtCod, jTtxtNome, jTxtEstado);
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
         // TODO add your handling code here:
-         int resp = JOptionPane.showConfirmDialog(null, "Deseja excluir ?");
-        if(resp == JOptionPane.YES_OPTION){
-           ClientesBean clientes = new ClientesBean();
-            int cod = Integer.parseInt(jTxtCod.getText());
-        clientes.setIdclientes(cod);
-        clientes.setNome(jTtxtNome.getText());
-        clientes.setCpf(jFmtCpf.getText());
-        clientes.setRg(jTxtRg.getText());
-        clientes.setData_nascimento(null); 
-        clientes.setTelefone(jTxtTelefo1.getText());
-        clientes.setTelefone_secundario(jTxtTelefo.getText());
-         clientes.setEmail(jTxtEmail.getText());
-          clientes.setEndereco(jTxtEnde.getText());
-           clientes.setBairro(jTxtBairro.getText());
-            clientes.setCidade(jTxtCidade.getText());
-             clientes.setEstado(jTxtEstado.getText());
-              clientes.setCep(jFtfCep.getText());
-               clientes.setData_cadastro(null);
-                clientes.setDeficiencia(jTxtDefi.getText());
-
-            
-            ClientesDao clientesDao = new ClientesDao();
-            clientesDao.delete(clientes);
-        }
-        limpar();
+          Util.pergunta("Desja excluir??");
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
     private void jTxtTelefo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtTelefo1ActionPerformed
@@ -583,33 +463,7 @@ try {
 
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed
         // TODO add your handling code here:
-         String id = JOptionPane.showInputDialog(null, "Entre com o código");
-        int codigo = Integer.parseInt(id);
-        ClientesDao clientesDao = new ClientesDao();
-         ClientesBean clientes = (ClientesBean) clientesDao.list(codigo);
-        if (clientes ==  null){
-            JOptionPane.showMessageDialog(null, "Codigo Não encontrado");
-        }
-        else{
-            jTxtCod.setText(id);
-        jTtxtNome.setText(clientes.getNome());
-        jFmtCpf.setText(clientes.getCpf());
-         jTxtRg.setText(clientes.getRg());
-         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-    String dataFormatada = sdf.format(clientes.getData_nascimento());
-        jFmtDataNascimento.setText(dataFormatada);
-       jTxtTelefo1.setText(clientes.getTelefone());
-    jTxtTelefo.setText(clientes.getTelefone_secundario());
-     jTxtEmail.setText(clientes.getEmail());
-      jTxtEnde.setText(clientes.getEndereco());
-       jTxtBairro.setText(clientes.getBairro());
-        jTxtCidade.setText(clientes.getCidade());
-         jTxtEstado.setText(clientes.getEstado());
-          jFtfCep.setText(clientes.getCep());
-          String dataCadastroFormatada = sdf.format(clientes.getData_cadastro());
-jFmtDataCadastro.setText(dataCadastroFormatada);
-            jTxtDefi.setText(clientes.getDeficiencia());
-    }             
+        
     }//GEN-LAST:event_jBtnPesquisarActionPerformed
 
     /**

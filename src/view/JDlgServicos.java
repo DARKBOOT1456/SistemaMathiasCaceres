@@ -328,8 +328,9 @@ public class JDlgServicos extends javax.swing.JDialog {
 
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed
         // TODO add your handling code here:
-       
-     
+     JDlgServicosPesquisar jDlgServicosPesquisar =  new JDlgServicosPesquisar(null,true);
+        jDlgServicosPesquisar.setTelaPai(this);
+        jDlgServicosPesquisar.setVisible(true);
     }//GEN-LAST:event_jBtnPesquisarActionPerformed
    
     /**

@@ -11,7 +11,7 @@ package view;
 public class JFrmPrincipal extends javax.swing.JFrame {
 
     /**
-     * Creates new form JFrmPrincipal1
+     * Creates new form JFrmPrincipal
      */
     public JFrmPrincipal() {
     
@@ -27,7 +27,6 @@ public class JFrmPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jCheckBox1 = new javax.swing.JCheckBox();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMnuCadatros = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -43,13 +42,11 @@ public class JFrmPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jCheckBox1.setText("jCheckBox1");
-
         jMnuCadatros.setMnemonic('C');
         jMnuCadatros.setText("Cadastros");
 
         jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/clientes.gif"))); // NOI18N
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/usuario.png"))); // NOI18N
         jMenuItem2.setMnemonic('U');
         jMenuItem2.setText("Usuários");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
@@ -60,7 +57,7 @@ public class JFrmPrincipal extends javax.swing.JFrame {
         jMnuCadatros.add(jMenuItem2);
 
         jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/clientes.gif"))); // NOI18N
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/clientes.gif"))); // NOI18N
         jMenuItem3.setMnemonic('C');
         jMenuItem3.setText("Clientes");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
@@ -71,7 +68,7 @@ public class JFrmPrincipal extends javax.swing.JFrame {
         jMnuCadatros.add(jMenuItem3);
 
         jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/celular.png"))); // NOI18N
+        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/celular.png"))); // NOI18N
         jMenuItem4.setMnemonic('A');
         jMenuItem4.setText("Aparelhos");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
@@ -82,7 +79,7 @@ public class JFrmPrincipal extends javax.swing.JFrame {
         jMnuCadatros.add(jMenuItem4);
 
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Manutençao.png"))); // NOI18N
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Manutençao.png"))); // NOI18N
         jMenuItem1.setMnemonic('S');
         jMenuItem1.setText("Serviço");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -94,7 +91,7 @@ public class JFrmPrincipal extends javax.swing.JFrame {
         jMnuCadatros.add(jSeparator1);
 
         jMnuSair.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
-        jMnuSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/exit.png"))); // NOI18N
+        jMnuSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/exit.png"))); // NOI18N
         jMnuSair.setMnemonic('S');
         jMnuSair.setText("Sair");
         jMnuSair.addActionListener(new java.awt.event.ActionListener() {
@@ -110,7 +107,7 @@ public class JFrmPrincipal extends javax.swing.JFrame {
         jMnuMovimentos.setText("Movimentos");
 
         jMenuItem7.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Ordem de serviço.png"))); // NOI18N
+        jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Ordem de serviço.png"))); // NOI18N
         jMenuItem7.setMnemonic('O');
         jMenuItem7.setText("Ordem de Serviço");
         jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
@@ -121,7 +118,7 @@ public class JFrmPrincipal extends javax.swing.JFrame {
         jMnuMovimentos.add(jMenuItem7);
 
         jMenuItem6.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_W, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/prod.gif"))); // NOI18N
+        jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/prod.gif"))); // NOI18N
         jMenuItem6.setMnemonic('S');
         jMenuItem6.setText("Serviço Aparelho");
         jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
@@ -140,17 +137,11 @@ public class JFrmPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(102, 102, 102)
-                .addComponent(jCheckBox1)
-                .addContainerGap(204, Short.MAX_VALUE))
+            .addGap(0, 399, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(131, Short.MAX_VALUE)
-                .addComponent(jCheckBox1)
-                .addGap(122, 122, 122))
+            .addGap(0, 278, Short.MAX_VALUE)
         );
 
         pack();
@@ -230,7 +221,6 @@ public class JFrmPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;

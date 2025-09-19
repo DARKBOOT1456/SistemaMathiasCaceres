@@ -239,9 +239,9 @@ public class JDlgClientes extends javax.swing.JDialog {
                             .addComponent(jBtnConfirmar)
                             .addComponent(jBtnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jBtnPesquisar)
-                            .addComponent(jBtnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jBtnPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jBtnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(50, 50, 50)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -429,17 +429,38 @@ public class JDlgClientes extends javax.swing.JDialog {
                 jTxtDefi,  jBtnConfirmar, jBtnCancelar);
         
         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
-          Util.limpar(jTxtCod, jTtxtNome, jTxtEstado);
+          Util.limpar(jTxtCod,jTtxtNome,  jFmtCpf,
+                jTxtRg, jFmtDataNascimento, jTxtTelefo1, jTxtTelefo, 
+                jTxtEmail,    jTxtEnde, jTxtBairro, jTxtCidade, jTxtEstado, jFtfCep,jFmtDataCadastro, 
+                jTxtDefi);
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
         // TODO add your handling code here:
-        Util.limpar(jTxtCod, jTtxtNome, jTxtEstado);
+        Util.habilitar(true, jTxtCod,jTtxtNome,  jFmtCpf,
+                jTxtRg, jFmtDataNascimento, jTxtTelefo1, jTxtTelefo, 
+                jTxtEmail,    jTxtEnde, jTxtBairro, jTxtCidade, jTxtEstado, jFtfCep,jFmtDataCadastro, 
+                jTxtDefi,  jBtnConfirmar, jBtnCancelar);
+        
+        Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+        Util.limpar(jTxtCod,jTtxtNome,  jFmtCpf,
+                jTxtRg, jFmtDataNascimento, jTxtTelefo1, jTxtTelefo, 
+                jTxtEmail,    jTxtEnde, jTxtBairro, jTxtCidade, jTxtEstado, jFtfCep,jFmtDataCadastro, 
+                jTxtDefi);
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
         // TODO add your handling code here:
-        int cod = Util.strToInt(jTxtCod.getText());    
+        Util.habilitar(false, jTxtCod,jTtxtNome,  jFmtCpf,
+                jTxtRg, jFmtDataNascimento, jTxtTelefo1, jTxtTelefo, 
+                jTxtEmail,    jTxtEnde, jTxtBairro, jTxtCidade, jTxtEstado, jFtfCep,jFmtDataCadastro, 
+                jTxtDefi,  jBtnConfirmar, jBtnCancelar);
+        
+        Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+       Util.limpar(jTxtCod,jTtxtNome,  jFmtCpf,
+                jTxtRg, jFmtDataNascimento, jTxtTelefo1, jTxtTelefo, 
+                jTxtEmail,    jTxtEnde, jTxtBairro, jTxtCidade, jTxtEstado, jFtfCep,jFmtDataCadastro, 
+                jTxtDefi);   
     }//GEN-LAST:event_jBtnConfirmarActionPerformed
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
@@ -450,7 +471,10 @@ public class JDlgClientes extends javax.swing.JDialog {
                 jTxtDefi,  jBtnConfirmar, jBtnCancelar);
         
          Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
-          Util.limpar(jTxtCod, jTtxtNome, jTxtEstado);
+          Util.limpar(jTxtCod,jTtxtNome,  jFmtCpf,
+                jTxtRg, jFmtDataNascimento, jTxtTelefo1, jTxtTelefo, 
+                jTxtEmail,    jTxtEnde, jTxtBairro, jTxtCidade, jTxtEstado, jFtfCep,jFmtDataCadastro, 
+                jTxtDefi);
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed

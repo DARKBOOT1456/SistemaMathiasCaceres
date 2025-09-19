@@ -37,9 +37,9 @@
                           <Component id="jBtnExcluir" alignment="1" min="-2" pref="119" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jBtnPesquisar" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jBtnCancelar" alignment="0" min="-2" pref="108" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="jBtnPesquisar" max="32767" attributes="0"/>
+                          <Component id="jBtnCancelar" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">

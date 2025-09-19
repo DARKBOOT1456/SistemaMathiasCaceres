@@ -276,17 +276,32 @@ public class JDlgServicos extends javax.swing.JDialog {
                   jBtnConfirmar, jBtnCancelar);
         
          Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
-           Util.limpar(jTxtCodigo, jTxtNomeServ, jTxtDesc);
+           Util.limpar(jTxtCodigo,jTxtNomeServ,  jTxtDesc,
+                jFmtValor, jTxtTempo, jCboCat, jFmtData);
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
         // TODO add your handling code here:
+         Util.habilitar(true, jTxtCodigo,jTxtNomeServ,  jTxtDesc,
+                jFmtValor, jTxtTempo, jCboCat, jFmtData, 
+                  jBtnConfirmar, jBtnCancelar);
         
+         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+           Util.limpar(jTxtCodigo,jTxtNomeServ,  jTxtDesc,
+                jFmtValor, jTxtTempo, jCboCat, jFmtData);
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
         // TODO add your handling code here:
-        int cod = Util.strToInt(jTxtCodigo.getText());
+         Util.habilitar(false, jTxtCodigo,jTxtNomeServ,  jTxtDesc,
+                jFmtValor, jTxtTempo, jCboCat, jFmtData, 
+                  jBtnConfirmar, jBtnCancelar);
+        
+         Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+           Util.limpar(jTxtCodigo,jTxtNomeServ,  jTxtDesc,
+                jFmtValor, jTxtTempo, jCboCat, jFmtData);
+      Util.limpar(jTxtCodigo,jTxtNomeServ,  jTxtDesc,
+                jFmtValor, jTxtTempo, jCboCat, jFmtData);
     }//GEN-LAST:event_jBtnConfirmarActionPerformed
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
@@ -296,7 +311,8 @@ public class JDlgServicos extends javax.swing.JDialog {
                   jBtnConfirmar, jBtnCancelar);
 
  Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
-          Util.limpar(jTxtCodigo, jTxtNomeServ, jTxtDesc);
+        Util.limpar(jTxtCodigo,jTxtNomeServ,  jTxtDesc,
+                jFmtValor, jTxtTempo, jCboCat, jFmtData);
 // TODO add your handling code here:
        
     }//GEN-LAST:event_jBtnCancelarActionPerformed

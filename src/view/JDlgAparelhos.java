@@ -300,9 +300,7 @@ public class JDlgAparelhos extends javax.swing.JDialog {
        
           Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
            Util.limpar(jTxtCod, jTxtMarca, jCboTipo);
-        Util.limpar( jTxtCod,jTxtMarca,  jTxtNumero,
-                jFmtData, jCboTipo, jTxtModelo, jCboChip, 
-                jTxtCor);
+       
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed

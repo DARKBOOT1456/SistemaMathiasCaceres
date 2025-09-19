@@ -280,7 +280,9 @@ public class JDlgUsuarios extends javax.swing.JDialog {
                 jChbAtivo,    jBtnConfirmar, jBtnCancelar);
                 
         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
-           Util.limpar(jTxtCodigo, jTxtNome, jCboNivel);
+           Util.limpar(jTxtCodigo,jTxtNome,  jTxtApelido,
+                jFmtCpf, jFmtDataNascimento, jPwdSenha, jCboNivel, 
+                jChbAtivo);
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
@@ -302,7 +304,14 @@ public class JDlgUsuarios extends javax.swing.JDialog {
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
         // TODO add your handling code here:
-        int cod = Util.strToInt(jTxtCodigo.getText());
+         Util.habilitar(false, jTxtCodigo,jTxtNome,  jTxtApelido,
+                jFmtCpf, jFmtDataNascimento, jPwdSenha, jCboNivel, 
+                jChbAtivo,    jBtnConfirmar, jBtnCancelar);
+                
+        Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+        Util.limpar(jTxtCodigo,jTxtNome,  jTxtApelido,
+                jFmtCpf, jFmtDataNascimento, jPwdSenha, jCboNivel, 
+                jChbAtivo);
     }//GEN-LAST:event_jBtnConfirmarActionPerformed
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
@@ -312,12 +321,21 @@ public class JDlgUsuarios extends javax.swing.JDialog {
                 jChbAtivo,    jBtnConfirmar, jBtnCancelar);
                 
         Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
-          Util.limpar(jTxtCodigo, jTxtNome, jCboNivel);
+         Util.limpar(jTxtCodigo,jTxtNome,  jTxtApelido,
+                jFmtCpf, jFmtDataNascimento, jPwdSenha, jCboNivel, 
+                jChbAtivo);
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
         // TODO add your handling code here:
-       
+        Util.habilitar(true, jTxtCodigo,jTxtNome,  jTxtApelido,
+                jFmtCpf, jFmtDataNascimento, jPwdSenha, jCboNivel, 
+                jChbAtivo,    jBtnConfirmar, jBtnCancelar);
+                
+        Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+           Util.limpar(jTxtCodigo,jTxtNome,  jTxtApelido,
+                jFmtCpf, jFmtDataNascimento, jPwdSenha, jCboNivel, 
+                jChbAtivo);
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed

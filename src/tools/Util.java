@@ -55,22 +55,22 @@ public class Util {
     }
 
     public static double strToDouble(String cad) {
-        return Double.parseDouble(cad); //My person make in my castle 
+        return Double.parseDouble(cad); 
 
     }
 
     public static String doubleToStr(double num) {
-        return String.valueOf(num); //My person make in my castle 
+        return String.valueOf(num); 
 
     }
 
     public static Date strToDate(String data) throws ParseException {
         SimpleDateFormat formatar_fofinho = new SimpleDateFormat("dd/MM/yyyy");
-        return formatar_fofinho.parse(data);  //My person make in my castle 
+        return formatar_fofinho.parse(data);  
     }
 
     public static String dateToStr(Date data) {
         SimpleDateFormat formatar_fofinho = new SimpleDateFormat("dd/MM/yyyy");
-        return formatar_fofinho.format(data);  //My person make in my castle
+        return formatar_fofinho.format(data);  
     }
 }

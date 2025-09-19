@@ -28,10 +28,10 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jBtnAlterar" min="-2" pref="94" max="-2" attributes="0"/>
                           <Component id="jBtnIncluir" min="-2" max="-2" attributes="0"/>
+                          <Component id="jBtnAlterar" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="jBtnConfirmar" min="-2" max="-2" attributes="0"/>
                           <Component id="jBtnExcluir" min="-2" pref="119" max="-2" attributes="0"/>
@@ -126,10 +126,12 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jFmtData" min="-2" pref="31" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jBtnConfirmar" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
-                  <Component id="jBtnPesquisar" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
-                  <Component id="jBtnIncluir" min="-2" pref="39" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jBtnConfirmar" alignment="1" min="-2" pref="39" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jBtnPesquisar" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
+                      <Component id="jBtnIncluir" min="-2" pref="39" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace type="separate" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">

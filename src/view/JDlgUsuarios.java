@@ -280,6 +280,7 @@ public class JDlgUsuarios extends javax.swing.JDialog {
                 jChbAtivo,    jBtnConfirmar, jBtnCancelar);
                 
         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+           Util.limpar(jTxtCodigo, jTxtNome, jCboNivel);
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed

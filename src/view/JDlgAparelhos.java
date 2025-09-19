@@ -287,26 +287,45 @@ public class JDlgAparelhos extends javax.swing.JDialog {
                 jTxtCor,    jBtnConfirmar, jBtnCancelar);
        
           Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+           Util.limpar( jTxtCod,jTxtMarca,  jTxtNumero,
+                jFmtData, jCboTipo, jTxtModelo, jCboChip, 
+                jTxtCor);
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
         // TODO add your handling code here:
+        Util.habilitar(true, jTxtCod,jTxtMarca,  jTxtNumero,
+                jFmtData, jCboTipo, jTxtModelo, jCboChip, 
+                jTxtCor,    jBtnConfirmar, jBtnCancelar);
        
+          Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+           Util.limpar(jTxtCod, jTxtMarca, jCboTipo);
+        Util.limpar( jTxtCod,jTxtMarca,  jTxtNumero,
+                jFmtData, jCboTipo, jTxtModelo, jCboChip, 
+                jTxtCor);
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
         // TODO add your handling code here:
-       int cod = Util.strToInt(jTxtCod.getText());
+       Util.habilitar(false, jTxtCod,jTxtMarca,  jTxtNumero,
+                jFmtData, jCboTipo, jTxtModelo, jCboChip, 
+                jTxtCor,    jBtnConfirmar, jBtnCancelar);
+       
+          Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+         Util.limpar( jTxtCod,jTxtMarca,  jTxtNumero,
+                jFmtData, jCboTipo, jTxtModelo, jCboChip, 
+                jTxtCor);
     }//GEN-LAST:event_jBtnConfirmarActionPerformed
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
         // TODO add your handling code here:
         Util.habilitar(false, jTxtCod,jTxtMarca,  jTxtNumero,
-                jFmtData, jCboTipo, jTxtModelo, jCboChip, jTxtCor,    jBtnConfirmar, jBtnCancelar);
+                jFmtData, jCboTipo, jTxtModelo, jCboChip, jTxtCor, jBtnConfirmar, jBtnCancelar);
                 
         Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
-          Util.limpar(jTxtCod, jTxtMarca, jCboTipo);
-
+         Util.limpar( jTxtCod,jTxtMarca,  jTxtNumero,
+                jFmtData, jCboTipo, jTxtModelo, jCboChip, 
+                jTxtCor);
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed

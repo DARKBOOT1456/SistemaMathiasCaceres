@@ -24,7 +24,30 @@ public class JDlgAparelhos extends javax.swing.JDialog {
                 jTxtCor,    jBtnConfirmar, jBtnCancelar);
         
     }
-    
+     public void beanView(AparelhosBean aparelhosBean) {
+        jTxtCod.setText(Util.intToStr(aparelhosBean.getIdaparelhos()));
+         jTxtMarca.setText(aparelhosBean.getMarca());
+         jTxtNumero.setText(aparelhosBean.getNumero());
+         jTxtModelo.setText(aparelhosBean.getModelo());
+         jFmtData.setText(Util.dateToStr(aparelhosBean.getData()));
+         jTxtCor.setText(aparelhosBean.getCor());
+         jCboTipo.setSelectedIndex(aparelhosBean.getTipo());
+         jCboChip.setSelected(aparelhosBean.getChip().equals("S"));
+
+    }
+      public AparelhosBean viewBean(){
+         AparelhosBean aparelhos = new AparelhosBean();
+         int codigo = Util.strToInt(jTxtCod.getText());
+         aparelhos.setIdaparelhos(codigo);
+        aparelhos.setMarca(jTxtMarca.getText());
+        aparelhos.setNumero(jTxtNumero.getText());
+        aparelhos.setModelo(jTxtModelo.getText());
+         aparelhos.setData( Util.strToDate(jFmtData.getText()));
+       aparelhos.setCor(jTxtCor.getText());
+          aparelhos.setTipo(jCboTipo.getSelectedIndex());
+          aparelhos.setChip(jCboChip.getSelectedIndex());
+        return aparelhos;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -299,7 +322,7 @@ public class JDlgAparelhos extends javax.swing.JDialog {
                 jTxtCor,    jBtnConfirmar, jBtnCancelar);
        
           Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
-           Util.limpar(jTxtCod, jTxtMarca, jCboTipo);
+          
        
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
@@ -328,7 +351,15 @@ public class JDlgAparelhos extends javax.swing.JDialog {
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
         // TODO add your handling code here:
-       Util.pergunta("Desja excluir??"); 
+        AparelhosDao aparelhosDao = new AparelhosDao();
+         aparelhosDao.delete( viewBean());
+      if (Util.perguntar("Deseja Excluir?") == true){
+      
+          
+      }
+      Util.limpar( jTxtCod,jTxtMarca,  jTxtNumero,
+                jFmtData, jCboTipo, jTxtModelo, jCboChip, 
+                jTxtCor);
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
     private void jCboChipItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCboChipItemStateChanged
@@ -337,8 +368,7 @@ public class JDlgAparelhos extends javax.swing.JDialog {
 
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed
         // TODO add your handling code here:
-        JDlgAparelhosPesquisar jDlgAparelhosPesquisar =  new JDlgAparelhosPesquisar(null,true);
-        jDlgAparelhosPesquisar.setTelaPai(this);
+        JDlgAparelhosPesquisar jDlgAparelhosPesquisar =  new JDlgAparelhosPesquisar(null,true); 
         jDlgAparelhosPesquisar.setVisible(true);
     }//GEN-LAST:event_jBtnPesquisarActionPerformed
 

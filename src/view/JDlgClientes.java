@@ -30,6 +30,47 @@ public class JDlgClientes extends javax.swing.JDialog {
        
        
     }
+    public void beanView(ClientesBean clientesBean) {
+        jTxtCod.setText(Util.intToStr(clientesBean.getIdclientes()));
+         jTtxtNome.setText(clientesBean.getNome());
+         jTxtRg.setText(clientesBean.getRg());
+         jFmtCpf.setText(clientesBean.getCpf());
+         jFmtDataNascimento.setText(Util.dateToStr(clientesBean.getDataNascimento()));
+         jTxtTelefo1.setText(clientesBean.getTelefo1());
+          jTxtTelefo.setText(clientesBean.getTelefo());
+         jTxtEmail.setText(clientesBean.getEmail());
+          jTxtEnde.setText(clientesBean.getEnde());
+         jTxtBairro.setText(clientesBean.getBairro());
+         jTxtCidade.setText(clientesBean.getCidade());
+          jTxtEstado.setText(clientesBean.getEstado());
+         jFtfCep.setText(clientesBean.getCep());  
+          jTxtDefi.setText(clientesBean.getDefi());  
+         jFmtDataCadastro.setText(Util.dateToStr(clientesBean.getDataCadastro()));
+   
+    }
+    public ClientesBean viewBean(){
+         ClientesBean clientesBean = new ClientesBean();
+         int codigo = Util.strToInt(jTxtCod.getText());
+         clientesBean.setIdclientes(codigo);
+   
+        clientesBean.setNome(jTtxtNome.getText());
+        clientesBean.setRg(jTxtRg.getText());
+        clientesBean.setCpf(jFmtCpf.getText());
+         clientesBean.setDataNascimento( Util.strToDate(jFmtDataNascimento.getText()));
+       clientesBean.setTelefo1(jTxtTelefo1.getText());
+       clientesBean.setTelefo(jTxtTelefo.getText());
+       clientesBean.setEmail(jTxtEmail.getText());
+       clientesBean.setEnde(jTxtEnde.getText());
+       clientesBean.setBairro(jTxtBairro.getText());
+       clientesBean.setCidade(jTxtCidade.getText());
+       clientesBean.setEstado(jTxtEstado.getText());
+       clientesBean.setCep(jFtfCep.getText());
+        clientesBean.setDefi(jTxtDefi.getText());
+         clientesBean.setDataCadastro( Util.strToDate(jFmtDataCadastro.getText()));
+          
+   
+        return clientesBean;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -443,10 +484,7 @@ public class JDlgClientes extends javax.swing.JDialog {
                 jTxtDefi,  jBtnConfirmar, jBtnCancelar);
         
         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
-        Util.limpar(jTxtCod,jTtxtNome,  jFmtCpf,
-                jTxtRg, jFmtDataNascimento, jTxtTelefo1, jTxtTelefo, 
-                jTxtEmail,    jTxtEnde, jTxtBairro, jTxtCidade, jTxtEstado, jFtfCep,jFmtDataCadastro, 
-                jTxtDefi);
+        
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
@@ -479,7 +517,16 @@ public class JDlgClientes extends javax.swing.JDialog {
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
         // TODO add your handling code here:
-          Util.pergunta("Desja excluir??");
+         ClientesDao clientesDAO = new ClientesDao();
+         clientesDAO.delete( viewBean());
+      if (Util.perguntar("Deseja Excluir?") == true){
+      
+          
+      }
+      Util.limpar(jTxtCod,jTtxtNome,  jFmtCpf,
+                jTxtRg, jFmtDataNascimento, jTxtTelefo1, jTxtTelefo, 
+                jTxtEmail,    jTxtEnde, jTxtBairro, jTxtCidade, jTxtEstado, jFtfCep,jFmtDataCadastro, 
+                jTxtDefi);
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
     private void jTxtTelefo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtTelefo1ActionPerformed
@@ -489,7 +536,6 @@ public class JDlgClientes extends javax.swing.JDialog {
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed
         // TODO add your handling code here:
         JDlgClientesPesquisar jDlgClientesPesquisar =  new JDlgClientesPesquisar(null,true);
-        jDlgClientesPesquisar.setTelaPai(this);
         jDlgClientesPesquisar.setVisible(true);
     }//GEN-LAST:event_jBtnPesquisarActionPerformed
 

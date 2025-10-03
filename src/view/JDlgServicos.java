@@ -27,6 +27,33 @@ public class JDlgServicos extends javax.swing.JDialog {
                   jBtnConfirmar, jBtnCancelar);
         
     }
+    
+    public void beanView(ServicosBean servicosBean) {
+        jTxtCodigo.setText(Util.intToStr(servicosBean.getIdservicosBean()));
+         jTxtNomeServ.setText(servicosBean.getNomeServ());
+         jTxtDesc.setText(servicosBean.getDesc());
+         jFmtValor.setText(servicosBean.getValor());
+         jFmtData.setText(Util.dateToStr(servicosBean.getData()));
+         jTxtTempo.setText(servicosBean.getTempo());
+         jCboCat.setSelectedIndex(servicosBean.getCat());
+
+        
+    }
+    public ServicosBean viewBean(){
+         ServicosBean servicosBean = new ServicosBean();
+         int codigo = Util.strToInt(jTxtCodigo.getText());
+         servicosBean.setIdservicos(codigo);
+   
+        servicosBean.setNomeServ(jTxtNomeServ.getText());
+        servicosBean.setDesc(jTxtDesc.getText());
+        servicosBean.setValor(jFmtValor.getText());
+         servicosBean.setData( Util.strToDate(jFmtData.getText()));
+       servicosBean.setTempo(jTxtTempo.getText());
+          servicosBean.setCat(jCboCat.getSelectedIndex());
+         
+   
+        return servicosBean;
+    }
    
 
     /**
@@ -287,8 +314,7 @@ public class JDlgServicos extends javax.swing.JDialog {
                   jBtnConfirmar, jBtnCancelar);
         
          Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
-           Util.limpar(jTxtCodigo,jTxtNomeServ,  jTxtDesc,
-                jFmtValor, jTxtTempo, jCboCat, jFmtData);
+          
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
@@ -319,7 +345,12 @@ public class JDlgServicos extends javax.swing.JDialog {
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
         // TODO add your handling code here:
-         Util.pergunta("Desja excluir??");
+        ServicosDao servicosDAO = new ServicosDao();
+         servicosDAO.delete( viewBean());
+      if (Util.perguntar("Deseja Excluir?") == true){
+      
+          
+      }
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
     private void jFmtDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFmtDataActionPerformed
@@ -328,8 +359,7 @@ public class JDlgServicos extends javax.swing.JDialog {
 
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed
         // TODO add your handling code here:
-     JDlgServicosPesquisar jDlgServicosPesquisar =  new JDlgServicosPesquisar(null,true);
-        jDlgServicosPesquisar.setTelaPai(this);
+     JDlgServicosPesquisar jDlgServicosPesquisar =  new JDlgServicosPesquisar(null,true); 
         jDlgServicosPesquisar.setVisible(true);
     }//GEN-LAST:event_jBtnPesquisarActionPerformed
    

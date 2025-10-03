@@ -4,6 +4,8 @@
  */
 package view;
 
+import java.util.List;
+
 
 /**
  *
@@ -12,7 +14,9 @@ package view;
 public class JDlgAparelhosPesquisar extends javax.swing.JDialog {
 
     
-JDlgAparelhos jDlgAparelhos;
+private JDlgAparelhos jDlgAparelhos;
+
+ControllerAparelhos controllerAparelhos;
     /**
      * Creates new form JDlgAparelhosPesquisar
      */
@@ -21,11 +25,16 @@ JDlgAparelhos jDlgAparelhos;
         initComponents();
         setTitle("Pesquisar Aparelhos");
         setLocationRelativeTo(null);
+        controllerAparelhos = new ControllerAparelhos();
+    AparelhosDao aparelhosDAO = new AparelhosDao();
+      List lista = (List) aparelhosDAO.listAll();
+      controllerAparelhos.setList(lista);
+        jTable1.setModel(controllerAparelhos);
         
         
     }
     
-     public void setTelaPai(JDlgAparelhos jDlgAparelhos){
+     public void setTelaAnterior(JDlgAparelhos jDlgAparelhos){
     this.jDlgAparelhos = jDlgAparelhos;
     }
 
@@ -84,7 +93,8 @@ JDlgAparelhos jDlgAparelhos;
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-         
+          AparelhosBean aparelhosBean =  controllerAparelhos.getBean( jTable1.getSelectedRow() );
+     jDlgAparelhos.beanView(aparelhosBean);
          setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 

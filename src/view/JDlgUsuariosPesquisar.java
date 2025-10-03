@@ -13,7 +13,8 @@ import view.JDlgUsuarios;
  */
 public class JDlgUsuariosPesquisar extends javax.swing.JDialog {
     
- JDlgUsuarios jDlgUsuarios;
+ private JDlgUsuarios jDlgUsuarios;
+  ControllerUsuarios controllerUsuarios;
     
 
    
@@ -25,10 +26,14 @@ public class JDlgUsuariosPesquisar extends javax.swing.JDialog {
         initComponents();
         setTitle("Pesquisar Usuarios");
         setLocationRelativeTo(null);
-        
+        controllerUsuarios = new ControllerUsuarios();
+    UsuariosDao usuariosDAO = new UsuariosDao();
+      List lista = (List) usuariosDAO.listAll();
+      controllerUsuarios.setList(lista);
+        jTable1.setModel(controllerUsuarios);
     }
     
-public void setTelaPai(JDlgUsuarios jDlgUsuarios){
+public void setTelaAnterior(JDlgUsuarios jDlgUsuarios){
     this.jDlgUsuarios = jDlgUsuarios;
     }
     /**
@@ -91,7 +96,9 @@ public void setTelaPai(JDlgUsuarios jDlgUsuarios){
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
        
-         setVisible(false);
+          UsuariosBean usuariosBean =  controllerUsuarios.getBean( jTable1.getSelectedRow() );
+     jDlgUsuarios.beanView(usuariosBean);
+        this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

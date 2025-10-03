@@ -4,6 +4,8 @@
  */
 package view;
 
+import java.util.List;
+
 
 /**
  *
@@ -12,7 +14,8 @@ package view;
 public class JDlgServicosPesquisar extends javax.swing.JDialog {
 
    
-JDlgServicos jDlgServicos;
+private JDlgServicos jDlgServicos;
+ControllerServicos controllerServicos;
     /**
      * Creates new form JDlgServicosPesquisar
      */
@@ -21,9 +24,14 @@ JDlgServicos jDlgServicos;
         initComponents();
         setTitle("Pesquisar Servicos");
         setLocationRelativeTo(null);
+         controllerServicos = new ControllerServicos();
+    ServicosDao servicosDAO = new ServicosDao();
+      List lista = (List) servicosDAO.listAll();
+      controllerServicos.setList(lista);
+        jTable1.setModel(controllerServicos);
         
     }
-     public void setTelaPai(JDlgServicos jDlgServicos){
+     public void setTelaAnterior(JDlgServicos jDlgServicos){
     this.jDlgServicos = jDlgServicos;
     }
 
@@ -85,7 +93,8 @@ JDlgServicos jDlgServicos;
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-         
+         ServicosBean servicosBean =  controllerServicos.getBean( jTable1.getSelectedRow() );
+     jDlgServicos.beanView(servicosBean);
          setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 

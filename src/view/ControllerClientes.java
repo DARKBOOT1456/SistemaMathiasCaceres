@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package view;
+import bean.MscClientes;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 /**
@@ -17,8 +18,8 @@ public class ControllerClientes extends AbstractTableModel {
          this.lista = lista;
     }
     
-    public ClientesBean getBean(int rowIndex){
-        return (ClientesBean) lista.get(rowIndex);
+    public MscClientes getBean(int rowIndex){
+        return (MscClientes) lista.get(rowIndex);
     }
     
     @Override
@@ -33,11 +34,11 @@ public class ControllerClientes extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        ClientesBean clientes = (ClientesBean) lista.get(rowIndex);
-           if(columnIndex == 0) return clientes.getMsc_idclientes();
-           if(columnIndex == 1) return clientes.getMsc_nome();
-           if(columnIndex == 2) return clientes.getMsc_cpf();
-           if(columnIndex == 3) return clientes.getMsc_telefone();
+        MscClientes clientes = (MscClientes) lista.get(rowIndex);
+           if(columnIndex == 0) return clientes.getIdmscClientes();
+           if(columnIndex == 1) return clientes.getMscNome();
+           if(columnIndex == 2) return clientes.getMscCpf();
+           if(columnIndex == 3) return clientes.getMscTelefone();
            
     
        return "";

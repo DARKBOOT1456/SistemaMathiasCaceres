@@ -4,6 +4,8 @@
  */
 package view;
 
+import bean.MscAparelhos;
+import dao.AparelhosDao;
 import java.util.List;
 
 
@@ -93,7 +95,7 @@ ControllerAparelhos controllerAparelhos;
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-          AparelhosBean aparelhosBean =  controllerAparelhos.getBean( jTable1.getSelectedRow() );
+          MscAparelhos aparelhosBean =  controllerAparelhos.getBean( jTable1.getSelectedRow() );
      jDlgAparelhos.beanView(aparelhosBean);
          setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed

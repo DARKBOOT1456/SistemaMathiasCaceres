@@ -1,18 +1,20 @@
 package view;
 
-import bean.Ordem_servicoBean;
+
+import bean.MscOrdensservico;
 import dao.Ordem_servicoDao;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
-import view.ControllerOrdemDeServicoAparelho;
 import view.JDlgClientes;
-import view.JDlgOrdem_servicoPesquisar;
+
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -25,11 +27,9 @@ import view.JDlgOrdem_servicoPesquisar;
  */
 public class JDlgOrdemDeServico extends javax.swing.JDialog {
     
-    ControllerOrdemDeServicoAparelho controllerOrdemDeServicoAparelho;
 
-     boolean pesquisado = false;
-     boolean incluir = false;
-      private MaskFormatter  mascaraData;
+
+    
     /**
      * Creates new form JDlgOrdemDeServico
      */
@@ -38,55 +38,11 @@ public class JDlgOrdemDeServico extends javax.swing.JDialog {
         initComponents();
          setTitle("Movimento Ordem de serviço");
         setLocationRelativeTo(null); //centraliza o frame
-        habilitar(false);
-        controllerOrdemDeServicoAparelho = new ControllerOrdemDeServicoAparelho();
-        jTableOrdem.setModel(controllerOrdemDeServicoAparelho);
-        
-         try {   
- 
-             mascaraData = new MaskFormatter("##/##/####"); 
-             
-            jFmtData.setFormatterFactory(new DefaultFormatterFactory(mascaraData));
-        } catch (ParseException ex) {
-            Logger.getLogger(JDlgClientes.class.getName()).log(Level.SEVERE, null, ex);
-        }
+     
+       
+    
+    
     }
-    public void habilitar (boolean valor){
-    jBtnConfirmar.setEnabled(valor);
-        jBtnCancelar.setEnabled(valor);
-        jCobCliente.setEnabled(valor);
-        jCobTec.setEnabled(valor);
-        jCombUsuario.setEnabled(valor);
-        jCobStatus.setEnabled(valor);
-        jFmtData.setEnabled(valor);
-        jTxtCod.setEnabled(valor);
-        jCombServ.setEnabled(valor);
-        jFmtValor.setEnabled(valor);
-        
-         jBtnSave.setEnabled(valor);
-    jBtnInclusao.setEnabled(valor);
-    jBtnCancel.setEnabled(valor);
-    
-        jBtnAlterar.setEnabled(!valor);
-        jBtnPesquisar.setEnabled(!valor);
-    }
-    
-     public void beanView(Ordem_servicoBean ordem_servico){
-                
-         jTxtCod.setText(String.valueOf(ordem_servico.getMsc_idOrdensServico())); 
-    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-    jFmtData.setText(sdf.format(ordem_servico.getMsc_data_inicio()));
-      jCobStatus.setSelectedItem(ordem_servico.getMsc_status());
-jCobCliente.setSelectedItem(String.valueOf(ordem_servico.getMsc_fkCliente()));
-jCombUsuario.setSelectedItem(String.valueOf(ordem_servico.getMsc_fkUsuarios()));
-jCombServ.setSelectedItem(String.valueOf(ordem_servico.getMsc_fkServico()));
-
-jCobTec.setSelectedItem(ordem_servico.getMsc_Tecnico_responsavel());
-        jFmtValor.setText(ordem_servico.getMsc_valorTotal());
-         
-    }         
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -393,104 +349,26 @@ jCobTec.setSelectedItem(ordem_servico.getMsc_Tecnico_responsavel());
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
         // TODO add your handling code here:
-         if (!pesquisado) {
-        JOptionPane.showMessageDialog(this, "Você deve pesquisar um aparelho antes de alterar.");
-        return;
-    }
-        habilitar(true);
-        incluir = false;
-         jCobCliente.grabFocus();
-         jTxtCod.setEnabled(false);
+         
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
         // TODO add your handling code here:
-        //desabilitar();
-        habilitar(false);
-         Ordem_servicoBean ordem_servico = new Ordem_servicoBean();
-    int cod = Integer.parseInt(jTxtCod.getText());
-    ordem_servico.setMsc_idOrdensServico(cod);
-    ordem_servico.setMsc_status(jCobStatus.getSelectedItem().toString());
-    ordem_servico.setMsc_Tecnico_responsavel(jCobTec.getSelectedItem().toString());
-    ordem_servico.setMsc_valorTotal(jFmtValor.getText());
-    ordem_servico.setMsc_fkCliente(Integer.parseInt(jCobCliente.getSelectedItem().toString()));
-    ordem_servico.setMsc_fkUsuarios(Integer.parseInt(jCombUsuario.getSelectedItem().toString()));
-   ordem_servico.setMsc_fkServico(Integer.parseInt(jCombServ.getSelectedItem().toString()));
-
-    String textoData = jFmtData.getText();
-
-    
-     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-    sdf.setLenient(false);
-
-    try {
-        Date dataIni = sdf.parse(textoData);
-       
-        ordem_servico.setMsc_data_inicio(dataIni);
-     
-
+      
         
-        
-    } catch (ParseException e) {
-        JOptionPane.showMessageDialog(this, "Data inválida! Use o formato dd/MM/yyyy.");
-        return; 
-    }
-
-     Ordem_servicoDao ordem_servicoDao = new Ordem_servicoDao();
     
-     if (incluir == true) {
-        ordem_servicoDao.insert(ordem_servico);
-    } else {
-        ordem_servicoDao.update(ordem_servico);
-    }
     
- limpar();
     }//GEN-LAST:event_jBtnConfirmarActionPerformed
 
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed
         // TODO add your handling code here:
-        JDlgOrdem_servicoPesquisar jDlgOrdem_servicoPesquisar =  new JDlgOrdem_servicoPesquisar(null,true);
-        jDlgOrdem_servicoPesquisar.setTelaPai(this);
-        jDlgOrdem_servicoPesquisar.setVisible(true);
-        pesquisado = true;
         
-//        String id = JOptionPane.showInputDialog(null, "Entre com o código");
-//        int codigo = Integer.parseInt(id);
-//        Ordem_servicoDao ordem_servicoDao = new Ordem_servicoDao();
-//        Ordem_servicoBean ordem_servico = (Ordem_servicoBean) ordem_servicoDao.list(codigo);
-//        if (ordem_servico ==  null){
-//            JOptionPane.showMessageDialog(null, "Codigo Não encontrado");
-//        }
-//        else{
-//            jTxtCod.setText(id);
-//       jFmtCliente.setText(String.valueOf(ordem_servico.getMsc_fkCliente()));
-//        jCobStatus.setSelectedItem(ordem_servico.getMsc_status());
-//        jCobTec.setSelectedItem(ordem_servico.getMsc_Tecnico_responsavel());
-//         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-//    String dataFormatada = sdf.format(ordem_servico.getMsc_data_inicio());
-//    jFmtData.setText(dataFormatada);
-//       jFmtCliente.setText(String.valueOf(ordem_servico.getMsc_fkCliente()));
-//        jFmtUsuario.setText(String.valueOf(ordem_servico.getMsc_fkUsuarios()));
-//       jFmtServ.setText(String.valueOf(ordem_servico.getMsc_fkServico()));
-//       jFmtValor.setText(String.valueOf(ordem_servico.getMsc_valorTotal()));
-//
-//      
-//        }
     }//GEN-LAST:event_jBtnPesquisarActionPerformed
-public void limpar(){
-    
-        jCombUsuario.setSelectedIndex(-1);
-        jCobTec.setSelectedIndex(-1);
-        jCobCliente.setSelectedIndex(-1);
-        jCobStatus.setSelectedIndex(-1);
-        jFmtData.setText("");
-        jTxtCod.setText("");
-         jCombServ.setSelectedIndex(-1);
-         jFmtValor.setText("");
+
          
         
         
-    }
+    
     private void jFmtValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFmtValorActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jFmtValorActionPerformed
@@ -501,21 +379,12 @@ public void limpar(){
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
         // TODO add your handling code here:
-        //desabilitar();
-        habilitar(false);
-        limpar();
+       
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
         // TODO add your handling code here:
-         habilitar(true);
-         limpar();
-         incluir = true;
-        jTxtCod.grabFocus();
         
-         jBtnSave.setEnabled(true);
-    jBtnInclusao.setEnabled(true);
-    jBtnCancel.setEnabled(true);
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
     private void jTxtCodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtCodActionPerformed
@@ -524,35 +393,7 @@ public void limpar(){
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
         // TODO add your handling code here:
-        if (!pesquisado) {
-    JOptionPane.showMessageDialog(null, "Por favor, realize uma pesquisa antes de excluir.");
-    return; 
-}
-         int resp = JOptionPane.showConfirmDialog(null, "Deseja excluir ?");
-        if(resp == JOptionPane.YES_OPTION){
-           Ordem_servicoBean ordem_servico = new Ordem_servicoBean();
-            int cod = Integer.parseInt(jTxtCod.getText());
-        ordem_servico.setMsc_idOrdensServico(cod);
-       ordem_servico.setMsc_status(jCobStatus.getSelectedItem().toString());
-ordem_servico.setMsc_fkCliente(Integer.parseInt(jCobCliente.getSelectedItem().toString()));
-ordem_servico.setMsc_fkUsuarios(Integer.parseInt(jCombUsuario.getSelectedItem().toString()));
-ordem_servico.setMsc_data_inicio(null);
-ordem_servico.setMsc_fkServico(Integer.parseInt(jCombServ.getSelectedItem().toString()));
-
-
-ordem_servico.setMsc_Tecnico_responsavel(jCobTec.getSelectedItem().toString());
-
-        ordem_servico.setMsc_valorTotal(jFmtValor.getText());
         
-       
-
-            
-            Ordem_servicoDao ordem_servicoDao = new Ordem_servicoDao();
-            ordem_servicoDao.delete(ordem_servico);
-        }
-        JOptionPane.showMessageDialog(null, "Aparelho excluído com sucesso!");
-limpar();
-pesquisado = false; 
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
     private void jBtnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSaveActionPerformed

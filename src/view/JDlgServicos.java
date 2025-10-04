@@ -4,6 +4,9 @@
  */
 package view;
 
+import bean.MscServicos;
+import dao.ServicosDao;
+import java.math.BigDecimal;
 import tools.Util;
 
 
@@ -28,28 +31,39 @@ public class JDlgServicos extends javax.swing.JDialog {
         
     }
     
-    public void beanView(ServicosBean servicosBean) {
-        jTxtCodigo.setText(Util.intToStr(servicosBean.getIdservicosBean()));
-         jTxtNomeServ.setText(servicosBean.getNomeServ());
-         jTxtDesc.setText(servicosBean.getDesc());
-         jFmtValor.setText(servicosBean.getValor());
-         jFmtData.setText(Util.dateToStr(servicosBean.getData()));
-         jTxtTempo.setText(servicosBean.getTempo());
-         jCboCat.setSelectedIndex(servicosBean.getCat());
+    public void beanView(MscServicos servicosBean) {
+        jTxtCodigo.setText(Util.intToStr(servicosBean.getIdmscServicos()));
+         jTxtNomeServ.setText(servicosBean.getMscNomeServico());
+         jTxtDesc.setText(servicosBean.getMscDescricao());
+        if (servicosBean.getMscValor() != null) {
+    jFmtValor.setText(servicosBean.getMscValor().toPlainString());
+} else {
+    jFmtValor.setText("");
+}
+         jFmtData.setText(Util.dateToStr(servicosBean.getMscDataCadastro()));
+         jTxtTempo.setText(servicosBean.getMscTempoEstimado());
+         String categoria = servicosBean.getMscCategoria();
+if (categoria != null) {
+    jCboCat.setSelectedItem(categoria); 
+} else {
+    jCboCat.setSelectedIndex(-1); 
+}
 
         
     }
-    public ServicosBean viewBean(){
-         ServicosBean servicosBean = new ServicosBean();
+    public MscServicos viewBean(){
+         MscServicos servicosBean = new MscServicos();
          int codigo = Util.strToInt(jTxtCodigo.getText());
-         servicosBean.setIdservicos(codigo);
+         servicosBean.setIdmscServicos(codigo);
    
-        servicosBean.setNomeServ(jTxtNomeServ.getText());
-        servicosBean.setDesc(jTxtDesc.getText());
-        servicosBean.setValor(jFmtValor.getText());
-         servicosBean.setData( Util.strToDate(jFmtData.getText()));
-       servicosBean.setTempo(jTxtTempo.getText());
-          servicosBean.setCat(jCboCat.getSelectedIndex());
+        servicosBean.setMscNomeServico(jTxtNomeServ.getText());
+        servicosBean.setMscDescricao(jTxtDesc.getText());
+ String valorStr = jFmtValor.getText().replace(",", "."); 
+servicosBean.setMscValor(new BigDecimal(valorStr));
+         servicosBean.setMscDataCadastro( Util.strToDate(jFmtData.getText()));
+       servicosBean.setMscTempoEstimado(jTxtTempo.getText());
+         servicosBean.setMscCategoria(jCboCat.getSelectedItem().toString());
+
          
    
         return servicosBean;

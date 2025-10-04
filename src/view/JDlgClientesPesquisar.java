@@ -4,6 +4,8 @@
  */
 package view;
 
+import bean.MscClientes;
+import dao.ClientesDao;
 import java.util.List;
 
 /**
@@ -88,7 +90,7 @@ private JDlgClientes jDlgClientes;
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        ClientesBean clientesBean =  controllerClientes.getBean( jTable1.getSelectedRow() );
+        MscClientes clientesBean =  controllerClientes.getBean( jTable1.getSelectedRow() );
      jDlgClientes.beanView(clientesBean);
          setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed

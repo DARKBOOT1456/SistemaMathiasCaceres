@@ -4,6 +4,13 @@
  */
 package view;
 
+import bean.MscAparelhos;
+import dao.AparelhosDao;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import javax.swing.JOptionPane;
 import tools.Util;
 /**
  *
@@ -14,6 +21,27 @@ public class JDlgAparelhos extends javax.swing.JDialog {
     /**
      * Creates new form JDlgAparelhos
      */
+    
+    private boolean validarData(String dataStr) {
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    sdf.setLenient(false); 
+    
+    try {
+        Date data = sdf.parse(dataStr);
+        Calendar cal = Calendar.getInstance();
+        Date hoje = cal.getTime();
+        
+        if(data.after(hoje)) {
+            JOptionPane.showMessageDialog(this, "A data de nascimento não pode ser futura!");
+            return false;
+        }
+        
+        return true;
+    } catch (ParseException ex) {
+        JOptionPane.showMessageDialog(this, "Data inválida! Digite no formato dd/MM/yyyy");
+        return false;
+    }
+}
     public JDlgAparelhos(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -23,29 +51,42 @@ public class JDlgAparelhos extends javax.swing.JDialog {
                 jFmtData, jCboTipo, jTxtModelo, jCboChip, 
                 jTxtCor,    jBtnConfirmar, jBtnCancelar);
         
+        try {
+    jFmtData.setFormatterFactory(
+        new javax.swing.text.DefaultFormatterFactory(
+            new javax.swing.text.MaskFormatter("##/##/####")
+        )
+    );
+} catch (java.text.ParseException e) {
+    e.printStackTrace();
+}
+        
     }
-     public void beanView(AparelhosBean aparelhosBean) {
-        jTxtCod.setText(Util.intToStr(aparelhosBean.getIdaparelhos()));
-         jTxtMarca.setText(aparelhosBean.getMarca());
-         jTxtNumero.setText(aparelhosBean.getNumero());
-         jTxtModelo.setText(aparelhosBean.getModelo());
-         jFmtData.setText(Util.dateToStr(aparelhosBean.getData()));
-         jTxtCor.setText(aparelhosBean.getCor());
-         jCboTipo.setSelectedIndex(aparelhosBean.getTipo());
-         jCboChip.setSelected(aparelhosBean.getChip().equals("S"));
+     public void beanView(MscAparelhos aparelhosBean) {
+        jTxtCod.setText(Util.intToStr(aparelhosBean.getIdmscAparelhos()));
+         jTxtMarca.setText(aparelhosBean.getMscMarca());
+         jTxtNumero.setText(aparelhosBean.getMscNumeroDeSerie());
+         jTxtModelo.setText(aparelhosBean.getMscModelo());
+         jFmtData.setText(Util.dateToStr(aparelhosBean.getMscDataEntrada()));
+         jTxtCor.setText(aparelhosBean.getMscCor());
+        jCboTipo.setSelectedItem(aparelhosBean.getMscTipodeEquipamento());
+         String chip = aparelhosBean.getMscChipRetirado(); 
+jCboChip.setSelectedItem(chip.equals("S") ? "Sim" : "Não");
 
     }
-      public AparelhosBean viewBean(){
-         AparelhosBean aparelhos = new AparelhosBean();
+      public MscAparelhos viewBean(){
+         MscAparelhos aparelhos = new MscAparelhos();
          int codigo = Util.strToInt(jTxtCod.getText());
-         aparelhos.setIdaparelhos(codigo);
-        aparelhos.setMarca(jTxtMarca.getText());
-        aparelhos.setNumero(jTxtNumero.getText());
-        aparelhos.setModelo(jTxtModelo.getText());
-         aparelhos.setData( Util.strToDate(jFmtData.getText()));
-       aparelhos.setCor(jTxtCor.getText());
-          aparelhos.setTipo(jCboTipo.getSelectedIndex());
-          aparelhos.setChip(jCboChip.getSelectedIndex());
+         aparelhos.setIdmscAparelhos(codigo);
+        aparelhos.setMscMarca(jTxtMarca.getText());
+        aparelhos.setMscNumeroDeSerie(jTxtNumero.getText());
+        aparelhos.setMscModelo(jTxtModelo.getText());
+         aparelhos.setMscDataEntrada( Util.strToDate(jFmtData.getText()));
+       aparelhos.setMscCor(jTxtCor.getText());
+aparelhos.setMscTipodeEquipamento(jCboTipo.getSelectedItem().toString());
+aparelhos.setMscChipRetirado(jCboChip.getSelectedItem().toString());
+
+ 
         return aparelhos;
     }
 
@@ -328,6 +369,9 @@ public class JDlgAparelhos extends javax.swing.JDialog {
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
         // TODO add your handling code here:
+        if(!validarData(jFmtData.getText())) {
+        return; 
+    }
        Util.habilitar(false, jTxtCod,jTxtMarca,  jTxtNumero,
                 jFmtData, jCboTipo, jTxtModelo, jCboChip, 
                 jTxtCor,    jBtnConfirmar, jBtnCancelar);

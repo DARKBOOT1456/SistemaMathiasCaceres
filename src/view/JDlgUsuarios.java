@@ -24,7 +24,7 @@ public class JDlgUsuarios extends javax.swing.JDialog {
 
     private boolean validarDataNascimento(String dataStr) {
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-    sdf.setLenient(false); // garante datas válidas, sem "30/02"
+    sdf.setLenient(false); 
     
     try {
         Date data = sdf.parse(dataStr);
@@ -207,6 +207,12 @@ public class JDlgUsuarios extends javax.swing.JDialog {
         jBtnPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnPesquisarActionPerformed(evt);
+            }
+        });
+
+        jFmtDataNascimento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFmtDataNascimentoActionPerformed(evt);
             }
         });
 
@@ -420,6 +426,10 @@ public class JDlgUsuarios extends javax.swing.JDialog {
          JDlgUsuariosPesquisar jDlgUsuariosPesquisar =  new JDlgUsuariosPesquisar(null,true);
         jDlgUsuariosPesquisar.setVisible(true);
     }//GEN-LAST:event_jBtnPesquisarActionPerformed
+
+    private void jFmtDataNascimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFmtDataNascimentoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jFmtDataNascimentoActionPerformed
 
     /**
      * @param args the command line arguments

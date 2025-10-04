@@ -4,6 +4,13 @@
  */
 package view;
 
+import bean.MscClientes;
+import dao.ClientesDao;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import javax.swing.JOptionPane;
 import tools.Util;
 
 
@@ -17,6 +24,27 @@ public class JDlgClientes extends javax.swing.JDialog {
     /**
      * Creates new form JDlgClientes
      */
+    
+    private boolean validarData(String dataStr) {
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    sdf.setLenient(false); 
+    
+    try {
+        Date data = sdf.parse(dataStr);
+        Calendar cal = Calendar.getInstance();
+        Date hoje = cal.getTime();
+        
+        if(data.after(hoje)) {
+            JOptionPane.showMessageDialog(this, "A data de nascimento não pode ser futura!");
+            return false;
+        }
+        
+        return true;
+    } catch (ParseException ex) {
+        JOptionPane.showMessageDialog(this, "Data inválida! Digite no formato dd/MM/yyyy");
+        return false;
+    }
+}
     public JDlgClientes(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -27,46 +55,63 @@ public class JDlgClientes extends javax.swing.JDialog {
                 jTxtRg, jFmtDataNascimento, jTxtTelefo1, jTxtTelefo, 
                 jTxtEmail,    jTxtEnde, jTxtBairro, jTxtCidade, jTxtEstado, jFtfCep,jFmtDataCadastro, 
                 jTxtDefi,  jBtnConfirmar, jBtnCancelar);
-       
+         
+      try {
+ 
+    jFmtDataNascimento.setFormatterFactory(
+        new javax.swing.text.DefaultFormatterFactory(
+            new javax.swing.text.MaskFormatter("##/##/####")
+        )
+    );
+
+  
+    jFmtDataCadastro.setFormatterFactory(
+        new javax.swing.text.DefaultFormatterFactory(
+            new javax.swing.text.MaskFormatter("##/##/####")
+        )
+    );
+} catch (java.text.ParseException e) {
+    e.printStackTrace();
+}
        
     }
-    public void beanView(ClientesBean clientesBean) {
-        jTxtCod.setText(Util.intToStr(clientesBean.getIdclientes()));
-         jTtxtNome.setText(clientesBean.getNome());
-         jTxtRg.setText(clientesBean.getRg());
-         jFmtCpf.setText(clientesBean.getCpf());
-         jFmtDataNascimento.setText(Util.dateToStr(clientesBean.getDataNascimento()));
-         jTxtTelefo1.setText(clientesBean.getTelefo1());
-          jTxtTelefo.setText(clientesBean.getTelefo());
-         jTxtEmail.setText(clientesBean.getEmail());
-          jTxtEnde.setText(clientesBean.getEnde());
-         jTxtBairro.setText(clientesBean.getBairro());
-         jTxtCidade.setText(clientesBean.getCidade());
-          jTxtEstado.setText(clientesBean.getEstado());
-         jFtfCep.setText(clientesBean.getCep());  
-          jTxtDefi.setText(clientesBean.getDefi());  
-         jFmtDataCadastro.setText(Util.dateToStr(clientesBean.getDataCadastro()));
+    public void beanView(MscClientes clientesBean) {
+        jTxtCod.setText(Util.intToStr(clientesBean.getIdmscClientes()));
+         jTtxtNome.setText(clientesBean.getMscNome());
+         jTxtRg.setText(clientesBean.getMscRg());
+         jFmtCpf.setText(clientesBean.getMscCpf());
+         jFmtDataNascimento.setText(Util.dateToStr(clientesBean.getMscDataNascimento()));
+         jTxtTelefo1.setText(clientesBean.getMscTelefone());
+          jTxtTelefo.setText(clientesBean.getMscTelefoneSecundario());
+         jTxtEmail.setText(clientesBean.getMscEmail());
+          jTxtEnde.setText(clientesBean.getMscEndereco());
+         jTxtBairro.setText(clientesBean.getMscBairro());
+         jTxtCidade.setText(clientesBean.getMscCidade());
+          jTxtEstado.setText(clientesBean.getMscEstado());
+         jFtfCep.setText(clientesBean.getMscCep());  
+          jTxtDefi.setText(clientesBean.getMscDeficiencia());  
+         jFmtDataCadastro.setText(Util.dateToStr(clientesBean.getMscDataCadastro()));
    
     }
-    public ClientesBean viewBean(){
-         ClientesBean clientesBean = new ClientesBean();
+    public MscClientes viewBean(){
+         MscClientes clientesBean = new MscClientes();
          int codigo = Util.strToInt(jTxtCod.getText());
-         clientesBean.setIdclientes(codigo);
+         clientesBean.setIdmscClientes(codigo);
    
-        clientesBean.setNome(jTtxtNome.getText());
-        clientesBean.setRg(jTxtRg.getText());
-        clientesBean.setCpf(jFmtCpf.getText());
-         clientesBean.setDataNascimento( Util.strToDate(jFmtDataNascimento.getText()));
-       clientesBean.setTelefo1(jTxtTelefo1.getText());
-       clientesBean.setTelefo(jTxtTelefo.getText());
-       clientesBean.setEmail(jTxtEmail.getText());
-       clientesBean.setEnde(jTxtEnde.getText());
-       clientesBean.setBairro(jTxtBairro.getText());
-       clientesBean.setCidade(jTxtCidade.getText());
-       clientesBean.setEstado(jTxtEstado.getText());
-       clientesBean.setCep(jFtfCep.getText());
-        clientesBean.setDefi(jTxtDefi.getText());
-         clientesBean.setDataCadastro( Util.strToDate(jFmtDataCadastro.getText()));
+        clientesBean.setMscNome(jTtxtNome.getText());
+        clientesBean.setMscRg(jTxtRg.getText());
+        clientesBean.setMscCpf(jFmtCpf.getText());
+         clientesBean.setMscDataNascimento( Util.strToDate(jFmtDataNascimento.getText()));
+       clientesBean.setMscTelefone(jTxtTelefo1.getText());
+       clientesBean.setMscTelefoneSecundario(jTxtTelefo.getText());
+       clientesBean.setMscEmail(jTxtEmail.getText());
+       clientesBean.setMscEndereco(jTxtEnde.getText());
+       clientesBean.setMscBairro(jTxtBairro.getText());
+       clientesBean.setMscCidade(jTxtCidade.getText());
+       clientesBean.setMscEstado(jTxtEstado.getText());
+       clientesBean.setMscCep(jFtfCep.getText());
+        clientesBean.setMscDeficiencia(jTxtDefi.getText());
+         clientesBean.setMscDataCadastro( Util.strToDate(jFmtDataCadastro.getText()));
           
    
         return clientesBean;
@@ -489,6 +534,12 @@ public class JDlgClientes extends javax.swing.JDialog {
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
         // TODO add your handling code here:
+         if(!validarData(jFmtDataNascimento.getText())) {
+        return; 
+    }
+          if(!validarData(jFmtDataCadastro.getText())) {
+        return; 
+    }
         Util.habilitar(false, jTxtCod,jTtxtNome,  jFmtCpf,
                 jTxtRg, jFmtDataNascimento, jTxtTelefo1, jTxtTelefo, 
                 jTxtEmail,    jTxtEnde, jTxtBairro, jTxtCidade, jTxtEstado, jFtfCep,jFmtDataCadastro, 

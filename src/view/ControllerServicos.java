@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package view;
+import bean.MscServicos;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 /**
@@ -16,8 +17,8 @@ public class ControllerServicos extends AbstractTableModel {
          this.lista = lista;
     }
     
-    public ServicosBean getBean(int rowIndex){
-       return (ServicosBean)  return lista.get(rowIndex);
+    public MscServicos getBean(int rowIndex){
+       return (MscServicos) lista.get(rowIndex);
     }
     
     @Override
@@ -32,11 +33,11 @@ public class ControllerServicos extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        ServicosBean servicos = (ServicosBean) lista.get(rowIndex);
-           if(columnIndex == 0) return servicos.getMsc_idServicos();
-           if(columnIndex == 1) return servicos.getMsc_nome_servico();
-           if(columnIndex == 2) return servicos.getMsc_categoria();
-           if(columnIndex == 3) return servicos.getMsc_data_cadastro();
+        MscServicos servicos = (MscServicos) lista.get(rowIndex);
+           if(columnIndex == 0) return servicos.getIdmscServicos();
+           if(columnIndex == 1) return servicos.getMscNomeServico();
+           if(columnIndex == 2) return servicos.getMscCategoria();
+           if(columnIndex == 3) return servicos.getMscDataCadastro();
            
     
        return "";

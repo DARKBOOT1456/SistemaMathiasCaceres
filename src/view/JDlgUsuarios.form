@@ -259,6 +259,9 @@
       </Events>
     </Component>
     <Component class="javax.swing.JFormattedTextField" name="jFmtDataNascimento">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jFmtDataNascimentoActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JPasswordField" name="jPwdSenha">
     </Component>

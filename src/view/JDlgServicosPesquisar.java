@@ -4,6 +4,8 @@
  */
 package view;
 
+import bean.MscServicos;
+import dao.ServicosDao;
 import java.util.List;
 
 
@@ -93,7 +95,7 @@ ControllerServicos controllerServicos;
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-         ServicosBean servicosBean =  controllerServicos.getBean( jTable1.getSelectedRow() );
+         MscServicos servicosBean =  controllerServicos.getBean( jTable1.getSelectedRow() );
      jDlgServicos.beanView(servicosBean);
          setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed

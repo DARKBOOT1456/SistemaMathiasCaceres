@@ -250,7 +250,7 @@
     <Component class="javax.swing.JButton" name="jBtnAlterar">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/imagens/alterar.png"/>
+          <Image iconType="3" name="/img/alterar.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Alterar"/>
       </Properties>
@@ -261,7 +261,7 @@
     <Component class="javax.swing.JButton" name="jBtnConfirmar">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/imagens/ok.png"/>
+          <Image iconType="3" name="/img/ok.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Confirmar"/>
       </Properties>
@@ -272,7 +272,7 @@
     <Component class="javax.swing.JButton" name="jBtnCancelar">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/imagens/exit.png"/>
+          <Image iconType="3" name="/img/exit.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Cancelar"/>
       </Properties>
@@ -283,7 +283,7 @@
     <Component class="javax.swing.JButton" name="jBtnPesquisar">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/imagens/pesquisar.png"/>
+          <Image iconType="3" name="/img/pesquisar.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Pesquisar"/>
       </Properties>
@@ -370,7 +370,7 @@
     <Component class="javax.swing.JButton" name="jBtnIncluir">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/imagens/incluir.png"/>
+          <Image iconType="3" name="/img/incluir.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Incluir"/>
       </Properties>
@@ -386,7 +386,7 @@
     <Component class="javax.swing.JButton" name="jBtnExcluir">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/imagens/Excluir.png"/>
+          <Image iconType="3" name="/img/Excluir.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Excluir"/>
       </Properties>
@@ -397,7 +397,7 @@
     <Component class="javax.swing.JButton" name="jBtnInclusao">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/imagens/incluir.png"/>
+          <Image iconType="3" name="/img/incluir.png"/>
         </Property>
       </Properties>
       <Events>
@@ -407,7 +407,7 @@
     <Component class="javax.swing.JButton" name="jBtnSave">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/imagens/gravar.png"/>
+          <Image iconType="3" name="/img/gravar.png"/>
         </Property>
       </Properties>
       <Events>
@@ -417,7 +417,7 @@
     <Component class="javax.swing.JButton" name="jBtnCancel">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/imagens/Excluir.png"/>
+          <Image iconType="3" name="/img/Excluir.png"/>
         </Property>
       </Properties>
       <Events>

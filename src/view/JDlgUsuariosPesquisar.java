@@ -4,6 +4,8 @@
  */
 package view;
 
+import bean.MscUsuarios;
+import dao.UsuariosDao;
 import java.util.List;
 import view.JDlgUsuarios;
 
@@ -96,7 +98,7 @@ public void setTelaAnterior(JDlgUsuarios jDlgUsuarios){
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
        
-          UsuariosBean usuariosBean =  controllerUsuarios.getBean( jTable1.getSelectedRow() );
+          MscUsuarios usuariosBean =  controllerUsuarios.getBean( jTable1.getSelectedRow() );
      jDlgUsuarios.beanView(usuariosBean);
         this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed

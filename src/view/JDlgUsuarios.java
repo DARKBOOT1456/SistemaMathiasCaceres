@@ -5,15 +5,44 @@
 package view;
 
 
+import bean.MscUsuarios;
+import dao.UsuariosDao;
 import tools.Util;
+import javax.swing.JOptionPane;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Calendar;
 
 /**
  *
  * @author mathi
  * 
  */
+
 public class JDlgUsuarios extends javax.swing.JDialog {
 
+    private boolean validarDataNascimento(String dataStr) {
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    sdf.setLenient(false); // garante datas válidas, sem "30/02"
+    
+    try {
+        Date data = sdf.parse(dataStr);
+        Calendar cal = Calendar.getInstance();
+        Date hoje = cal.getTime();
+        
+        if(data.after(hoje)) {
+            JOptionPane.showMessageDialog(this, "A data de nascimento não pode ser futura!");
+            return false;
+        }
+        
+        return true;
+    } catch (ParseException ex) {
+        JOptionPane.showMessageDialog(this, "Data inválida! Digite no formato dd/MM/yyyy");
+        return false;
+    }
+}
+    
     /**
      * Creates new form JDlgUsuarios
      */
@@ -26,35 +55,43 @@ public class JDlgUsuarios extends javax.swing.JDialog {
                 jFmtCpf, jFmtDataNascimento, jPwdSenha, jCboNivel, 
                 jChbAtivo,    jBtnConfirmar, jBtnCancelar);
 
-    
+    try {
+    jFmtDataNascimento.setFormatterFactory(
+        new javax.swing.text.DefaultFormatterFactory(
+            new javax.swing.text.MaskFormatter("##/##/####")
+        )
+    );
+} catch (java.text.ParseException e) {
+    e.printStackTrace();
+}
     }
     
-    public void beanView(UsuariosBean usuariosBean) {
-        jTxtCodigo.setText(Util.intToStr(usuarios.getIdusuarios()));
-         jTxtNome.setText(usuarios.getNome());
-         jTxtApelido.setText(usuarios.getApelido());
-         jFmtCpf.setText(usuarios.getCpf());
-         jFmtDataNascimento.setText(Util.dateToStr(usuarios.getDataNascimento()));
-         jPwdSenha.setText(usuarios.getSenha());
-         jCboNivel.setSelectedIndex(usuarios.getNivel());
-         jChbAtivo.setSelected(usuarios.getAtivo().equals("S"));
+    public void beanView(MscUsuarios usuarios) {
+        jTxtCodigo.setText(Util.intToStr(usuarios.getIdmscUsuarios()));
+         jTxtNome.setText(usuarios.getMscNome());
+         jTxtApelido.setText(usuarios.getMscApelido());
+         jFmtCpf.setText(usuarios.getMscCpf());
+         jFmtDataNascimento.setText(Util.dateToStr(usuarios.getMscDataNascimento()));
+         jPwdSenha.setText(usuarios.getMscSenha());
+        jCboNivel.setSelectedItem(usuarios.getMscNivel());
+         jChbAtivo.setSelected(usuarios.getMscAtivo().equals("S"));
    
     }
    
-    public UsuariosBean viewBean(){
-         UsuariosBean usuarios = new UsuariosBean();
+    public MscUsuarios viewBean(){
+         MscUsuarios usuarios = new MscUsuarios();
          int codigo = Util.strToInt(jTxtCodigo.getText());
-         usuarios.setIdusuarios(codigo);
-        usuarios.setNome(jTxtNome.getText());
-        usuarios.setApelido(jTxtApelido.getText());
-        usuarios.setCpf(jFmtCpf.getText());
-         usuarios.setDataNascimento( Util.strToDate(jFmtDataNascimento.getText()));
-       usuarios.setSenha(jPwdSenha.getText());
-          usuarios.setNivel(jCboNivel.getSelectedIndex());
+         usuarios.setIdmscUsuarios(codigo);
+        usuarios.setMscNome(jTxtNome.getText());
+        usuarios.setMscApelido(jTxtApelido.getText());
+        usuarios.setMscCpf(jFmtCpf.getText());
+         usuarios.setMscDataNascimento( Util.strToDate(jFmtDataNascimento.getText()));
+       usuarios.setMscSenha(jPwdSenha.getText());
+          usuarios.setMscNivel(jCboNivel.getSelectedItem().toString());
           if(jChbAtivo.isSelected()== true){
-          usuarios.setAtivo("S");
+          usuarios.setMscAtivo("S");
           } else {
-               usuarios.setAtivo("N");          
+               usuarios.setMscAtivo("N");          
           } 
    
         return usuarios;
@@ -342,6 +379,10 @@ public class JDlgUsuarios extends javax.swing.JDialog {
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
         // TODO add your handling code here:
+        if(!validarDataNascimento(jFmtDataNascimento.getText())) {
+        return; 
+    }
+        
          Util.habilitar(false, jTxtCodigo,jTxtNome,  jTxtApelido,
                 jFmtCpf, jFmtDataNascimento, jPwdSenha, jCboNivel, 
                 jChbAtivo,    jBtnConfirmar, jBtnCancelar);

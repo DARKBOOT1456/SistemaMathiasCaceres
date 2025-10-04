@@ -6,12 +6,13 @@
 package dao;
 
 import dao.HibernateUtil;
+import java.util.ArrayList;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 /**
  *
- * @author u06425349182
+ * @author mathi
  */
 public abstract class AbstractDao {
     public Session session;

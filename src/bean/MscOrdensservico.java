@@ -24,7 +24,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name="msc_ordensservico"
-    ,catalog="vendas"
+    ,catalog="db_mathias_cacers"
 )
 public class MscOrdensservico  implements java.io.Serializable {
 
@@ -36,20 +36,20 @@ public class MscOrdensservico  implements java.io.Serializable {
      private Date mscDataInicio;
      private String mscStatus;
      private String mscTecnicoResponsavel;
-     private BigDecimal mscValorTotal;
+     private Double mscValorTotal;
      private Set mscOrdemServicoAparelhos = new HashSet(0);
 
     public MscOrdensservico() {
     }
 
 	
-    public MscOrdensservico(Date mscDataInicio, String mscStatus, String mscTecnicoResponsavel, BigDecimal mscValorTotal) {
+    public MscOrdensservico(Date mscDataInicio, String mscStatus, String mscTecnicoResponsavel, Double mscValorTotal) {
         this.mscDataInicio = mscDataInicio;
         this.mscStatus = mscStatus;
         this.mscTecnicoResponsavel = mscTecnicoResponsavel;
         this.mscValorTotal = mscValorTotal;
     }
-    public MscOrdensservico(MscClientes mscClientes, MscServicos mscServicos, MscUsuarios mscUsuarios, Date mscDataInicio, String mscStatus, String mscTecnicoResponsavel, BigDecimal mscValorTotal, Set mscOrdemServicoAparelhos) {
+    public MscOrdensservico(MscClientes mscClientes, MscServicos mscServicos, MscUsuarios mscUsuarios, Date mscDataInicio, String mscStatus, String mscTecnicoResponsavel, Double mscValorTotal, Set mscOrdemServicoAparelhos) {
        this.mscClientes = mscClientes;
        this.mscServicos = mscServicos;
        this.mscUsuarios = mscUsuarios;
@@ -134,11 +134,11 @@ public class MscOrdensservico  implements java.io.Serializable {
 
     
     @Column(name="msc_valorTotal", nullable=false, precision=10)
-    public BigDecimal getMscValorTotal() {
+    public Double getMscValorTotal() {
         return this.mscValorTotal;
     }
     
-    public void setMscValorTotal(BigDecimal mscValorTotal) {
+    public void setMscValorTotal(Double mscValorTotal) {
         this.mscValorTotal = mscValorTotal;
     }
 

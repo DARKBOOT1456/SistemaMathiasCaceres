@@ -19,7 +19,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name="msc_aparelhos"
-    ,catalog="vendas"
+    ,catalog="db_mathias_cacers"
 )
 public class MscAparelhos  implements java.io.Serializable {
 

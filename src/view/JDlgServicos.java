@@ -19,6 +19,7 @@ public class JDlgServicos extends javax.swing.JDialog {
     /**
      * Creates new form JDlgServicos
      */
+    private boolean incluir;
     public JDlgServicos(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -319,6 +320,7 @@ servicosBean.setMscValor(new BigDecimal(valorStr));
          Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
            Util.limpar(jTxtCodigo,jTxtNomeServ,  jTxtDesc,
                 jFmtValor, jTxtTempo, jCboCat, jFmtData);
+            incluir = true;
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
@@ -333,6 +335,8 @@ servicosBean.setMscValor(new BigDecimal(valorStr));
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
         // TODO add your handling code here:
+        ServicosDao servicosDAO = new ServicosDao();
+        MscServicos servicos = viewBean();
          Util.habilitar(false, jTxtCodigo,jTxtNomeServ,  jTxtDesc,
                 jFmtValor, jTxtTempo, jCboCat, jFmtData, 
                   jBtnConfirmar, jBtnCancelar);
@@ -374,6 +378,7 @@ servicosBean.setMscValor(new BigDecimal(valorStr));
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed
         // TODO add your handling code here:
      JDlgServicosPesquisar jDlgServicosPesquisar =  new JDlgServicosPesquisar(null,true); 
+       jDlgServicosPesquisar.setTelaAnterior(this);
         jDlgServicosPesquisar.setVisible(true);
     }//GEN-LAST:event_jBtnPesquisarActionPerformed
    

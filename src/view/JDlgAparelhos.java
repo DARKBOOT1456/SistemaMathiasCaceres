@@ -21,6 +21,7 @@ public class JDlgAparelhos extends javax.swing.JDialog {
     /**
      * Creates new form JDlgAparelhos
      */
+    private boolean incluir;
     
     private boolean validarData(String dataStr) {
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -354,6 +355,7 @@ aparelhos.setMscChipRetirado(jCboChip.getSelectedItem().toString());
            Util.limpar( jTxtCod,jTxtMarca,  jTxtNumero,
                 jFmtData, jCboTipo, jTxtModelo, jCboChip, 
                 jTxtCor);
+           incluir = true;
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
@@ -363,12 +365,14 @@ aparelhos.setMscChipRetirado(jCboChip.getSelectedItem().toString());
                 jTxtCor,    jBtnConfirmar, jBtnCancelar);
        
           Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
-          
+          incluir = false;
        
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
         // TODO add your handling code here:
+         AparelhosDao aparelhosDAO = new AparelhosDao();
+        MscAparelhos aparelhos = viewBean();
         if(!validarData(jFmtData.getText())) {
         return; 
     }
@@ -413,6 +417,7 @@ aparelhos.setMscChipRetirado(jCboChip.getSelectedItem().toString());
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed
         // TODO add your handling code here:
         JDlgAparelhosPesquisar jDlgAparelhosPesquisar =  new JDlgAparelhosPesquisar(null,true); 
+         jDlgAparelhosPesquisar.setTelaAnterior(this);
         jDlgAparelhosPesquisar.setVisible(true);
     }//GEN-LAST:event_jBtnPesquisarActionPerformed
 

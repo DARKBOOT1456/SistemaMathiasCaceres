@@ -1,18 +1,24 @@
 package view;
 
 
+import bean.MscClientes;
 import bean.MscOrdensservico;
+import bean.MscServicos;
+import bean.MscUsuarios;
+import dao.ClientesDao;
 import dao.Ordem_servicoDao;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
+import tools.Util;
 import view.JDlgClientes;
 
 
@@ -28,7 +34,7 @@ import view.JDlgClientes;
 public class JDlgOrdemDeServico extends javax.swing.JDialog {
     
 
-
+private boolean incluir;
     
     /**
      * Creates new form JDlgOrdemDeServico
@@ -37,11 +43,25 @@ public class JDlgOrdemDeServico extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
          setTitle("Movimento Ordem de serviço");
-        setLocationRelativeTo(null); //centraliza o frame
+        setLocationRelativeTo(null); 
+        ClientesDao clientesDAO = new ClientesDao();
+        List lista = (List) clientesDAO.listAll();
+        for (int i = 0; i < lista.size(); i++) {
+            jCobCliente.addItem( (MscClientes) lista.get(i));            
+        }
      
+    
+    }
+     public MscOrdensservico viewBean() {
+        MscOrdensservico ordensservico = new MscOrdensservico();
+        ordensservico.setIdmscOrdensServico( Util.strToInt(jTxtCod.getText()));
+        ordensservico.setMscDataInicio(Util.strToDate(jFmtData.getText()));
+        ordensservico.setMscValorTotal(Util.strToDouble(jFmtValor.getText()));
+        ordensservico.setMscClientes((MscClientes) jCobCliente.getSelectedItem());
+        ordensservico.setMscUsuarios((MscUsuarios) jCombUsuario.getSelectedItem());
+        ordensservico.setMscServicos((MscServicos) jCombServ.getSelectedItem());
        
-    
-    
+        return ordensservico;
     }
 
     /**
@@ -354,7 +374,7 @@ public class JDlgOrdemDeServico extends javax.swing.JDialog {
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
         // TODO add your handling code here:
-      
+      MscOrdensservico ordensservico = viewBean();
         
     
     

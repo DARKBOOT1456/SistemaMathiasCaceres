@@ -16,7 +16,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="msc_ordem_servico_aparelho"
-    ,catalog="vendas"
+    ,catalog="db_mathias_cacers"
 )
 public class MscOrdemServicoAparelho  implements java.io.Serializable {
 

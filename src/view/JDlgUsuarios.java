@@ -22,6 +22,8 @@ import java.util.Calendar;
 
 public class JDlgUsuarios extends javax.swing.JDialog {
 
+    private boolean incluir;
+    
     private boolean validarDataNascimento(String dataStr) {
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     sdf.setLenient(false); 
@@ -356,6 +358,7 @@ public class JDlgUsuarios extends javax.swing.JDialog {
            Util.limpar(jTxtCodigo,jTxtNome,  jTxtApelido,
                 jFmtCpf, jFmtDataNascimento, jPwdSenha, jCboNivel, 
                 jChbAtivo);
+            incluir = true;
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
@@ -385,6 +388,8 @@ public class JDlgUsuarios extends javax.swing.JDialog {
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
         // TODO add your handling code here:
+        UsuariosDao usuariosDAO = new UsuariosDao();
+        MscUsuarios usuarios = viewBean();
         if(!validarDataNascimento(jFmtDataNascimento.getText())) {
         return; 
     }
@@ -424,6 +429,7 @@ public class JDlgUsuarios extends javax.swing.JDialog {
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed
         // TODO add your handling code here:
          JDlgUsuariosPesquisar jDlgUsuariosPesquisar =  new JDlgUsuariosPesquisar(null,true);
+         jDlgUsuariosPesquisar.setTelaAnterior(this);
         jDlgUsuariosPesquisar.setVisible(true);
     }//GEN-LAST:event_jBtnPesquisarActionPerformed
 

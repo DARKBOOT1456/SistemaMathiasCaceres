@@ -28,7 +28,7 @@ public class UsuariosDao extends AbstractDao {
         session.beginTransaction();
         session.flush();
         session.clear();
-        session.save(object);
+        session.update(object);
         session.getTransaction().commit();
     }
 

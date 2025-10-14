@@ -12,6 +12,7 @@ import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import tools.Util;
+
 /**
  *
  * @author mathi
@@ -22,72 +23,74 @@ public class JDlgAparelhos extends javax.swing.JDialog {
      * Creates new form JDlgAparelhos
      */
     private boolean incluir;
-    
+
     private boolean validarData(String dataStr) {
-    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-    sdf.setLenient(false); 
-    
-    try {
-        Date data = sdf.parse(dataStr);
-        Calendar cal = Calendar.getInstance();
-        Date hoje = cal.getTime();
-        
-        if(data.after(hoje)) {
-            JOptionPane.showMessageDialog(this, "A data de nascimento não pode ser futura!");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        sdf.setLenient(false);
+
+        try {
+            Date data = sdf.parse(dataStr);
+            Calendar cal = Calendar.getInstance();
+            Date hoje = cal.getTime();
+
+            if (data.after(hoje)) {
+                JOptionPane.showMessageDialog(this, "A data de nascimento não pode ser futura!");
+                return false;
+            }
+
+            return true;
+        } catch (ParseException ex) {
+            JOptionPane.showMessageDialog(this, "Data inválida! Digite no formato dd/MM/yyyy");
             return false;
         }
-        
-        return true;
-    } catch (ParseException ex) {
-        JOptionPane.showMessageDialog(this, "Data inválida! Digite no formato dd/MM/yyyy");
-        return false;
     }
-}
+
     public JDlgAparelhos(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setTitle("Cadastro de Aparelhos");
-        setLocationRelativeTo(null); 
-        Util.habilitar(false, jTxtCod,jTxtMarca,  jTxtNumero,
-                jFmtData, jCboTipo, jTxtModelo, jCboChip, 
-                jTxtCor,    jBtnConfirmar, jBtnCancelar);
-        
+        setLocationRelativeTo(null);
+        Util.habilitar(false, jTxtCod, jTxtMarca, jTxtNumero,
+                jFmtData, jCboTipo, jTxtModelo, jCboChip,
+                jTxtCor, jBtnConfirmar, jBtnCancelar);
+
         try {
-    jFmtData.setFormatterFactory(
-        new javax.swing.text.DefaultFormatterFactory(
-            new javax.swing.text.MaskFormatter("##/##/####")
-        )
-    );
-} catch (java.text.ParseException e) {
-    e.printStackTrace();
-}
-        
-    }
-     public void beanView(MscAparelhos aparelhosBean) {
-        jTxtCod.setText(Util.intToStr(aparelhosBean.getIdmscAparelhos()));
-         jTxtMarca.setText(aparelhosBean.getMscMarca());
-         jTxtNumero.setText(aparelhosBean.getMscNumeroDeSerie());
-         jTxtModelo.setText(aparelhosBean.getMscModelo());
-         jFmtData.setText(Util.dateToStr(aparelhosBean.getMscDataEntrada()));
-         jTxtCor.setText(aparelhosBean.getMscCor());
-        jCboTipo.setSelectedItem(aparelhosBean.getMscTipodeEquipamento());
-         String chip = aparelhosBean.getMscChipRetirado(); 
-jCboChip.setSelectedItem(chip.equals("S") ? "Sim" : "Não");
+            jFmtData.setFormatterFactory(
+                    new javax.swing.text.DefaultFormatterFactory(
+                            new javax.swing.text.MaskFormatter("##/##/####")
+                    )
+            );
+        } catch (java.text.ParseException e) {
+            e.printStackTrace();
+        }
 
     }
-      public MscAparelhos viewBean(){
-         MscAparelhos aparelhos = new MscAparelhos();
-         int codigo = Util.strToInt(jTxtCod.getText());
-         aparelhos.setIdmscAparelhos(codigo);
+
+    public void beanView(MscAparelhos aparelhosBean) {
+        jTxtCod.setText(Util.intToStr(aparelhosBean.getIdmscAparelhos()));
+        jTxtMarca.setText(aparelhosBean.getMscMarca());
+        jTxtNumero.setText(aparelhosBean.getMscNumeroDeSerie());
+        jTxtModelo.setText(aparelhosBean.getMscModelo());
+        jFmtData.setText(Util.dateToStr(aparelhosBean.getMscDataEntrada()));
+        jTxtCor.setText(aparelhosBean.getMscCor());
+        jCboTipo.setSelectedItem(aparelhosBean.getMscTipodeEquipamento());
+        String chip = aparelhosBean.getMscChipRetirado();
+        jCboChip.setSelectedItem(chip.equals("S") ? "Sim" : "Não");
+
+    }
+
+    public MscAparelhos viewBean() {
+        MscAparelhos aparelhos = new MscAparelhos();
+        int codigo = Util.strToInt(jTxtCod.getText());
+        aparelhos.setIdmscAparelhos(codigo);
         aparelhos.setMscMarca(jTxtMarca.getText());
         aparelhos.setMscNumeroDeSerie(jTxtNumero.getText());
         aparelhos.setMscModelo(jTxtModelo.getText());
-         aparelhos.setMscDataEntrada( Util.strToDate(jFmtData.getText()));
-       aparelhos.setMscCor(jTxtCor.getText());
-aparelhos.setMscTipodeEquipamento(jCboTipo.getSelectedItem().toString());
-aparelhos.setMscChipRetirado(jCboChip.getSelectedItem().toString());
+        aparelhos.setMscDataEntrada(Util.strToDate(jFmtData.getText()));
+        aparelhos.setMscCor(jTxtCor.getText());
+        aparelhos.setMscTipodeEquipamento(jCboTipo.getSelectedItem().toString());
+        aparelhos.setMscChipRetirado(jCboChip.getSelectedItem().toString());
 
- 
         return aparelhos;
     }
 
@@ -347,66 +350,70 @@ aparelhos.setMscChipRetirado(jCboChip.getSelectedItem().toString());
 
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
         // TODO add your handling code here:
-        Util.habilitar(true, jTxtCod,jTxtMarca,  jTxtNumero,
-                jFmtData, jCboTipo, jTxtModelo, jCboChip, 
-                jTxtCor,    jBtnConfirmar, jBtnCancelar);
-       
-          Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
-           Util.limpar( jTxtCod,jTxtMarca,  jTxtNumero,
-                jFmtData, jCboTipo, jTxtModelo, jCboChip, 
+        Util.habilitar(true, jTxtCod, jTxtMarca, jTxtNumero,
+                jFmtData, jCboTipo, jTxtModelo, jCboChip,
+                jTxtCor, jBtnConfirmar, jBtnCancelar);
+
+        Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+        Util.limpar(jTxtCod, jTxtMarca, jTxtNumero,
+                jFmtData, jCboTipo, jTxtModelo, jCboChip,
                 jTxtCor);
-           incluir = true;
+        incluir = true;
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
         // TODO add your handling code here:
-        Util.habilitar(true, jTxtCod,jTxtMarca,  jTxtNumero,
-                jFmtData, jCboTipo, jTxtModelo, jCboChip, 
-                jTxtCor,    jBtnConfirmar, jBtnCancelar);
-       
-          Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
-          incluir = false;
-       
+        Util.habilitar(true, jTxtCod, jTxtMarca, jTxtNumero,
+                jFmtData, jCboTipo, jTxtModelo, jCboChip,
+                jTxtCor, jBtnConfirmar, jBtnCancelar);
+
+        Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+        incluir = false;
+
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
         // TODO add your handling code here:
-         AparelhosDao aparelhosDAO = new AparelhosDao();
-        MscAparelhos aparelhos = viewBean();
-        if(!validarData(jFmtData.getText())) {
-        return; 
-    }
-       Util.habilitar(false, jTxtCod,jTxtMarca,  jTxtNumero,
-                jFmtData, jCboTipo, jTxtModelo, jCboChip, 
-                jTxtCor,    jBtnConfirmar, jBtnCancelar);
-       
-          Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
-         Util.limpar( jTxtCod,jTxtMarca,  jTxtNumero,
-                jFmtData, jCboTipo, jTxtModelo, jCboChip, 
+        AparelhosDao aparelhosDAO = new AparelhosDao();
+        if(incluir == true){
+            aparelhosDAO.insert(viewBean());
+        } else{
+            aparelhosDAO.update(viewBean());
+        }
+    
+        if (!validarData(jFmtData.getText())) {
+            return;
+        }
+        Util.habilitar(false, jTxtCod, jTxtMarca, jTxtNumero,
+                jFmtData, jCboTipo, jTxtModelo, jCboChip,
+                jTxtCor, jBtnConfirmar, jBtnCancelar);
+
+        Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+        Util.limpar(jTxtCod, jTxtMarca, jTxtNumero,
+                jFmtData, jCboTipo, jTxtModelo, jCboChip,
                 jTxtCor);
     }//GEN-LAST:event_jBtnConfirmarActionPerformed
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
         // TODO add your handling code here:
-        Util.habilitar(false, jTxtCod,jTxtMarca,  jTxtNumero,
+        Util.habilitar(false, jTxtCod, jTxtMarca, jTxtNumero,
                 jFmtData, jCboTipo, jTxtModelo, jCboChip, jTxtCor, jBtnConfirmar, jBtnCancelar);
-                
+
         Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
-         Util.limpar( jTxtCod,jTxtMarca,  jTxtNumero,
-                jFmtData, jCboTipo, jTxtModelo, jCboChip, 
+        Util.limpar(jTxtCod, jTxtMarca, jTxtNumero,
+                jFmtData, jCboTipo, jTxtModelo, jCboChip,
                 jTxtCor);
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
         // TODO add your handling code here:
         AparelhosDao aparelhosDao = new AparelhosDao();
-         aparelhosDao.delete( viewBean());
-      if (Util.perguntar("Deseja Excluir?") == true){
-      
-          
-      }
-      Util.limpar( jTxtCod,jTxtMarca,  jTxtNumero,
-                jFmtData, jCboTipo, jTxtModelo, jCboChip, 
+        aparelhosDao.delete(viewBean());
+        if (Util.perguntar("Deseja Excluir?") == true) {
+
+        }
+        Util.limpar(jTxtCod, jTxtMarca, jTxtNumero,
+                jFmtData, jCboTipo, jTxtModelo, jCboChip,
                 jTxtCor);
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
@@ -416,8 +423,8 @@ aparelhos.setMscChipRetirado(jCboChip.getSelectedItem().toString());
 
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed
         // TODO add your handling code here:
-        JDlgAparelhosPesquisar jDlgAparelhosPesquisar =  new JDlgAparelhosPesquisar(null,true); 
-         jDlgAparelhosPesquisar.setTelaAnterior(this);
+        JDlgAparelhosPesquisar jDlgAparelhosPesquisar = new JDlgAparelhosPesquisar(null, true);
+        jDlgAparelhosPesquisar.setTelaAnterior(this);
         jDlgAparelhosPesquisar.setVisible(true);
     }//GEN-LAST:event_jBtnPesquisarActionPerformed
 
@@ -444,8 +451,8 @@ aparelhos.setMscChipRetirado(jCboChip.getSelectedItem().toString());
         } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(JDlgAparelhos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-    java.util.logging.Logger.getLogger(JDlgAparelhos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-}
+            java.util.logging.Logger.getLogger(JDlgAparelhos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
 
         //</editor-fold>
 

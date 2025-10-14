@@ -94,24 +94,50 @@ public class JDlgClientes extends javax.swing.JDialog {
    
     }
     public MscClientes viewBean(){
-         MscClientes clientesBean = new MscClientes();
-         int codigo = Util.strToInt(jTxtCod.getText());
-         clientesBean.setIdmscClientes(codigo);
+          MscClientes clientesBean = new MscClientes();
+    int codigo = Util.strToInt(jTxtCod.getText());
+    clientesBean.setIdmscClientes(codigo);
+
+    clientesBean.setMscNome(jTtxtNome.getText());
+    clientesBean.setMscRg(jTxtRg.getText());
+    clientesBean.setMscCpf(jFmtCpf.getText());
+    
    
-        clientesBean.setMscNome(jTtxtNome.getText());
-        clientesBean.setMscRg(jTxtRg.getText());
-        clientesBean.setMscCpf(jFmtCpf.getText());
-         clientesBean.setMscDataNascimento( Util.strToDate(jFmtDataNascimento.getText()));
-       clientesBean.setMscTelefone(jTxtTelefo1.getText());
-       clientesBean.setMscTelefoneSecundario(jTxtTelefo.getText());
-       clientesBean.setMscEmail(jTxtEmail.getText());
-       clientesBean.setMscEndereco(jTxtEnde.getText());
-       clientesBean.setMscBairro(jTxtBairro.getText());
-       clientesBean.setMscCidade(jTxtCidade.getText());
-       clientesBean.setMscEstado(jTxtEstado.getText());
-       clientesBean.setMscCep(jFtfCep.getText());
-        clientesBean.setMscDeficiencia(jTxtDefi.getText());
-         clientesBean.setMscDataCadastro( Util.strToDate(jFmtDataCadastro.getText()));
+    String dataNascTexto = jFmtDataNascimento.getText().trim();
+    Date dataNascimento;
+    
+    if (dataNascTexto.isEmpty() || dataNascTexto.equals("  /  /    ")) {
+        dataNascimento = new Date(); 
+    } else {
+        dataNascimento = Util.strToDate(dataNascTexto);
+        if (dataNascimento == null) {
+            dataNascimento = new Date();
+        }
+    }
+    clientesBean.setMscDataNascimento(dataNascimento);
+       
+    clientesBean.setMscTelefone(jTxtTelefo1.getText());
+    clientesBean.setMscTelefoneSecundario(jTxtTelefo.getText());
+    clientesBean.setMscEmail(jTxtEmail.getText());
+    clientesBean.setMscEndereco(jTxtEnde.getText());
+    clientesBean.setMscBairro(jTxtBairro.getText());
+    clientesBean.setMscCidade(jTxtCidade.getText());
+    clientesBean.setMscEstado(jTxtEstado.getText());
+    clientesBean.setMscCep(jFtfCep.getText());
+    clientesBean.setMscDeficiencia(jTxtDefi.getText());
+    
+    String dataCadTexto = jFmtDataCadastro.getText().trim();
+    Date dataCadastro;
+    
+    if (dataCadTexto.isEmpty() || dataCadTexto.equals("  /  /    ")) {
+        dataCadastro = new Date(); 
+    } else {
+        dataCadastro = Util.strToDate(dataCadTexto);
+        if (dataCadastro == null) {
+            dataCadastro = new Date();
+        }
+    }
+    clientesBean.setMscDataCadastro(dataCadastro);
           
    
         return clientesBean;
@@ -530,19 +556,22 @@ public class JDlgClientes extends javax.swing.JDialog {
                 jTxtDefi,  jBtnConfirmar, jBtnCancelar);
         
         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
-        
+         incluir = false;
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
         // TODO add your handling code here:
+             if(!validarData(jFmtDataCadastro.getText())) {
+        return; 
+    }
+             
          ClientesDao clientesDAO = new ClientesDao();
-        MscClientes clientes = viewBean();
-         if(!validarData(jFmtDataNascimento.getText())) {
-        return; 
+    if(incluir == true){
+        clientesDAO.insert(viewBean());
+    } else{
+        clientesDAO.update(viewBean());
     }
-          if(!validarData(jFmtDataCadastro.getText())) {
-        return; 
-    }
+     
         Util.habilitar(false, jTxtCod,jTtxtNome,  jFmtCpf,
                 jTxtRg, jFmtDataNascimento, jTxtTelefo1, jTxtTelefo, 
                 jTxtEmail,    jTxtEnde, jTxtBairro, jTxtCidade, jTxtEstado, jFtfCep,jFmtDataCadastro, 
@@ -571,12 +600,13 @@ public class JDlgClientes extends javax.swing.JDialog {
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
         // TODO add your handling code here:
-         ClientesDao clientesDAO = new ClientesDao();
-         clientesDAO.delete( viewBean());
-      if (Util.perguntar("Deseja Excluir?") == true){
+         if (Util.perguntar("Deseja Excluir?") == true){
       
           
       }
+         ClientesDao clientesDAO = new ClientesDao();
+         clientesDAO.delete( viewBean());
+     
       Util.limpar(jTxtCod,jTtxtNome,  jFmtCpf,
                 jTxtRg, jFmtDataNascimento, jTxtTelefo1, jTxtTelefo, 
                 jTxtEmail,    jTxtEnde, jTxtBairro, jTxtCidade, jTxtEstado, jFtfCep,jFmtDataCadastro, 

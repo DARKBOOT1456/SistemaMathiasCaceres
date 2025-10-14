@@ -86,7 +86,23 @@ public class JDlgAparelhos extends javax.swing.JDialog {
         aparelhos.setMscMarca(jTxtMarca.getText());
         aparelhos.setMscNumeroDeSerie(jTxtNumero.getText());
         aparelhos.setMscModelo(jTxtModelo.getText());
-        aparelhos.setMscDataEntrada(Util.strToDate(jFmtData.getText()));
+        
+    
+    String dataTexto = jFmtData.getText().trim();
+    Date dataEntrada;
+    
+    if (dataTexto.isEmpty() || dataTexto.equals("  /  /    ")) {
+        dataEntrada = new Date(); 
+    } else {
+        dataEntrada = Util.strToDate(dataTexto);
+       
+        if (dataEntrada == null) {
+            dataEntrada = new Date();
+        }
+    }
+    aparelhos.setMscDataEntrada(dataEntrada);
+    
+    aparelhos.setMscDataEntrada(dataEntrada);
         aparelhos.setMscCor(jTxtCor.getText());
         aparelhos.setMscTipodeEquipamento(jCboTipo.getSelectedItem().toString());
         aparelhos.setMscChipRetirado(jCboChip.getSelectedItem().toString());
@@ -374,24 +390,28 @@ public class JDlgAparelhos extends javax.swing.JDialog {
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
         // TODO add your handling code here:
-        AparelhosDao aparelhosDAO = new AparelhosDao();
-        if(incluir == true){
-            aparelhosDAO.insert(viewBean());
-        } else{
-            aparelhosDAO.update(viewBean());
-        }
+        
+    if (!validarData(jFmtData.getText())) {
+        return; 
+    }
     
-        if (!validarData(jFmtData.getText())) {
-            return;
-        }
-        Util.habilitar(false, jTxtCod, jTxtMarca, jTxtNumero,
-                jFmtData, jCboTipo, jTxtModelo, jCboChip,
-                jTxtCor, jBtnConfirmar, jBtnCancelar);
+    
+    AparelhosDao aparelhosDAO = new AparelhosDao();
+    if(incluir == true){
+        aparelhosDAO.insert(viewBean());
+    } else{
+        aparelhosDAO.update(viewBean());
+    }
+    
+    
+    Util.habilitar(false, jTxtCod, jTxtMarca, jTxtNumero,
+            jFmtData, jCboTipo, jTxtModelo, jCboChip,
+            jTxtCor, jBtnConfirmar, jBtnCancelar);
 
-        Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
-        Util.limpar(jTxtCod, jTxtMarca, jTxtNumero,
-                jFmtData, jCboTipo, jTxtModelo, jCboChip,
-                jTxtCor);
+    Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+    Util.limpar(jTxtCod, jTxtMarca, jTxtNumero,
+            jFmtData, jCboTipo, jTxtModelo, jCboChip,
+            jTxtCor);
     }//GEN-LAST:event_jBtnConfirmarActionPerformed
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
@@ -407,14 +427,13 @@ public class JDlgAparelhos extends javax.swing.JDialog {
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
         // TODO add your handling code here:
-        AparelhosDao aparelhosDao = new AparelhosDao();
-        aparelhosDao.delete(viewBean());
         if (Util.perguntar("Deseja Excluir?") == true) {
-
-        }
-        Util.limpar(jTxtCod, jTxtMarca, jTxtNumero,
-                jFmtData, jCboTipo, jTxtModelo, jCboChip,
-                jTxtCor);
+        AparelhosDao aparelhosDao = new AparelhosDao();
+        aparelhosDao.delete(viewBean()); 
+    }
+    Util.limpar(jTxtCod, jTxtMarca, jTxtNumero,
+            jFmtData, jCboTipo, jTxtModelo, jCboChip,
+            jTxtCor);
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
     private void jCboChipItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCboChipItemStateChanged

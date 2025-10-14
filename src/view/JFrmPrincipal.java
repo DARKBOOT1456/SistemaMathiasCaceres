@@ -14,7 +14,10 @@ public class JFrmPrincipal extends javax.swing.JFrame {
      * Creates new form JFrmPrincipal
      */
     public JFrmPrincipal() {
-    
+    initComponents();
+        setTitle("SistemaMathiasCaceres");
+        setLocationRelativeTo(null);
+        setExtendedState(MAXIMIZED_BOTH); 
 }
 
 
@@ -34,11 +37,10 @@ public class JFrmPrincipal extends javax.swing.JFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        jMnuSair = new javax.swing.JMenuItem();
         jMnuMovimentos = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        jMnuSair = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -90,17 +92,6 @@ public class JFrmPrincipal extends javax.swing.JFrame {
         jMnuCadatros.add(jMenuItem1);
         jMnuCadatros.add(jSeparator1);
 
-        jMnuSair.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
-        jMnuSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/exit.png"))); // NOI18N
-        jMnuSair.setMnemonic('S');
-        jMnuSair.setText("Sair");
-        jMnuSair.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMnuSairActionPerformed(evt);
-            }
-        });
-        jMnuCadatros.add(jMnuSair);
-
         jMenuBar1.add(jMnuCadatros);
 
         jMnuMovimentos.setMnemonic('M');
@@ -116,18 +107,18 @@ public class JFrmPrincipal extends javax.swing.JFrame {
             }
         });
         jMnuMovimentos.add(jMenuItem7);
+        jMnuMovimentos.add(jSeparator2);
 
-        jMenuItem6.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_W, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/prod.gif"))); // NOI18N
-        jMenuItem6.setMnemonic('S');
-        jMenuItem6.setText("Serviço Aparelho");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+        jMnuSair.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        jMnuSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/exit.png"))); // NOI18N
+        jMnuSair.setMnemonic('S');
+        jMnuSair.setText("Sair");
+        jMnuSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
+                jMnuSairActionPerformed(evt);
             }
         });
-        jMnuMovimentos.add(jMenuItem6);
-        jMnuMovimentos.add(jSeparator2);
+        jMnuMovimentos.add(jMnuSair);
 
         jMenuBar1.add(jMnuMovimentos);
 
@@ -149,40 +140,40 @@ public class JFrmPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
-       
+        JDlgUsuarios telaUsuarios = new JDlgUsuarios(this, true);
+        telaUsuarios.setVisible(true);
 
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
         // TODO add your handling code here:
-        
+        JDlgOrdemDeServico telaOS = new JDlgOrdemDeServico(this, true);
+        telaOS.setVisible(true);
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         // TODO add your handling code here:
        
-
+JDlgClientes telaClientes = new JDlgClientes(this, true);
+        telaClientes.setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         // TODO add your handling code here:
-       
+       JDlgAparelhos telaAparelhos = new JDlgAparelhos(this, true);
+        telaAparelhos.setVisible(true);
 
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-        
+          JDlgServicos telaServicos = new JDlgServicos(this, true);
+        telaServicos.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
-
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        // TODO add your handling code here:
-       
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMnuSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnuSairActionPerformed
         // TODO add your handling code here:
-        
+          System.exit(0); 
     }//GEN-LAST:event_jMnuSairActionPerformed
 
     /**
@@ -226,7 +217,6 @@ public class JFrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenu jMnuCadatros;
     private javax.swing.JMenu jMnuMovimentos;

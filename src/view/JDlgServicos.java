@@ -7,12 +7,14 @@ package view;
 import bean.MscServicos;
 import dao.ServicosDao;
 import java.math.BigDecimal;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import javax.swing.JOptionPane;
 import tools.Util;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -87,18 +89,31 @@ if (categoria != null) {
     }
     public MscServicos viewBean(){
          MscServicos servicosBean = new MscServicos();
-         int codigo = Util.strToInt(jTxtCodigo.getText());
-         servicosBean.setIdmscServicos(codigo);
-   
-        servicosBean.setMscNomeServico(jTxtNomeServ.getText());
-        servicosBean.setMscDescricao(jTxtDesc.getText());
- String valorStr = jFmtValor.getText().replace(",", "."); 
-servicosBean.setMscValor(new BigDecimal(valorStr));
-         servicosBean.setMscDataCadastro( Util.strToDate(jFmtData.getText()));
-       servicosBean.setMscTempoEstimado(jTxtTempo.getText());
-         servicosBean.setMscCategoria(jCboCat.getSelectedItem().toString());
+    int codigo = Util.strToInt(jTxtCodigo.getText());
+    servicosBean.setIdmscServicos(codigo);
 
-         
+    servicosBean.setMscNomeServico(jTxtNomeServ.getText());
+    servicosBean.setMscDescricao(jTxtDesc.getText());
+    
+    String valorStr = jFmtValor.getText().replace(",", "."); 
+    servicosBean.setMscValor(new BigDecimal(valorStr));
+    
+    
+    String dataTexto = jFmtData.getText().trim();
+    Date dataCadastro;
+    
+    if (dataTexto.isEmpty() || dataTexto.equals("  /  /    ")) {
+        dataCadastro = new Date(); 
+    } else {
+        dataCadastro = Util.strToDate(dataTexto);
+        if (dataCadastro == null) {
+            dataCadastro = new Date();
+        }
+    }
+    servicosBean.setMscDataCadastro(dataCadastro);
+    
+    servicosBean.setMscTempoEstimado(jTxtTempo.getText());
+    servicosBean.setMscCategoria(jCboCat.getSelectedItem().toString());
    
         return servicosBean;
     }
@@ -363,13 +378,20 @@ servicosBean.setMscValor(new BigDecimal(valorStr));
                   jBtnConfirmar, jBtnCancelar);
         
          Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
-          
+           incluir = false;
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
         // TODO add your handling code here:
+        if (!validarData(jFmtData.getText())) {
+        return; 
+    }
         ServicosDao servicosDAO = new ServicosDao();
-        MscServicos servicos = viewBean();
+    if(incluir == true){
+        servicosDAO.insert(viewBean());
+    } else{
+        servicosDAO.update(viewBean());
+    }
          Util.habilitar(false, jTxtCodigo,jTxtNomeServ,  jTxtDesc,
                 jFmtValor, jTxtTempo, jCboCat, jFmtData, 
                   jBtnConfirmar, jBtnCancelar);
@@ -396,12 +418,15 @@ servicosBean.setMscValor(new BigDecimal(valorStr));
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
         // TODO add your handling code here:
-        ServicosDao servicosDAO = new ServicosDao();
-         servicosDAO.delete( viewBean());
-      if (Util.perguntar("Deseja Excluir?") == true){
+        if (Util.perguntar("Deseja Excluir?") == true){
       
           
       }
+        ServicosDao servicosDAO = new ServicosDao();
+         servicosDAO.delete( viewBean());
+         Util.limpar(jTxtCodigo,jTxtNomeServ,  jTxtDesc,
+                jFmtValor, jTxtTempo, jCboCat, jFmtData);
+      
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
     private void jFmtDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFmtDataActionPerformed

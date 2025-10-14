@@ -82,19 +82,34 @@ public class JDlgUsuarios extends javax.swing.JDialog {
    
     public MscUsuarios viewBean(){
          MscUsuarios usuarios = new MscUsuarios();
-         int codigo = Util.strToInt(jTxtCodigo.getText());
-         usuarios.setIdmscUsuarios(codigo);
-        usuarios.setMscNome(jTxtNome.getText());
-        usuarios.setMscApelido(jTxtApelido.getText());
-        usuarios.setMscCpf(jFmtCpf.getText());
-         usuarios.setMscDataNascimento( Util.strToDate(jFmtDataNascimento.getText()));
-       usuarios.setMscSenha(jPwdSenha.getText());
-          usuarios.setMscNivel(jCboNivel.getSelectedItem().toString());
-          if(jChbAtivo.isSelected()== true){
-          usuarios.setMscAtivo("S");
-          } else {
-               usuarios.setMscAtivo("N");          
-          } 
+    int codigo = Util.strToInt(jTxtCodigo.getText());
+    usuarios.setIdmscUsuarios(codigo);
+    usuarios.setMscNome(jTxtNome.getText());
+    usuarios.setMscApelido(jTxtApelido.getText());
+    usuarios.setMscCpf(jFmtCpf.getText());
+    
+    // CORREÇÃO DA DATA DE NASCIMENTO
+    String dataTexto = jFmtDataNascimento.getText().trim();
+    Date dataNascimento;
+    
+    if (dataTexto.isEmpty() || dataTexto.equals("  /  /    ")) {
+        dataNascimento = new Date(); 
+    } else {
+        dataNascimento = Util.strToDate(dataTexto);
+        if (dataNascimento == null) {
+            dataNascimento = new Date();
+        }
+    }
+    usuarios.setMscDataNascimento(dataNascimento);
+    
+    usuarios.setMscSenha(jPwdSenha.getText());
+    usuarios.setMscNivel(jCboNivel.getSelectedItem().toString());
+    
+    if(jChbAtivo.isSelected() == true){
+        usuarios.setMscAtivo("S");
+    } else {
+        usuarios.setMscAtivo("N");          
+    } 
    
         return usuarios;
     }
@@ -363,12 +378,14 @@ public class JDlgUsuarios extends javax.swing.JDialog {
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
         // TODO add your handling code here:
-          UsuariosDao usuariosDAO = new UsuariosDao();
-         usuariosDAO.delete( viewBean());
-      if (Util.perguntar("Deseja Excluir?") == true){
+        if (Util.perguntar("Deseja Excluir?") == true){
       
           
       }
+          UsuariosDao usuariosDAO = new UsuariosDao();
+          
+         usuariosDAO.delete( viewBean());
+      
       Util.limpar(jTxtCodigo, jTxtNome, jTxtApelido, 
                 jFmtCpf, jFmtDataNascimento, 
                 jPwdSenha,jCboNivel,jChbAtivo);
@@ -388,10 +405,16 @@ public class JDlgUsuarios extends javax.swing.JDialog {
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
         // TODO add your handling code here:
-        UsuariosDao usuariosDAO = new UsuariosDao();
-        MscUsuarios usuarios = viewBean();
-        if(!validarDataNascimento(jFmtDataNascimento.getText())) {
+        
+         if (!validarDataNascimento(jFmtDataNascimento.getText())) {
         return; 
+    }
+         
+        UsuariosDao usuariosDAO = new UsuariosDao();
+       if(incluir == true){
+        usuariosDAO.insert(viewBean());
+    } else{
+        usuariosDAO.update(viewBean());
     }
         
          Util.habilitar(false, jTxtCodigo,jTxtNome,  jTxtApelido,
@@ -423,7 +446,7 @@ public class JDlgUsuarios extends javax.swing.JDialog {
                 jChbAtivo,    jBtnConfirmar, jBtnCancelar);
                 
         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
-          
+           incluir = false;
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed

@@ -1,5 +1,5 @@
 package bean;
-// Generated 03/10/2025 21:30:33 by Hibernate Tools 4.3.1
+// Generated 14/10/2025 12:54:27 by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -16,14 +16,15 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="msc_ordem_servico_aparelho"
-    ,catalog="db_mathias_cacers"
+    ,catalog="db_mathias_caceres"
 )
 public class MscOrdemServicoAparelho  implements java.io.Serializable {
 
 
      private int mscIdOsAparelho;
      private MscAparelhos mscAparelhos;
-     private MscOrdensservico mscOrdensservico;
+     private MscOrdensServico mscOrdensServico;
+     private MscServicos mscServicos;
      private int mscQuantidade;
      private BigDecimal mscValorUnitario;
      private String mscObservacoes;
@@ -38,10 +39,11 @@ public class MscOrdemServicoAparelho  implements java.io.Serializable {
         this.mscValorUnitario = mscValorUnitario;
         this.mscObservacoes = mscObservacoes;
     }
-    public MscOrdemServicoAparelho(int mscIdOsAparelho, MscAparelhos mscAparelhos, MscOrdensservico mscOrdensservico, int mscQuantidade, BigDecimal mscValorUnitario, String mscObservacoes) {
+    public MscOrdemServicoAparelho(int mscIdOsAparelho, MscAparelhos mscAparelhos, MscOrdensServico mscOrdensServico, MscServicos mscServicos, int mscQuantidade, BigDecimal mscValorUnitario, String mscObservacoes) {
        this.mscIdOsAparelho = mscIdOsAparelho;
        this.mscAparelhos = mscAparelhos;
-       this.mscOrdensservico = mscOrdensservico;
+       this.mscOrdensServico = mscOrdensServico;
+       this.mscServicos = mscServicos;
        this.mscQuantidade = mscQuantidade;
        this.mscValorUnitario = mscValorUnitario;
        this.mscObservacoes = mscObservacoes;
@@ -71,12 +73,22 @@ public class MscOrdemServicoAparelho  implements java.io.Serializable {
 
 @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="msc_fkOs")
-    public MscOrdensservico getMscOrdensservico() {
-        return this.mscOrdensservico;
+    public MscOrdensServico getMscOrdensServico() {
+        return this.mscOrdensServico;
     }
     
-    public void setMscOrdensservico(MscOrdensservico mscOrdensservico) {
-        this.mscOrdensservico = mscOrdensservico;
+    public void setMscOrdensServico(MscOrdensServico mscOrdensServico) {
+        this.mscOrdensServico = mscOrdensServico;
+    }
+
+@ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="msc_fkservico")
+    public MscServicos getMscServicos() {
+        return this.mscServicos;
+    }
+    
+    public void setMscServicos(MscServicos mscServicos) {
+        this.mscServicos = mscServicos;
     }
 
     

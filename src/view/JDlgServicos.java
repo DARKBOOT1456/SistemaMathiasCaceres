@@ -7,6 +7,11 @@ package view;
 import bean.MscServicos;
 import dao.ServicosDao;
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import javax.swing.JOptionPane;
 import tools.Util;
 
 
@@ -20,6 +25,26 @@ public class JDlgServicos extends javax.swing.JDialog {
      * Creates new form JDlgServicos
      */
     private boolean incluir;
+    private boolean validarData(String dataStr) {
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    sdf.setLenient(false); 
+    
+    try {
+        Date data = sdf.parse(dataStr);
+        Calendar cal = Calendar.getInstance();
+        Date hoje = cal.getTime();
+        
+        if(data.after(hoje)) {
+            JOptionPane.showMessageDialog(this, "A data de nascimento não pode ser futura!");
+            return false;
+        }
+        
+        return true;
+    } catch (ParseException ex) {
+        JOptionPane.showMessageDialog(this, "Data inválida! Digite no formato dd/MM/yyyy");
+        return false;
+    }
+}
     public JDlgServicos(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -29,7 +54,15 @@ public class JDlgServicos extends javax.swing.JDialog {
          Util.habilitar(false, jTxtCodigo,jTxtNomeServ,  jTxtDesc,
                 jFmtValor, jTxtTempo, jCboCat, jFmtData, 
                   jBtnConfirmar, jBtnCancelar);
-        
+        try {
+    jFmtData.setFormatterFactory(
+        new javax.swing.text.DefaultFormatterFactory(
+            new javax.swing.text.MaskFormatter("##/##/####")
+        )
+    );
+} catch (java.text.ParseException e) {
+    e.printStackTrace();
+}
     }
     
     public void beanView(MscServicos servicosBean) {

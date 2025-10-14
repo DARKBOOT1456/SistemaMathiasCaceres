@@ -1,5 +1,5 @@
 package bean;
-// Generated 03/10/2025 21:30:33 by Hibernate Tools 4.3.1
+// Generated 14/10/2025 12:54:27 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -19,7 +19,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name="msc_aparelhos"
-    ,catalog="db_mathias_cacers"
+    ,catalog="db_mathias_caceres"
 )
 public class MscAparelhos  implements java.io.Serializable {
 
@@ -32,7 +32,7 @@ public class MscAparelhos  implements java.io.Serializable {
      private Date mscDataEntrada;
      private String mscChipRetirado;
      private String mscTipodeEquipamento;
-     private Set mscOrdemServicoAparelhos = new HashSet(0);
+  
 
     public MscAparelhos() {
     }
@@ -57,7 +57,7 @@ public class MscAparelhos  implements java.io.Serializable {
        this.mscDataEntrada = mscDataEntrada;
        this.mscChipRetirado = mscChipRetirado;
        this.mscTipodeEquipamento = mscTipodeEquipamento;
-       this.mscOrdemServicoAparelhos = mscOrdemServicoAparelhos;
+       
     }
    
      @Id 
@@ -142,14 +142,7 @@ public class MscAparelhos  implements java.io.Serializable {
         this.mscTipodeEquipamento = mscTipodeEquipamento;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="mscAparelhos")
-    public Set getMscOrdemServicoAparelhos() {
-        return this.mscOrdemServicoAparelhos;
-    }
-    
-    public void setMscOrdemServicoAparelhos(Set mscOrdemServicoAparelhos) {
-        this.mscOrdemServicoAparelhos = mscOrdemServicoAparelhos;
-    }
+
 
 
 

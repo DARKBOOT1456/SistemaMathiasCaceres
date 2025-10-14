@@ -1,5 +1,5 @@
 package bean;
-// Generated 03/10/2025 21:30:33 by Hibernate Tools 4.3.1
+// Generated 14/10/2025 12:54:27 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -8,8 +8,6 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -21,12 +19,12 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name="msc_usuarios"
-    ,catalog="db_mathias_cacers"
+    ,catalog="db_mathias_caceres"
 )
 public class MscUsuarios  implements java.io.Serializable {
 
 
-     private Integer idmscUsuarios;
+     private int idmscUsuarios;
      private String mscNome;
      private String mscApelido;
      private String mscCpf;
@@ -34,13 +32,14 @@ public class MscUsuarios  implements java.io.Serializable {
      private String mscSenha;
      private String mscAtivo;
      private String mscNivel;
-     private Set mscOrdensservicos = new HashSet(0);
+
 
     public MscUsuarios() {
     }
 
 	
-    public MscUsuarios(String mscNome, String mscApelido, String mscCpf, Date mscDataNascimento, String mscSenha, String mscAtivo, String mscNivel) {
+    public MscUsuarios(int idmscUsuarios, String mscNome, String mscApelido, String mscCpf, Date mscDataNascimento, String mscSenha, String mscAtivo, String mscNivel) {
+        this.idmscUsuarios = idmscUsuarios;
         this.mscNome = mscNome;
         this.mscApelido = mscApelido;
         this.mscCpf = mscCpf;
@@ -49,7 +48,8 @@ public class MscUsuarios  implements java.io.Serializable {
         this.mscAtivo = mscAtivo;
         this.mscNivel = mscNivel;
     }
-    public MscUsuarios(String mscNome, String mscApelido, String mscCpf, Date mscDataNascimento, String mscSenha, String mscAtivo, String mscNivel, Set mscOrdensservicos) {
+    public MscUsuarios(int idmscUsuarios, String mscNome, String mscApelido, String mscCpf, Date mscDataNascimento, String mscSenha, String mscAtivo, String mscNivel, Set mscOrdensServicos) {
+       this.idmscUsuarios = idmscUsuarios;
        this.mscNome = mscNome;
        this.mscApelido = mscApelido;
        this.mscCpf = mscCpf;
@@ -57,18 +57,18 @@ public class MscUsuarios  implements java.io.Serializable {
        this.mscSenha = mscSenha;
        this.mscAtivo = mscAtivo;
        this.mscNivel = mscNivel;
-       this.mscOrdensservicos = mscOrdensservicos;
+  
     }
    
-     @Id @GeneratedValue(strategy=IDENTITY)
+     @Id 
 
     
     @Column(name="idmsc_usuarios", unique=true, nullable=false)
-    public Integer getIdmscUsuarios() {
+    public int getIdmscUsuarios() {
         return this.idmscUsuarios;
     }
     
-    public void setIdmscUsuarios(Integer idmscUsuarios) {
+    public void setIdmscUsuarios(int idmscUsuarios) {
         this.idmscUsuarios = idmscUsuarios;
     }
 
@@ -140,15 +140,6 @@ public class MscUsuarios  implements java.io.Serializable {
     
     public void setMscNivel(String mscNivel) {
         this.mscNivel = mscNivel;
-    }
-
-@OneToMany(fetch=FetchType.LAZY, mappedBy="mscUsuarios")
-    public Set getMscOrdensservicos() {
-        return this.mscOrdensservicos;
-    }
-    
-    public void setMscOrdensservicos(Set mscOrdensservicos) {
-        this.mscOrdensservicos = mscOrdensservicos;
     }
 
 

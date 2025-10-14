@@ -5,7 +5,7 @@
  */
 package dao;
 
-import bean.MscOrdensservico;
+import bean.MscOrdensServico;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
@@ -44,7 +44,7 @@ public class Ordem_servicoDao extends AbstractDao {
     @Override
     public Object list(int codigo) {
         session.beginTransaction();
-        Criteria criteria = session.createCriteria(MscOrdensservico.class);
+        Criteria criteria = session.createCriteria(MscOrdensServico.class);
         criteria.add(Restrictions.eq("idmsc_ordensServico", codigo));
         List lista = criteria.list();
         session.getTransaction().commit();
@@ -54,7 +54,7 @@ public class Ordem_servicoDao extends AbstractDao {
     @Override
     public Object listAll() {
         session.beginTransaction();
-        Criteria criteria = session.createCriteria(MscOrdensservico.class);
+        Criteria criteria = session.createCriteria(MscOrdensServico.class);
         List lista = criteria.list();
         session.getTransaction().commit();
         return lista;    }

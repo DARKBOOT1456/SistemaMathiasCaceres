@@ -1,5 +1,5 @@
 package bean;
-// Generated 03/10/2025 21:30:33 by Hibernate Tools 4.3.1
+// Generated 14/10/2025 12:54:27 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -8,8 +8,6 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -21,12 +19,12 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name="msc_clientes"
-    ,catalog="db_mathias_cacers"
+    ,catalog="db_mathias_caceres"
 )
 public class MscClientes  implements java.io.Serializable {
 
 
-     private Integer idmscClientes;
+     private int idmscClientes;
      private String mscNome;
      private String mscCpf;
      private String mscRg;
@@ -41,13 +39,14 @@ public class MscClientes  implements java.io.Serializable {
      private String mscCep;
      private Date mscDataCadastro;
      private String mscDeficiencia;
-     private Set mscOrdensservicos = new HashSet(0);
+    
 
     public MscClientes() {
     }
 
 	
-    public MscClientes(String mscNome, String mscCpf, String mscRg, Date mscDataNascimento, String mscTelefone, String mscTelefoneSecundario, String mscEmail, String mscEndereco, String mscBairro, String mscCidade, String mscEstado, String mscCep, Date mscDataCadastro, String mscDeficiencia) {
+    public MscClientes(int idmscClientes, String mscNome, String mscCpf, String mscRg, Date mscDataNascimento, String mscTelefone, String mscTelefoneSecundario, String mscEmail, String mscEndereco, String mscBairro, String mscCidade, String mscEstado, String mscCep, Date mscDataCadastro, String mscDeficiencia) {
+        this.idmscClientes = idmscClientes;
         this.mscNome = mscNome;
         this.mscCpf = mscCpf;
         this.mscRg = mscRg;
@@ -63,7 +62,8 @@ public class MscClientes  implements java.io.Serializable {
         this.mscDataCadastro = mscDataCadastro;
         this.mscDeficiencia = mscDeficiencia;
     }
-    public MscClientes(String mscNome, String mscCpf, String mscRg, Date mscDataNascimento, String mscTelefone, String mscTelefoneSecundario, String mscEmail, String mscEndereco, String mscBairro, String mscCidade, String mscEstado, String mscCep, Date mscDataCadastro, String mscDeficiencia, Set mscOrdensservicos) {
+    public MscClientes(int idmscClientes, String mscNome, String mscCpf, String mscRg, Date mscDataNascimento, String mscTelefone, String mscTelefoneSecundario, String mscEmail, String mscEndereco, String mscBairro, String mscCidade, String mscEstado, String mscCep, Date mscDataCadastro, String mscDeficiencia, Set mscOrdensServicos) {
+       this.idmscClientes = idmscClientes;
        this.mscNome = mscNome;
        this.mscCpf = mscCpf;
        this.mscRg = mscRg;
@@ -78,18 +78,18 @@ public class MscClientes  implements java.io.Serializable {
        this.mscCep = mscCep;
        this.mscDataCadastro = mscDataCadastro;
        this.mscDeficiencia = mscDeficiencia;
-       this.mscOrdensservicos = mscOrdensservicos;
+ 
     }
    
-     @Id @GeneratedValue(strategy=IDENTITY)
+     @Id 
 
     
     @Column(name="idmsc_clientes", unique=true, nullable=false)
-    public Integer getIdmscClientes() {
+    public int getIdmscClientes() {
         return this.idmscClientes;
     }
     
-    public void setIdmscClientes(Integer idmscClientes) {
+    public void setIdmscClientes(int idmscClientes) {
         this.idmscClientes = idmscClientes;
     }
 
@@ -231,15 +231,6 @@ public class MscClientes  implements java.io.Serializable {
     
     public void setMscDeficiencia(String mscDeficiencia) {
         this.mscDeficiencia = mscDeficiencia;
-    }
-
-@OneToMany(fetch=FetchType.LAZY, mappedBy="mscClientes")
-    public Set getMscOrdensservicos() {
-        return this.mscOrdensservicos;
-    }
-    
-    public void setMscOrdensservicos(Set mscOrdensservicos) {
-        this.mscOrdensservicos = mscOrdensservicos;
     }
 
 

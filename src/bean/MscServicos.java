@@ -1,5 +1,5 @@
 package bean;
-// Generated 03/10/2025 21:30:33 by Hibernate Tools 4.3.1
+// Generated 14/10/2025 12:54:27 by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -9,8 +9,6 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -22,25 +20,26 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name="msc_servicos"
-    ,catalog="db_mathias_cacers"
+    ,catalog="db_mathias_caceres"
 )
 public class MscServicos  implements java.io.Serializable {
 
 
-     private Integer idmscServicos;
+     private int idmscServicos;
      private String mscNomeServico;
      private String mscDescricao;
      private BigDecimal mscValor;
      private String mscTempoEstimado;
      private String mscCategoria;
      private Date mscDataCadastro;
-     private Set mscOrdensservicos = new HashSet(0);
+   
 
     public MscServicos() {
     }
 
 	
-    public MscServicos(String mscNomeServico, String mscDescricao, BigDecimal mscValor, String mscTempoEstimado, String mscCategoria, Date mscDataCadastro) {
+    public MscServicos(int idmscServicos, String mscNomeServico, String mscDescricao, BigDecimal mscValor, String mscTempoEstimado, String mscCategoria, Date mscDataCadastro) {
+        this.idmscServicos = idmscServicos;
         this.mscNomeServico = mscNomeServico;
         this.mscDescricao = mscDescricao;
         this.mscValor = mscValor;
@@ -48,25 +47,26 @@ public class MscServicos  implements java.io.Serializable {
         this.mscCategoria = mscCategoria;
         this.mscDataCadastro = mscDataCadastro;
     }
-    public MscServicos(String mscNomeServico, String mscDescricao, BigDecimal mscValor, String mscTempoEstimado, String mscCategoria, Date mscDataCadastro, Set mscOrdensservicos) {
+    public MscServicos(int idmscServicos, String mscNomeServico, String mscDescricao, BigDecimal mscValor, String mscTempoEstimado, String mscCategoria, Date mscDataCadastro, Set mscOrdemServicoAparelhos) {
+       this.idmscServicos = idmscServicos;
        this.mscNomeServico = mscNomeServico;
        this.mscDescricao = mscDescricao;
        this.mscValor = mscValor;
        this.mscTempoEstimado = mscTempoEstimado;
        this.mscCategoria = mscCategoria;
        this.mscDataCadastro = mscDataCadastro;
-       this.mscOrdensservicos = mscOrdensservicos;
+       
     }
    
-     @Id @GeneratedValue(strategy=IDENTITY)
+     @Id 
 
     
     @Column(name="idmsc_servicos", unique=true, nullable=false)
-    public Integer getIdmscServicos() {
+    public int getIdmscServicos() {
         return this.idmscServicos;
     }
     
-    public void setIdmscServicos(Integer idmscServicos) {
+    public void setIdmscServicos(int idmscServicos) {
         this.idmscServicos = idmscServicos;
     }
 
@@ -101,7 +101,7 @@ public class MscServicos  implements java.io.Serializable {
     }
 
     
-    @Column(name="msc_tempo_estimado", nullable=false, length=20)
+    @Column(name="msc_tempo_estimado", nullable=false, length=100)
     public String getMscTempoEstimado() {
         return this.mscTempoEstimado;
     }
@@ -130,14 +130,6 @@ public class MscServicos  implements java.io.Serializable {
         this.mscDataCadastro = mscDataCadastro;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="mscServicos")
-    public Set getMscOrdensservicos() {
-        return this.mscOrdensservicos;
-    }
-    
-    public void setMscOrdensservicos(Set mscOrdensservicos) {
-        this.mscOrdensservicos = mscOrdensservicos;
-    }
 
 
 

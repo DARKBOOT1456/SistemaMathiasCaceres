@@ -3,60 +3,40 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package view;
-<<<<<<< HEAD
-import bean.ClientesBean;
-import dao.ClientesDao;
-import java.util.List;
-=======
 
-import bean.MscClientes;
-import dao.ClientesDao;
+import bean.MscUsuarios;
+import dao.UsuariosDao;
 import java.util.List;
+import view.JDlgUsuarios;
 
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
 /**
  *
  * @author mathi
  */
-public class JDlgClientesPesquisar extends javax.swing.JDialog {
+public class JDlgUsuariosPesquisar extends javax.swing.JDialog {
     
-<<<<<<< HEAD
-ControllerClientes controllerClientes;
-JDlgClientes jDlgClientes;
-=======
-private JDlgClientes jDlgClientes;
- ControllerClientes controllerClientes;
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
+ private JDlgUsuarios jDlgUsuarios;
+  ControllerUsuarios controllerUsuarios;
+    
+
+   
     /**
-     * Creates new form JDlgClientesPesquisar
+     * Creates new form JDlgUsuariosPesquisar
      */
-    public JDlgClientesPesquisar(java.awt.Frame parent, boolean modal) {
+    public JDlgUsuariosPesquisar(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        setTitle("Pesquisar Clientes");
-<<<<<<< HEAD
+        setTitle("Pesquisar Usuarios");
         setLocationRelativeTo(null);
-        controllerClientes = new ControllerClientes();
-        ClientesDao clientesDao = new ClientesDao();
-        List lista = (List) clientesDao.listaAll();
-        controllerClientes.setList(lista);
-        jTable1.setModel(controllerClientes);
+        controllerUsuarios = new ControllerUsuarios();
+    UsuariosDao usuariosDAO = new UsuariosDao();
+      List lista = (List) usuariosDAO.listAll();
+      controllerUsuarios.setList(lista);
+        jTable1.setModel(controllerUsuarios);
     }
     
- public void setTelaPai(JDlgClientes jDlgClientes){
-=======
-        setLocationRelativeTo(null);controllerClientes = new ControllerClientes();
-    ClientesDao clientesDAO = new ClientesDao();
-      List lista = (List) clientesDAO.listAll();
-      controllerClientes.setList(lista);
-        jTable1.setModel(controllerClientes);
-        
-       
-    }
-    
- public void setTelaAnterior(JDlgClientes jDlgClientes){
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
-    this.jDlgClientes = jDlgClientes;
+public void setTelaAnterior(JDlgUsuarios jDlgUsuarios){
+    this.jDlgUsuarios = jDlgUsuarios;
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -97,15 +77,19 @@ private JDlgClientes jDlgClientes;
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 25, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -113,15 +97,10 @@ private JDlgClientes jDlgClientes;
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-<<<<<<< HEAD
-        int linSel = jTable1.getSelectedRow();
-        ClientesBean clientes = (ClientesBean) controllerClientes.getBean(linSel);
-        jDlgClientes.beanView(clientes);
-=======
-        MscClientes clientesBean =  controllerClientes.getBean( jTable1.getSelectedRow() );
-     jDlgClientes.beanView(clientesBean);
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
-         setVisible(false);
+       
+          MscUsuarios usuariosBean =  controllerUsuarios.getBean( jTable1.getSelectedRow() );
+     jDlgUsuarios.beanView(usuariosBean);
+        this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -141,20 +120,20 @@ private JDlgClientes jDlgClientes;
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JDlgClientesPesquisar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDlgUsuariosPesquisar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JDlgClientesPesquisar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDlgUsuariosPesquisar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JDlgClientesPesquisar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDlgUsuariosPesquisar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JDlgClientesPesquisar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDlgUsuariosPesquisar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                JDlgClientesPesquisar dialog = new JDlgClientesPesquisar(new javax.swing.JFrame(), true);
+                JDlgUsuariosPesquisar dialog = new JDlgUsuariosPesquisar(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

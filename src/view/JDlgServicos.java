@@ -4,6 +4,7 @@
  */
 package view;
 
+<<<<<<< HEAD
 import bean.ServicosBean;
 import dao.ServicosDao;
 import java.text.ParseException;
@@ -11,6 +12,21 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
 
+=======
+import bean.MscServicos;
+import dao.ServicosDao;
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import tools.Util;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
+
+>>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
 /**
  *
  * @author mathi
@@ -20,10 +36,35 @@ public class JDlgServicos extends javax.swing.JDialog {
     /**
      * Creates new form JDlgServicos
      */
+<<<<<<< HEAD
+=======
+    private boolean incluir;
+    private boolean validarData(String dataStr) {
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    sdf.setLenient(false); 
+    
+    try {
+        Date data = sdf.parse(dataStr);
+        Calendar cal = Calendar.getInstance();
+        Date hoje = cal.getTime();
+        
+        if(data.after(hoje)) {
+            JOptionPane.showMessageDialog(this, "A data de nascimento não pode ser futura!");
+            return false;
+        }
+        
+        return true;
+    } catch (ParseException ex) {
+        JOptionPane.showMessageDialog(this, "Data inválida! Digite no formato dd/MM/yyyy");
+        return false;
+    }
+}
+>>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
     public JDlgServicos(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setTitle("Cadastro de Serviços");
+<<<<<<< HEAD
         setLocationRelativeTo(null); //centraliza o frame
         habilitar(false);
     }
@@ -54,6 +95,75 @@ public class JDlgServicos extends javax.swing.JDialog {
       jCboCat.setSelectedIndex(-1);
         jFmtData.setText("");
     }
+=======
+        setLocationRelativeTo(null); 
+      
+         Util.habilitar(false, jTxtCodigo,jTxtNomeServ,  jTxtDesc,
+                jFmtValor, jTxtTempo, jCboCat, jFmtData, 
+                  jBtnConfirmar, jBtnCancelar);
+        try {
+    jFmtData.setFormatterFactory(
+        new javax.swing.text.DefaultFormatterFactory(
+            new javax.swing.text.MaskFormatter("##/##/####")
+        )
+    );
+} catch (java.text.ParseException e) {
+    e.printStackTrace();
+}
+    }
+    
+    public void beanView(MscServicos servicosBean) {
+        jTxtCodigo.setText(Util.intToStr(servicosBean.getIdmscServicos()));
+         jTxtNomeServ.setText(servicosBean.getMscNomeServico());
+         jTxtDesc.setText(servicosBean.getMscDescricao());
+        if (servicosBean.getMscValor() != null) {
+    jFmtValor.setText(servicosBean.getMscValor().toPlainString());
+} else {
+    jFmtValor.setText("");
+}
+         jFmtData.setText(Util.dateToStr(servicosBean.getMscDataCadastro()));
+         jTxtTempo.setText(servicosBean.getMscTempoEstimado());
+         String categoria = servicosBean.getMscCategoria();
+if (categoria != null) {
+    jCboCat.setSelectedItem(categoria); 
+} else {
+    jCboCat.setSelectedIndex(-1); 
+}
+
+        
+    }
+    public MscServicos viewBean(){
+         MscServicos servicosBean = new MscServicos();
+    int codigo = Util.strToInt(jTxtCodigo.getText());
+    servicosBean.setIdmscServicos(codigo);
+
+    servicosBean.setMscNomeServico(jTxtNomeServ.getText());
+    servicosBean.setMscDescricao(jTxtDesc.getText());
+    
+    String valorStr = jFmtValor.getText().replace(",", "."); 
+    servicosBean.setMscValor(new BigDecimal(valorStr));
+    
+    
+    String dataTexto = jFmtData.getText().trim();
+    Date dataCadastro;
+    
+    if (dataTexto.isEmpty() || dataTexto.equals("  /  /    ")) {
+        dataCadastro = new Date(); 
+    } else {
+        dataCadastro = Util.strToDate(dataTexto);
+        if (dataCadastro == null) {
+            dataCadastro = new Date();
+        }
+    }
+    servicosBean.setMscDataCadastro(dataCadastro);
+    
+    servicosBean.setMscTempoEstimado(jTxtTempo.getText());
+    servicosBean.setMscCategoria(jCboCat.getSelectedItem().toString());
+   
+        return servicosBean;
+    }
+   
+>>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -83,7 +193,11 @@ public class JDlgServicos extends javax.swing.JDialog {
         jBtnPesquisar = new javax.swing.JButton();
         jFmtData = new javax.swing.JFormattedTextField();
         jFmtValor = new javax.swing.JFormattedTextField();
+<<<<<<< HEAD
         jCboCat = new javax.swing.JComboBox<>();
+=======
+        jCboCat = new javax.swing.JComboBox<String>();
+>>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -125,7 +239,11 @@ public class JDlgServicos extends javax.swing.JDialog {
             }
         });
 
+<<<<<<< HEAD
         jBtnIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/incluir.png"))); // NOI18N
+=======
+        jBtnIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/incluir.png"))); // NOI18N
+>>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
         jBtnIncluir.setText("Incluir");
         jBtnIncluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -133,7 +251,11 @@ public class JDlgServicos extends javax.swing.JDialog {
             }
         });
 
+<<<<<<< HEAD
         jBtnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/alterar.png"))); // NOI18N
+=======
+        jBtnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/alterar.png"))); // NOI18N
+>>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
         jBtnAlterar.setText("Alterar");
         jBtnAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -141,7 +263,11 @@ public class JDlgServicos extends javax.swing.JDialog {
             }
         });
 
+<<<<<<< HEAD
         jBtnConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/ok.png"))); // NOI18N
+=======
+        jBtnConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ok.png"))); // NOI18N
+>>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
         jBtnConfirmar.setText("Confirmar");
         jBtnConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -149,7 +275,11 @@ public class JDlgServicos extends javax.swing.JDialog {
             }
         });
 
+<<<<<<< HEAD
         jBtnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/exit.png"))); // NOI18N
+=======
+        jBtnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cancelar.png"))); // NOI18N
+>>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
         jBtnCancelar.setText("Cancelar");
         jBtnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -157,7 +287,11 @@ public class JDlgServicos extends javax.swing.JDialog {
             }
         });
 
+<<<<<<< HEAD
         jBtnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Excluir.png"))); // NOI18N
+=======
+        jBtnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Excluir.png"))); // NOI18N
+>>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
         jBtnExcluir.setText("Excluir");
         jBtnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -165,7 +299,11 @@ public class JDlgServicos extends javax.swing.JDialog {
             }
         });
 
+<<<<<<< HEAD
         jBtnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pesquisar.png"))); // NOI18N
+=======
+        jBtnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/pesquisar.png"))); // NOI18N
+>>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
         jBtnPesquisar.setText("Pesquisar");
         jBtnPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -179,7 +317,11 @@ public class JDlgServicos extends javax.swing.JDialog {
             }
         });
 
+<<<<<<< HEAD
         jCboCat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Celular", "Tablet", "Fone", "Notebook", "Computador", "Televisão", "Console de Videogame", "Outros Aparelhos Eletrônicos" }));
+=======
+        jCboCat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Celular", "Tablet", "Fone", "Notebook", "Computador", "Televisão", "Console de Videogame", "Outros Aparelhos Eletrônicos" }));
+>>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -189,17 +331,30 @@ public class JDlgServicos extends javax.swing.JDialog {
                 .addGap(58, 58, 58)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+<<<<<<< HEAD
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jBtnAlterar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jBtnIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(26, 26, 26)
+=======
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jBtnIncluir)
+                            .addComponent(jBtnAlterar))
+                        .addGap(21, 21, 21)
+>>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jBtnConfirmar)
                             .addComponent(jBtnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(26, 26, 26)
+<<<<<<< HEAD
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jBtnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jBtnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
+=======
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jBtnPesquisar)
+                            .addComponent(jBtnCancelar)))
+>>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -228,7 +383,11 @@ public class JDlgServicos extends javax.swing.JDialog {
                                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(54, 54, 54))
                                 .addComponent(jCboCat, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+<<<<<<< HEAD
                 .addContainerGap(57, Short.MAX_VALUE))
+=======
+                .addContainerGap(52, Short.MAX_VALUE))
+>>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -263,10 +422,18 @@ public class JDlgServicos extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jFmtData, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(49, 49, 49)
+<<<<<<< HEAD
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtnIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+=======
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jBtnConfirmar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jBtnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jBtnIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
+>>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jBtnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -296,17 +463,38 @@ public class JDlgServicos extends javax.swing.JDialog {
 
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
         // TODO add your handling code here:
+<<<<<<< HEAD
         habilitar(true);
         limpar();
+=======
+        Util.habilitar(true, jTxtCodigo,jTxtNomeServ,  jTxtDesc,
+                jFmtValor, jTxtTempo, jCboCat, jFmtData, 
+                  jBtnConfirmar, jBtnCancelar);
+        
+         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+           Util.limpar(jTxtCodigo,jTxtNomeServ,  jTxtDesc,
+                jFmtValor, jTxtTempo, jCboCat, jFmtData);
+            incluir = true;
+>>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
         // TODO add your handling code here:
+<<<<<<< HEAD
         habilitar(true);
+=======
+         Util.habilitar(true, jTxtCodigo,jTxtNomeServ,  jTxtDesc,
+                jFmtValor, jTxtTempo, jCboCat, jFmtData, 
+                  jBtnConfirmar, jBtnCancelar);
+        
+         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+           incluir = false;
+>>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
         // TODO add your handling code here:
+<<<<<<< HEAD
         //desabilitar();
         habilitar(false);
          ServicosBean servicos = new ServicosBean();
@@ -352,10 +540,44 @@ public class JDlgServicos extends javax.swing.JDialog {
         //desabilitar();
         habilitar(false);
         limpar();
+=======
+        if (!validarData(jFmtData.getText())) {
+        return; 
+    }
+        ServicosDao servicosDAO = new ServicosDao();
+    if(incluir == true){
+        servicosDAO.insert(viewBean());
+    } else{
+        servicosDAO.update(viewBean());
+    }
+         Util.habilitar(false, jTxtCodigo,jTxtNomeServ,  jTxtDesc,
+                jFmtValor, jTxtTempo, jCboCat, jFmtData, 
+                  jBtnConfirmar, jBtnCancelar);
+        
+         Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+           Util.limpar(jTxtCodigo,jTxtNomeServ,  jTxtDesc,
+                jFmtValor, jTxtTempo, jCboCat, jFmtData);
+      Util.limpar(jTxtCodigo,jTxtNomeServ,  jTxtDesc,
+                jFmtValor, jTxtTempo, jCboCat, jFmtData);
+    }//GEN-LAST:event_jBtnConfirmarActionPerformed
+
+    private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
+
+         Util.habilitar(false, jTxtCodigo,jTxtNomeServ,  jTxtDesc,
+                jFmtValor, jTxtTempo, jCboCat, jFmtData, 
+                  jBtnConfirmar, jBtnCancelar);
+
+ Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+        Util.limpar(jTxtCodigo,jTxtNomeServ,  jTxtDesc,
+                jFmtValor, jTxtTempo, jCboCat, jFmtData);
+// TODO add your handling code here:
+       
+>>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
         // TODO add your handling code here:
+<<<<<<< HEAD
         int resp = JOptionPane.showConfirmDialog(null, "Deseja excluir ?");
         if(resp == JOptionPane.YES_OPTION){
            ServicosBean servicos = new ServicosBean();
@@ -373,6 +595,17 @@ public class JDlgServicos extends javax.swing.JDialog {
             servicosDao.delete(servicos);
         }
         limpar();
+=======
+        if (Util.perguntar("Deseja Excluir?") == true){
+      
+          
+      }
+        ServicosDao servicosDAO = new ServicosDao();
+         servicosDAO.delete( viewBean());
+         Util.limpar(jTxtCodigo,jTxtNomeServ,  jTxtDesc,
+                jFmtValor, jTxtTempo, jCboCat, jFmtData);
+      
+>>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
     private void jFmtDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFmtDataActionPerformed
@@ -381,6 +614,7 @@ public class JDlgServicos extends javax.swing.JDialog {
 
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed
         // TODO add your handling code here:
+<<<<<<< HEAD
        String id = JOptionPane.showInputDialog(null, "Entre com o código");
         int codigo = Integer.parseInt(id);
         ServicosDao servicosDao = new ServicosDao();
@@ -401,6 +635,13 @@ public class JDlgServicos extends javax.swing.JDialog {
      
     }//GEN-LAST:event_jBtnPesquisarActionPerformed
     }
+=======
+     JDlgServicosPesquisar jDlgServicosPesquisar =  new JDlgServicosPesquisar(null,true); 
+       jDlgServicosPesquisar.setTelaAnterior(this);
+        jDlgServicosPesquisar.setVisible(true);
+    }//GEN-LAST:event_jBtnPesquisarActionPerformed
+   
+>>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
     /**
      * @param args the command line arguments
      */

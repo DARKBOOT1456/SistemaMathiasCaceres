@@ -4,17 +4,32 @@
  */
 package view;
 
+<<<<<<< HEAD
 import bean.AparelhosBean;
 import dao.AparelhosDao;
 import java.util.List;
+=======
+import bean.MscAparelhos;
+import dao.AparelhosDao;
+import java.util.List;
+
+
+>>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
 /**
  *
  * @author mathi
  */
 public class JDlgAparelhosPesquisar extends javax.swing.JDialog {
 
+<<<<<<< HEAD
     ControllerAparelhos controllerAparelhos;
 JDlgAparelhos jDlgAparelhos;
+=======
+    
+private JDlgAparelhos jDlgAparelhos;
+
+ControllerAparelhos controllerAparelhos;
+>>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
     /**
      * Creates new form JDlgAparelhosPesquisar
      */
@@ -24,6 +39,7 @@ JDlgAparelhos jDlgAparelhos;
         setTitle("Pesquisar Aparelhos");
         setLocationRelativeTo(null);
         controllerAparelhos = new ControllerAparelhos();
+<<<<<<< HEAD
         AparelhosDao aparelhosDao = new AparelhosDao();
         List lista = (List) aparelhosDao.listaAll();
         controllerAparelhos.setList(lista);
@@ -32,6 +48,17 @@ JDlgAparelhos jDlgAparelhos;
     }
     
      public void setTelaPai(JDlgAparelhos jDlgAparelhos){
+=======
+    AparelhosDao aparelhosDAO = new AparelhosDao();
+      List lista = (List) aparelhosDAO.listAll();
+      controllerAparelhos.setList(lista);
+        jTable1.setModel(controllerAparelhos);
+        
+        
+    }
+    
+     public void setTelaAnterior(JDlgAparelhos jDlgAparelhos){
+>>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
     this.jDlgAparelhos = jDlgAparelhos;
     }
 
@@ -90,9 +117,14 @@ JDlgAparelhos jDlgAparelhos;
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+<<<<<<< HEAD
          int linSel = jTable1.getSelectedRow();
         AparelhosBean aparelhos = (AparelhosBean) controllerAparelhos.getBean(linSel);
         jDlgAparelhos.beanView(aparelhos);
+=======
+          MscAparelhos aparelhosBean =  controllerAparelhos.getBean( jTable1.getSelectedRow() );
+     jDlgAparelhos.beanView(aparelhosBean);
+>>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
          setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 

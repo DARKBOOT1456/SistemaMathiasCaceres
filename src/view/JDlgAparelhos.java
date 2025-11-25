@@ -428,6 +428,10 @@ public class JDlgAparelhos extends javax.swing.JDialog {
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
         // TODO add your handling code here:
+        if (jTxtCod.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Pesquise para excluir", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
         if (Util.perguntar("Deseja Excluir?") == true) {
         AparelhosDao aparelhosDao = new AparelhosDao();
         aparelhosDao.delete(viewBean()); 

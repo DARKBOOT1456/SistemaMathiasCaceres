@@ -378,13 +378,17 @@ public class JDlgUsuarios extends javax.swing.JDialog {
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
         // TODO add your handling code here:
+        if (jTxtCodigo.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Pesquise para excluir", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
         if (Util.perguntar("Deseja Excluir?") == true){
-      
-          
-      }
-          UsuariosDao usuariosDAO = new UsuariosDao();
+       UsuariosDao usuariosDAO = new UsuariosDao();
           
          usuariosDAO.delete( viewBean());
+          
+      }
+         
       
       Util.limpar(jTxtCodigo, jTxtNome, jTxtApelido, 
                 jFmtCpf, jFmtDataNascimento, 

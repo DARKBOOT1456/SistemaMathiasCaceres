@@ -601,12 +601,16 @@ public class JDlgClientes extends javax.swing.JDialog {
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
         // TODO add your handling code here:
+         if (jTxtCod.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Pesquise para excluir", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
          if (Util.perguntar("Deseja Excluir?") == true){
       
-          
-      }
-         ClientesDao clientesDAO = new ClientesDao();
+           ClientesDao clientesDAO = new ClientesDao();
          clientesDAO.delete( viewBean());
+      }
+        
      
       Util.limpar(jTxtCod,jTtxtNome,  jFmtCpf,
                 jTxtRg, jFmtDataNascimento, jTxtTelefo1, jTxtTelefo, 

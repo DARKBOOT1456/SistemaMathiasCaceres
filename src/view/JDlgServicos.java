@@ -419,12 +419,16 @@ if (categoria != null) {
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
         // TODO add your handling code here:
+        if (jTxtCodigo.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Pesquise para excluir", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
         if (Util.perguntar("Deseja Excluir?") == true){
-      
+      ServicosDao servicosDAO = new ServicosDao();
+         servicosDAO.delete( viewBean());
           
       }
-        ServicosDao servicosDAO = new ServicosDao();
-         servicosDAO.delete( viewBean());
+        
          Util.limpar(jTxtCodigo,jTxtNomeServ,  jTxtDesc,
                 jFmtValor, jTxtTempo, jCboCat, jFmtData);
       

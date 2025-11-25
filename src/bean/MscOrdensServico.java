@@ -2,7 +2,6 @@ package bean;
 // Generated 14/10/2025 12:54:27 by Hibernate Tools 4.3.1
 
 
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -30,27 +29,26 @@ public class MscOrdensServico  implements java.io.Serializable {
      private int idmscOrdensServico;
      private MscClientes mscClientes;
      private MscUsuarios mscUsuarios;
+     private MscServicos mscServicos;
      private Date mscDataInicio;
      private String mscStatus;
      private String mscTecnicoResponsavel;
-     private BigDecimal mscValorTotal;
+     private double mscValorTotal;
    
 
     public MscOrdensServico() {
     }
 
 	
-    public MscOrdensServico(int idmscOrdensServico, Date mscDataInicio, String mscStatus, String mscTecnicoResponsavel, BigDecimal mscValorTotal) {
+    public MscOrdensServico(int idmscOrdensServico) {
         this.idmscOrdensServico = idmscOrdensServico;
-        this.mscDataInicio = mscDataInicio;
-        this.mscStatus = mscStatus;
-        this.mscTecnicoResponsavel = mscTecnicoResponsavel;
-        this.mscValorTotal = mscValorTotal;
+       
     }
-    public MscOrdensServico(int idmscOrdensServico, MscClientes mscClientes, MscUsuarios mscUsuarios, Date mscDataInicio, String mscStatus, String mscTecnicoResponsavel, BigDecimal mscValorTotal, Set mscOrdemServicoAparelhos) {
+    public MscOrdensServico(int idmscOrdensServico, MscClientes mscClientes, MscUsuarios mscUsuarios, MscServicos mscServicos, Date mscDataInicio, String mscStatus, String mscTecnicoResponsavel, double mscValorTotal, Set mscOrdemServicoAparelhos) {
        this.idmscOrdensServico = idmscOrdensServico;
        this.mscClientes = mscClientes;
        this.mscUsuarios = mscUsuarios;
+       this.mscServicos = mscServicos;
        this.mscDataInicio = mscDataInicio;
        this.mscStatus = mscStatus;
        this.mscTecnicoResponsavel = mscTecnicoResponsavel;
@@ -78,6 +76,16 @@ public class MscOrdensServico  implements java.io.Serializable {
     
     public void setMscClientes(MscClientes mscClientes) {
         this.mscClientes = mscClientes;
+    }
+    
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="fkmsc_Servicos")
+    public MscServicos getMscServicos() {
+        return this.mscServicos;
+    }
+    
+    public void setMscServicos(MscServicos mscServicos) {
+        this.mscServicos = mscServicos;
     }
 
 @ManyToOne(fetch=FetchType.LAZY)
@@ -122,11 +130,11 @@ public class MscOrdensServico  implements java.io.Serializable {
 
     
     @Column(name="msc_valorTotal", nullable=false, precision=10)
-    public BigDecimal getMscValorTotal() {
+    public double getMscValorTotal() {
         return this.mscValorTotal;
     }
     
-    public void setMscValorTotal(BigDecimal mscValorTotal) {
+    public void setMscValorTotal(double mscValorTotal) {
         this.mscValorTotal = mscValorTotal;
     }
 

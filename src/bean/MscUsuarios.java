@@ -38,15 +38,9 @@ public class MscUsuarios  implements java.io.Serializable {
     }
 
 	
-    public MscUsuarios(int idmscUsuarios, String mscNome, String mscApelido, String mscCpf, Date mscDataNascimento, String mscSenha, String mscAtivo, String mscNivel) {
+    public MscUsuarios(int idmscUsuarios) {
         this.idmscUsuarios = idmscUsuarios;
-        this.mscNome = mscNome;
-        this.mscApelido = mscApelido;
-        this.mscCpf = mscCpf;
-        this.mscDataNascimento = mscDataNascimento;
-        this.mscSenha = mscSenha;
-        this.mscAtivo = mscAtivo;
-        this.mscNivel = mscNivel;
+        
     }
     public MscUsuarios(int idmscUsuarios, String mscNome, String mscApelido, String mscCpf, Date mscDataNascimento, String mscSenha, String mscAtivo, String mscNivel, Set mscOrdensServicos) {
        this.idmscUsuarios = idmscUsuarios;
@@ -143,8 +137,21 @@ public class MscUsuarios  implements java.io.Serializable {
     }
 
 
+ @Override
+    public String toString() {
+        return this.idmscUsuarios + " - " + this.mscNome;
+    }
 
+    @Override
+    public boolean equals(Object object) {
+        if (object instanceof MscUsuarios) {
+            MscUsuarios usuarios = (MscUsuarios) object;
+            if (usuarios.getIdmscUsuarios() == this.getIdmscUsuarios()) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 }
-
 

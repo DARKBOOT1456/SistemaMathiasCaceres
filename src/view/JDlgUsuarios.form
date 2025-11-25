@@ -80,11 +80,7 @@
                       </Group>
                   </Group>
               </Group>
-<<<<<<< HEAD
-              <EmptySpace min="0" pref="66" max="32767" attributes="0"/>
-=======
               <EmptySpace min="0" pref="64" max="32767" attributes="0"/>
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
           </Group>
       </Group>
     </DimensionLayout>
@@ -149,11 +145,7 @@
     <Component class="javax.swing.JButton" name="jBtnIncluir">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-<<<<<<< HEAD
-          <Image iconType="3" name="/imagens/incluir.png"/>
-=======
           <Image iconType="3" name="/img/incluir.png"/>
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
         </Property>
         <Property name="text" type="java.lang.String" value="Incluir"/>
       </Properties>
@@ -164,11 +156,7 @@
     <Component class="javax.swing.JButton" name="jBtnAlterar">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-<<<<<<< HEAD
-          <Image iconType="3" name="/imagens/alterar.png"/>
-=======
           <Image iconType="3" name="/img/alterar.png"/>
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
         </Property>
         <Property name="text" type="java.lang.String" value="Alterar"/>
       </Properties>
@@ -179,11 +167,7 @@
     <Component class="javax.swing.JButton" name="jBtnConfirmar">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-<<<<<<< HEAD
-          <Image iconType="3" name="/imagens/ok.png"/>
-=======
           <Image iconType="3" name="/img/ok.png"/>
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
         </Property>
         <Property name="text" type="java.lang.String" value="Confirmar"/>
       </Properties>
@@ -194,11 +178,7 @@
     <Component class="javax.swing.JButton" name="jBtnCancelar">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-<<<<<<< HEAD
-          <Image iconType="3" name="/imagens/exit.png"/>
-=======
           <Image iconType="3" name="/img/cancelar.png"/>
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
         </Property>
         <Property name="text" type="java.lang.String" value="Cancelar"/>
       </Properties>
@@ -209,11 +189,7 @@
     <Component class="javax.swing.JButton" name="jBtnExcluir">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-<<<<<<< HEAD
-          <Image iconType="3" name="/imagens/Excluir.png"/>
-=======
           <Image iconType="3" name="/img/Excluir.png"/>
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
         </Property>
         <Property name="text" type="java.lang.String" value="Excluir"/>
       </Properties>
@@ -274,11 +250,7 @@
     <Component class="javax.swing.JButton" name="jBtnPesquisar">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-<<<<<<< HEAD
-          <Image iconType="3" name="/imagens/pesquisar.png"/>
-=======
           <Image iconType="3" name="/img/pesquisar.png"/>
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
         </Property>
         <Property name="text" type="java.lang.String" value="Pesquisar"/>
       </Properties>
@@ -287,12 +259,9 @@
       </Events>
     </Component>
     <Component class="javax.swing.JFormattedTextField" name="jFmtDataNascimento">
-<<<<<<< HEAD
-=======
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jFmtDataNascimentoActionPerformed"/>
       </Events>
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
     </Component>
     <Component class="javax.swing.JPasswordField" name="jPwdSenha">
     </Component>

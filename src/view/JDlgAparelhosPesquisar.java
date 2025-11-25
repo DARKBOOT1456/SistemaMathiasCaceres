@@ -4,32 +4,22 @@
  */
 package view;
 
-<<<<<<< HEAD
-import bean.AparelhosBean;
-import dao.AparelhosDao;
-import java.util.List;
-=======
 import bean.MscAparelhos;
 import dao.AparelhosDao;
 import java.util.List;
+import tools.Util;
 
 
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
 /**
  *
  * @author mathi
  */
 public class JDlgAparelhosPesquisar extends javax.swing.JDialog {
 
-<<<<<<< HEAD
-    ControllerAparelhos controllerAparelhos;
-JDlgAparelhos jDlgAparelhos;
-=======
     
 private JDlgAparelhos jDlgAparelhos;
 
 ControllerAparelhos controllerAparelhos;
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
     /**
      * Creates new form JDlgAparelhosPesquisar
      */
@@ -39,16 +29,6 @@ ControllerAparelhos controllerAparelhos;
         setTitle("Pesquisar Aparelhos");
         setLocationRelativeTo(null);
         controllerAparelhos = new ControllerAparelhos();
-<<<<<<< HEAD
-        AparelhosDao aparelhosDao = new AparelhosDao();
-        List lista = (List) aparelhosDao.listaAll();
-        controllerAparelhos.setList(lista);
-        jTable1.setModel(controllerAparelhos);
-        
-    }
-    
-     public void setTelaPai(JDlgAparelhos jDlgAparelhos){
-=======
     AparelhosDao aparelhosDAO = new AparelhosDao();
       List lista = (List) aparelhosDAO.listAll();
       controllerAparelhos.setList(lista);
@@ -58,7 +38,6 @@ ControllerAparelhos controllerAparelhos;
     }
     
      public void setTelaAnterior(JDlgAparelhos jDlgAparelhos){
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
     this.jDlgAparelhos = jDlgAparelhos;
     }
 
@@ -88,6 +67,11 @@ ControllerAparelhos controllerAparelhos;
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jButton1.setText("Ok");
@@ -117,16 +101,22 @@ ControllerAparelhos controllerAparelhos;
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-<<<<<<< HEAD
-         int linSel = jTable1.getSelectedRow();
-        AparelhosBean aparelhos = (AparelhosBean) controllerAparelhos.getBean(linSel);
-        jDlgAparelhos.beanView(aparelhos);
-=======
-          MscAparelhos aparelhosBean =  controllerAparelhos.getBean( jTable1.getSelectedRow() );
-     jDlgAparelhos.beanView(aparelhosBean);
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
-         setVisible(false);
+         if (jTable1.getSelectedRow() == -1) {
+            Util.mensagem("Nenhum registro foi selecionada. Favor selecionar um registro.");
+        } else {
+            MscAparelhos aparelhos = controllerAparelhos.getBean(jTable1.getSelectedRow());
+            jDlgAparelhos.beanView(aparelhos);
+            this.setVisible(false);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here: if (evt.getClickCount() == 2) {
+            if (evt.getClickCount() == 2) {
+            jButton1ActionPerformed(null);
+        }
+        
+    }//GEN-LAST:event_jTable1MouseClicked
 
     /**
      * @param args the command line arguments

@@ -45,22 +45,9 @@ public class MscClientes  implements java.io.Serializable {
     }
 
 	
-    public MscClientes(int idmscClientes, String mscNome, String mscCpf, String mscRg, Date mscDataNascimento, String mscTelefone, String mscTelefoneSecundario, String mscEmail, String mscEndereco, String mscBairro, String mscCidade, String mscEstado, String mscCep, Date mscDataCadastro, String mscDeficiencia) {
+    public MscClientes(int idmscClientes) {
         this.idmscClientes = idmscClientes;
-        this.mscNome = mscNome;
-        this.mscCpf = mscCpf;
-        this.mscRg = mscRg;
-        this.mscDataNascimento = mscDataNascimento;
-        this.mscTelefone = mscTelefone;
-        this.mscTelefoneSecundario = mscTelefoneSecundario;
-        this.mscEmail = mscEmail;
-        this.mscEndereco = mscEndereco;
-        this.mscBairro = mscBairro;
-        this.mscCidade = mscCidade;
-        this.mscEstado = mscEstado;
-        this.mscCep = mscCep;
-        this.mscDataCadastro = mscDataCadastro;
-        this.mscDeficiencia = mscDeficiencia;
+       
     }
     public MscClientes(int idmscClientes, String mscNome, String mscCpf, String mscRg, Date mscDataNascimento, String mscTelefone, String mscTelefoneSecundario, String mscEmail, String mscEndereco, String mscBairro, String mscCidade, String mscEstado, String mscCep, Date mscDataCadastro, String mscDeficiencia, Set mscOrdensServicos) {
        this.idmscClientes = idmscClientes;
@@ -232,8 +219,21 @@ public class MscClientes  implements java.io.Serializable {
     public void setMscDeficiencia(String mscDeficiencia) {
         this.mscDeficiencia = mscDeficiencia;
     }
+    @Override
+    public String toString() {
+        return this.idmscClientes + " - " + this.mscNome;
+    }
 
-
+@Override
+    public boolean equals(Object object) {
+        if (object instanceof MscClientes) {
+            MscClientes clientes = (MscClientes) object;
+            if (clientes.getIdmscClientes() == this.getIdmscClientes()) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 
 }

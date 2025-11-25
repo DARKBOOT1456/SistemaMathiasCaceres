@@ -2,7 +2,6 @@ package bean;
 // Generated 14/10/2025 12:54:27 by Hibernate Tools 4.3.1
 
 
-import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -26,20 +25,20 @@ public class MscOrdemServicoAparelho  implements java.io.Serializable {
      private MscOrdensServico mscOrdensServico;
      private MscServicos mscServicos;
      private int mscQuantidade;
-     private BigDecimal mscValorUnitario;
+     private double mscValorUnitario;
      private String mscObservacoes;
 
     public MscOrdemServicoAparelho() {
     }
 
 	
-    public MscOrdemServicoAparelho(int mscIdOsAparelho, int mscQuantidade, BigDecimal mscValorUnitario, String mscObservacoes) {
+    public MscOrdemServicoAparelho(int mscIdOsAparelho, int mscQuantidade, double mscValorUnitario, String mscObservacoes) {
         this.mscIdOsAparelho = mscIdOsAparelho;
         this.mscQuantidade = mscQuantidade;
         this.mscValorUnitario = mscValorUnitario;
         this.mscObservacoes = mscObservacoes;
     }
-    public MscOrdemServicoAparelho(int mscIdOsAparelho, MscAparelhos mscAparelhos, MscOrdensServico mscOrdensServico, MscServicos mscServicos, int mscQuantidade, BigDecimal mscValorUnitario, String mscObservacoes) {
+    public MscOrdemServicoAparelho(int mscIdOsAparelho, MscAparelhos mscAparelhos, MscOrdensServico mscOrdensServico, MscServicos mscServicos, int mscQuantidade, double mscValorUnitario, String mscObservacoes) {
        this.mscIdOsAparelho = mscIdOsAparelho;
        this.mscAparelhos = mscAparelhos;
        this.mscOrdensServico = mscOrdensServico;
@@ -103,11 +102,11 @@ public class MscOrdemServicoAparelho  implements java.io.Serializable {
 
     
     @Column(name="msc_valor_unitario", nullable=false, precision=10)
-    public BigDecimal getMscValorUnitario() {
+    public double getMscValorUnitario() {
         return this.mscValorUnitario;
     }
     
-    public void setMscValorUnitario(BigDecimal mscValorUnitario) {
+    public void setMscValorUnitario(double mscValorUnitario) {
         this.mscValorUnitario = mscValorUnitario;
     }
 

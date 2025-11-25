@@ -7,6 +7,7 @@ package view;
 import bean.MscUsuarios;
 import dao.UsuariosDao;
 import java.util.List;
+import tools.Util;
 import view.JDlgUsuarios;
 
 /**
@@ -67,6 +68,11 @@ public void setTelaAnterior(JDlgUsuarios jDlgUsuarios){
         jScrollPane1.setViewportView(jTable1);
 
         jButton1.setText("Ok");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -98,10 +104,21 @@ public void setTelaAnterior(JDlgUsuarios jDlgUsuarios){
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
        
-          MscUsuarios usuariosBean =  controllerUsuarios.getBean( jTable1.getSelectedRow() );
-     jDlgUsuarios.beanView(usuariosBean);
-        this.setVisible(false);
+          if (jTable1.getSelectedRow() == -1) {
+            Util.mensagem("Nenhum registro foi selecionada. Favor selecionar um registro.");
+        } else {
+            MscUsuarios usuarios = controllerUsuarios.getBean(jTable1.getSelectedRow());
+            jDlgUsuarios.beanView(usuarios);
+            this.setVisible(false);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+         if (evt.getClickCount() == 2) {
+            jButton1ActionPerformed(null);
+        }
+    }//GEN-LAST:event_jButton1MouseClicked
 
     /**
      * @param args the command line arguments

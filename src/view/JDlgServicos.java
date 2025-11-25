@@ -4,15 +4,6 @@
  */
 package view;
 
-<<<<<<< HEAD
-import bean.ServicosBean;
-import dao.ServicosDao;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import javax.swing.JOptionPane;
-
-=======
 import bean.MscServicos;
 import dao.ServicosDao;
 import java.math.BigDecimal;
@@ -26,7 +17,6 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
 /**
  *
  * @author mathi
@@ -36,8 +26,6 @@ public class JDlgServicos extends javax.swing.JDialog {
     /**
      * Creates new form JDlgServicos
      */
-<<<<<<< HEAD
-=======
     private boolean incluir;
     private boolean validarData(String dataStr) {
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -59,43 +47,10 @@ public class JDlgServicos extends javax.swing.JDialog {
         return false;
     }
 }
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
     public JDlgServicos(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setTitle("Cadastro de Serviços");
-<<<<<<< HEAD
-        setLocationRelativeTo(null); //centraliza o frame
-        habilitar(false);
-    }
-    public void habilitar (boolean valor){
-    jBtnConfirmar.setEnabled(valor);
-        jBtnCancelar.setEnabled(valor);
-        jTxtCodigo.setEnabled(valor);
-        jTxtDesc.setEnabled(valor);
-        jTxtNomeServ.setEnabled(valor);
-        jTxtTempo.setEnabled(valor);
-        jFmtValor.setEnabled(valor);
-        jCboCat.setEnabled(valor);
-        jFmtData.setEnabled(valor);
-        
-        jBtnIncluir.setEnabled(!valor);
-        jBtnAlterar.setEnabled(!valor);
-        jBtnExcluir.setEnabled(!valor);
-        jBtnPesquisar.setEnabled(!valor);
-    }
-    
-    public void limpar(){
-    
-        jTxtCodigo.setText("");
-        jTxtNomeServ.setText("");
-        jTxtDesc.setText("");
-        jFmtValor.setText("");
-        jTxtTempo.setText("");
-      jCboCat.setSelectedIndex(-1);
-        jFmtData.setText("");
-    }
-=======
         setLocationRelativeTo(null); 
       
          Util.habilitar(false, jTxtCodigo,jTxtNomeServ,  jTxtDesc,
@@ -163,7 +118,6 @@ if (categoria != null) {
         return servicosBean;
     }
    
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -193,11 +147,7 @@ if (categoria != null) {
         jBtnPesquisar = new javax.swing.JButton();
         jFmtData = new javax.swing.JFormattedTextField();
         jFmtValor = new javax.swing.JFormattedTextField();
-<<<<<<< HEAD
-        jCboCat = new javax.swing.JComboBox<>();
-=======
         jCboCat = new javax.swing.JComboBox<String>();
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -239,11 +189,7 @@ if (categoria != null) {
             }
         });
 
-<<<<<<< HEAD
-        jBtnIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/incluir.png"))); // NOI18N
-=======
         jBtnIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/incluir.png"))); // NOI18N
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
         jBtnIncluir.setText("Incluir");
         jBtnIncluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -251,11 +197,7 @@ if (categoria != null) {
             }
         });
 
-<<<<<<< HEAD
-        jBtnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/alterar.png"))); // NOI18N
-=======
         jBtnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/alterar.png"))); // NOI18N
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
         jBtnAlterar.setText("Alterar");
         jBtnAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -263,11 +205,7 @@ if (categoria != null) {
             }
         });
 
-<<<<<<< HEAD
-        jBtnConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/ok.png"))); // NOI18N
-=======
         jBtnConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ok.png"))); // NOI18N
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
         jBtnConfirmar.setText("Confirmar");
         jBtnConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -275,11 +213,7 @@ if (categoria != null) {
             }
         });
 
-<<<<<<< HEAD
-        jBtnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/exit.png"))); // NOI18N
-=======
         jBtnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cancelar.png"))); // NOI18N
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
         jBtnCancelar.setText("Cancelar");
         jBtnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -287,11 +221,7 @@ if (categoria != null) {
             }
         });
 
-<<<<<<< HEAD
-        jBtnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Excluir.png"))); // NOI18N
-=======
         jBtnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Excluir.png"))); // NOI18N
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
         jBtnExcluir.setText("Excluir");
         jBtnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -299,11 +229,7 @@ if (categoria != null) {
             }
         });
 
-<<<<<<< HEAD
-        jBtnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pesquisar.png"))); // NOI18N
-=======
         jBtnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/pesquisar.png"))); // NOI18N
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
         jBtnPesquisar.setText("Pesquisar");
         jBtnPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -317,11 +243,7 @@ if (categoria != null) {
             }
         });
 
-<<<<<<< HEAD
-        jCboCat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Celular", "Tablet", "Fone", "Notebook", "Computador", "Televisão", "Console de Videogame", "Outros Aparelhos Eletrônicos" }));
-=======
         jCboCat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Celular", "Tablet", "Fone", "Notebook", "Computador", "Televisão", "Console de Videogame", "Outros Aparelhos Eletrônicos" }));
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -331,30 +253,17 @@ if (categoria != null) {
                 .addGap(58, 58, 58)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-<<<<<<< HEAD
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jBtnAlterar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jBtnIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(26, 26, 26)
-=======
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jBtnIncluir)
                             .addComponent(jBtnAlterar))
                         .addGap(21, 21, 21)
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jBtnConfirmar)
                             .addComponent(jBtnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(26, 26, 26)
-<<<<<<< HEAD
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jBtnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jBtnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
-=======
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jBtnPesquisar)
                             .addComponent(jBtnCancelar)))
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -383,11 +292,7 @@ if (categoria != null) {
                                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(54, 54, 54))
                                 .addComponent(jCboCat, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-<<<<<<< HEAD
-                .addContainerGap(57, Short.MAX_VALUE))
-=======
                 .addContainerGap(52, Short.MAX_VALUE))
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -422,18 +327,11 @@ if (categoria != null) {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jFmtData, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(49, 49, 49)
-<<<<<<< HEAD
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBtnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtnIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-=======
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jBtnConfirmar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jBtnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jBtnIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jBtnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -463,10 +361,6 @@ if (categoria != null) {
 
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
         // TODO add your handling code here:
-<<<<<<< HEAD
-        habilitar(true);
-        limpar();
-=======
         Util.habilitar(true, jTxtCodigo,jTxtNomeServ,  jTxtDesc,
                 jFmtValor, jTxtTempo, jCboCat, jFmtData, 
                   jBtnConfirmar, jBtnCancelar);
@@ -475,80 +369,29 @@ if (categoria != null) {
            Util.limpar(jTxtCodigo,jTxtNomeServ,  jTxtDesc,
                 jFmtValor, jTxtTempo, jCboCat, jFmtData);
             incluir = true;
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
         // TODO add your handling code here:
-<<<<<<< HEAD
-        habilitar(true);
-=======
          Util.habilitar(true, jTxtCodigo,jTxtNomeServ,  jTxtDesc,
                 jFmtValor, jTxtTempo, jCboCat, jFmtData, 
                   jBtnConfirmar, jBtnCancelar);
         
          Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
            incluir = false;
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
         // TODO add your handling code here:
-<<<<<<< HEAD
-        //desabilitar();
-        habilitar(false);
-         ServicosBean servicos = new ServicosBean();
-    int cod = Integer.parseInt(jTxtCodigo.getText());
-    servicos.setMsc_idServicos(cod);
-    servicos.setMsc_nome_servico(jTxtNomeServ.getText());
-    servicos.setMsc_descricao(jTxtDesc.getText());
-   servicos.setMsc_valor(Double.valueOf(jFmtValor.getText()));
-    servicos.setMsc_tempo_estimado(jTxtTempo.getText());
-    servicos.setMsc_categoria(jCboCat.getSelectedItem().toString());
-    String dataTexto = jFmtData.getText().trim();
-    if (dataTexto.isEmpty() || dataTexto.contains(" ")) {
-        JOptionPane.showMessageDialog(this, "A data é obrigatória!");
-        return;
-    }
-    try {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        Date data = sdf.parse(dataTexto);
-        servicos.setMsc_data_cadastro(data);
-    } catch (ParseException e) {
-        JOptionPane.showMessageDialog(this, "Data inválida!");
-        return;
-    }
-  
-     ServicosDao dao = new ServicosDao();
-    
-     ServicosBean existente = (ServicosBean) dao.list(cod);
-    if (existente == null) {
-        dao.insert(servicos);
-        JOptionPane.showMessageDialog(this, "Serviço cadastrado com sucesso!");
-    } else {
-        dao.update(servicos);
-        JOptionPane.showMessageDialog(this, "Serviço alterado com sucesso!");
-    }
-
-    
-
-    limpar();
-    }//GEN-LAST:event_jBtnConfirmarActionPerformed
-
-    private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
-        // TODO add your handling code here:
-        //desabilitar();
-        habilitar(false);
-        limpar();
-=======
         if (!validarData(jFmtData.getText())) {
         return; 
     }
         ServicosDao servicosDAO = new ServicosDao();
+         MscServicos servicos = viewBean();
     if(incluir == true){
-        servicosDAO.insert(viewBean());
+        servicosDAO.insert(servicos);
     } else{
-        servicosDAO.update(viewBean());
+        servicosDAO.update(servicos);
     }
          Util.habilitar(false, jTxtCodigo,jTxtNomeServ,  jTxtDesc,
                 jFmtValor, jTxtTempo, jCboCat, jFmtData, 
@@ -572,30 +415,10 @@ if (categoria != null) {
                 jFmtValor, jTxtTempo, jCboCat, jFmtData);
 // TODO add your handling code here:
        
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
         // TODO add your handling code here:
-<<<<<<< HEAD
-        int resp = JOptionPane.showConfirmDialog(null, "Deseja excluir ?");
-        if(resp == JOptionPane.YES_OPTION){
-           ServicosBean servicos = new ServicosBean();
-            int cod = Integer.parseInt(jTxtCodigo.getText());
-        servicos.setMsc_idServicos(cod);
-        servicos.setMsc_nome_servico(jTxtNomeServ.getText());
-        servicos.setMsc_descricao(jTxtDesc.getText());
-        servicos.setMsc_valor(Double.valueOf(jFmtValor.getText()));
-        servicos.setMsc_tempo_estimado(jTxtTempo.getText()); //jTxtApelido.getText());
-        servicos.setMsc_categoria(jCboCat.getSelectedItem().toString());
-       servicos.setMsc_data_cadastro(null);
-
-            
-            ServicosDao servicosDao = new ServicosDao();
-            servicosDao.delete(servicos);
-        }
-        limpar();
-=======
         if (Util.perguntar("Deseja Excluir?") == true){
       
           
@@ -605,7 +428,6 @@ if (categoria != null) {
          Util.limpar(jTxtCodigo,jTxtNomeServ,  jTxtDesc,
                 jFmtValor, jTxtTempo, jCboCat, jFmtData);
       
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
     private void jFmtDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFmtDataActionPerformed
@@ -614,34 +436,11 @@ if (categoria != null) {
 
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed
         // TODO add your handling code here:
-<<<<<<< HEAD
-       String id = JOptionPane.showInputDialog(null, "Entre com o código");
-        int codigo = Integer.parseInt(id);
-        ServicosDao servicosDao = new ServicosDao();
-         ServicosBean servicos = (ServicosBean) servicosDao.list(codigo);
-        if (servicos ==  null){
-            JOptionPane.showMessageDialog(null, "Codigo Não encontrado");
-        }
-        else{
-            jTxtCodigo.setText(id);
-        jTxtNomeServ.setText(servicos.getMsc_nome_servico());
-        jTxtDesc.setText(servicos.getMsc_descricao());
-         jFmtValor.setValue(servicos.getMsc_valor());
-        jTxtTempo.setText(servicos.getMsc_tempo_estimado());
-       jCboCat.setSelectedItem(servicos.getMsc_categoria());
-         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-    String dataFormatada = sdf.format(servicos.getMsc_data_cadastro());
-    jFmtData.setText(dataFormatada);
-     
-    }//GEN-LAST:event_jBtnPesquisarActionPerformed
-    }
-=======
      JDlgServicosPesquisar jDlgServicosPesquisar =  new JDlgServicosPesquisar(null,true); 
        jDlgServicosPesquisar.setTelaAnterior(this);
         jDlgServicosPesquisar.setVisible(true);
     }//GEN-LAST:event_jBtnPesquisarActionPerformed
    
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
     /**
      * @param args the command line arguments
      */

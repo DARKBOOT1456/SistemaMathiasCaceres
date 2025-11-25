@@ -38,14 +38,9 @@ public class MscServicos  implements java.io.Serializable {
     }
 
 	
-    public MscServicos(int idmscServicos, String mscNomeServico, String mscDescricao, BigDecimal mscValor, String mscTempoEstimado, String mscCategoria, Date mscDataCadastro) {
+    public MscServicos(int idmscServicos) {
         this.idmscServicos = idmscServicos;
-        this.mscNomeServico = mscNomeServico;
-        this.mscDescricao = mscDescricao;
-        this.mscValor = mscValor;
-        this.mscTempoEstimado = mscTempoEstimado;
-        this.mscCategoria = mscCategoria;
-        this.mscDataCadastro = mscDataCadastro;
+       
     }
     public MscServicos(int idmscServicos, String mscNomeServico, String mscDescricao, BigDecimal mscValor, String mscTempoEstimado, String mscCategoria, Date mscDataCadastro, Set mscOrdemServicoAparelhos) {
        this.idmscServicos = idmscServicos;
@@ -130,7 +125,21 @@ public class MscServicos  implements java.io.Serializable {
         this.mscDataCadastro = mscDataCadastro;
     }
 
+@Override
+    public String toString() {
+        return this.idmscServicos + " - " + this.mscNomeServico;
+    }
 
+    @Override
+    public boolean equals(Object object) {
+        if (object instanceof MscServicos) {
+            MscServicos servicos = (MscServicos) object;
+            if (servicos.getIdmscServicos() == this.getIdmscServicos()) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 
 

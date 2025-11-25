@@ -1,11 +1,12 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package view;
 
-import bean.MscClientes;
-import dao.ClientesDao;
+import bean.MscOrdensServico;
+import dao.Ordem_servicoDao;
 import java.util.List;
 import tools.Util;
 
@@ -13,29 +14,29 @@ import tools.Util;
  *
  * @author mathi
  */
-public class JDlgClientesPesquisar extends javax.swing.JDialog {
-    
-private JDlgClientes jDlgClientes;
- ControllerClientes controllerClientes;
+public class JDlgOrdemDeServicoPesquisar extends javax.swing.JDialog {
+
     /**
-     * Creates new form JDlgClientesPesquisar
+     * Creates new form JDlgOrdemDeServicoPesquisar
      */
-    public JDlgClientesPesquisar(java.awt.Frame parent, boolean modal) {
+    
+     private JDlgOrdemDeServico jDlgOrdemDeServico;
+    ControllerOrdemDeServico controllerOrdemDeServico;
+    public JDlgOrdemDeServicoPesquisar(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        setTitle("Pesquisar Clientes");
-        setLocationRelativeTo(null);controllerClientes = new ControllerClientes();
-    ClientesDao clientesDAO = new ClientesDao();
-      List lista = (List) clientesDAO.listAll();
-      controllerClientes.setList(lista);
-        jTable1.setModel(controllerClientes);
-        
-       
+        setLocationRelativeTo(null);
+        setTitle("Pesquisar Pedidos");
+        controllerOrdemDeServico = new ControllerOrdemDeServico();
+        Ordem_servicoDao ordem_servicoDao = new Ordem_servicoDao();
+        List lista = (List) ordem_servicoDao.listAll();
+        controllerOrdemDeServico.setList(lista);
+        jTable1.setModel(controllerOrdemDeServico);
     }
-    
- public void setTelaAnterior(JDlgClientes jDlgClientes){
-    this.jDlgClientes = jDlgClientes;
+     public void setTelaAnterior(JDlgOrdemDeServico jDlgOrdemDeServico) {
+        this.jDlgOrdemDeServico = jDlgOrdemDeServico;
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -47,7 +48,7 @@ private JDlgClientes jDlgClientes;
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        jBtnOk = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -62,17 +63,22 @@ private JDlgClientes jDlgClientes;
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
-
-        jButton1.setText("Ok");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                jTable1MouseClicked(evt);
             }
         });
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jScrollPane1.setViewportView(jTable1);
+
+        jBtnOk.setText("OK");
+        jBtnOk.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jBtnOkMouseClicked(evt);
+            }
+        });
+        jBtnOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jBtnOkActionPerformed(evt);
             }
         });
 
@@ -80,37 +86,47 @@ private JDlgClientes jDlgClientes;
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 637, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jBtnOk))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1))
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jBtnOk)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
+        if (evt.getClickCount() == 2) {
+            jBtnOkActionPerformed(null);
+        }
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jBtnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnOkActionPerformed
         if (jTable1.getSelectedRow() == -1) {
             Util.mensagem("Nenhum registro foi selecionada. Favor selecionar um registro.");
         } else {
-            MscClientes clientes = controllerClientes.getBean(jTable1.getSelectedRow());
-            jDlgClientes.beanView(clientes);
+            MscOrdensServico mscOrdensServico = controllerOrdemDeServico.getBean(jTable1.getSelectedRow());
+            jDlgOrdemDeServico.beanView(mscOrdensServico);
             this.setVisible(false);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jBtnOkActionPerformed
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+    private void jBtnOkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnOkMouseClicked
         // TODO add your handling code here:
          if (evt.getClickCount() == 2) {
-            jButton1ActionPerformed(null);
+            jBtnOkActionPerformed(null);
         }
-    }//GEN-LAST:event_jButton1MouseClicked
+    }//GEN-LAST:event_jBtnOkMouseClicked
 
     /**
      * @param args the command line arguments
@@ -129,20 +145,20 @@ private JDlgClientes jDlgClientes;
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JDlgClientesPesquisar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDlgOrdemDeServicoPesquisar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JDlgClientesPesquisar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDlgOrdemDeServicoPesquisar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JDlgClientesPesquisar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDlgOrdemDeServicoPesquisar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JDlgClientesPesquisar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDlgOrdemDeServicoPesquisar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                JDlgClientesPesquisar dialog = new JDlgClientesPesquisar(new javax.swing.JFrame(), true);
+                JDlgOrdemDeServicoPesquisar dialog = new JDlgOrdemDeServicoPesquisar(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -155,7 +171,7 @@ private JDlgClientes jDlgClientes;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jBtnOk;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables

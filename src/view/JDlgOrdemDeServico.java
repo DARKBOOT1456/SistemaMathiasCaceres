@@ -1,23 +1,20 @@
 package view;
 
-<<<<<<< HEAD
-import bean.Ordem_servicoBean;
-import dao.Ordem_servicoDao;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import javax.swing.JOptionPane;
-=======
 
 import bean.MscClientes;
-import bean.MscOrdensservico;
+import bean.MscOrdemServicoAparelho;
+import bean.MscOrdensServico;
 import bean.MscServicos;
 import bean.MscUsuarios;
 import dao.ClientesDao;
+import dao.OrdemServicoAparelhoDao;
 import dao.Ordem_servicoDao;
+import dao.ServicosDao;
+import dao.UsuariosDao;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -29,7 +26,6 @@ import javax.swing.text.MaskFormatter;
 import tools.Util;
 import view.JDlgClientes;
 
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -41,14 +37,11 @@ import view.JDlgClientes;
  * @author mathi
  */
 public class JDlgOrdemDeServico extends javax.swing.JDialog {
-<<<<<<< HEAD
-
-=======
     
+  ControllerOrdemDeServicoAparelho controllerOrdemDeServicoAparelho;
 
-private boolean incluir;
+ boolean incluir;
     
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
     /**
      * Creates new form JDlgOrdemDeServico
      */
@@ -56,65 +49,62 @@ private boolean incluir;
         super(parent, modal);
         initComponents();
          setTitle("Movimento Ordem de serviço");
-<<<<<<< HEAD
-        setLocationRelativeTo(null); //centraliza o frame
-        habilitar(false);
-    }
-    public void habilitar (boolean valor){
-    jBtnConfirmar.setEnabled(valor);
-        jBtnCancelar.setEnabled(valor);
-        jFmtCliente.setEnabled(valor);
-        jCobTec.setEnabled(valor);
-        jFmtUsuario.setEnabled(valor);
-        jCobStatus.setEnabled(valor);
-        jFmtData.setEnabled(valor);
-        jFmtNota.setEnabled(valor);
-        jFmtServ.setEnabled(valor);
-        jFmtValor.setEnabled(valor);
-        
-        
-    
-        
-        
-       
-        jBtnAlterar.setEnabled(!valor);
-        jBtnPesquisar.setEnabled(!valor);
-    }
-    public void limpar(){
-    
-        jFmtCliente.setText("");
-        jCobTec.setSelectedIndex(-1);
-        jFmtUsuario.setText("");
-        jCobStatus.setSelectedIndex(-1);
-        jFmtData.setText("");
-        jFmtNota.setText("");
-         jFmtServ.setText("");
-         jFmtValor.setText("");
-         
-        
-        
-=======
         setLocationRelativeTo(null); 
+       Util.habilitar(false, jTxtCod, jCobCliente, jFmtData, jCombUsuario, 
+            jCombServ, jCobTec,jCobStatus,jTxtValor,
+            jBtnConfirmar, jBtnCancelar);
         ClientesDao clientesDAO = new ClientesDao();
         List lista = (List) clientesDAO.listAll();
         for (int i = 0; i < lista.size(); i++) {
             jCobCliente.addItem( (MscClientes) lista.get(i));            
         }
      
+         UsuariosDao usuarios = new UsuariosDao();
+        List listaUsu = (List) usuarios.listAll();
+        for (Object object : listaUsu) {
+            jCombUsuario.addItem((MscUsuarios) object);
+        }
+        ServicosDao servicos = new ServicosDao();
+        List listaServ = (List) servicos.listAll();
+        for (Object object : listaServ) {
+            jCombServ.addItem((MscServicos) object);
+        }
+        
+        controllerOrdemDeServicoAparelho = new ControllerOrdemDeServicoAparelho();
+        controllerOrdemDeServicoAparelho.setList(new ArrayList());
+        jTableOrdem.setModel(controllerOrdemDeServicoAparelho);
+    
     
     }
-     public MscOrdensservico viewBean() {
-        MscOrdensservico ordensservico = new MscOrdensservico();
-        ordensservico.setIdmscOrdensServico( Util.strToInt(jTxtCod.getText()));
-        ordensservico.setMscDataInicio(Util.strToDate(jFmtData.getText()));
-        ordensservico.setMscValorTotal(Util.strToDouble(jFmtValor.getText()));
-        ordensservico.setMscClientes((MscClientes) jCobCliente.getSelectedItem());
-        ordensservico.setMscUsuarios((MscUsuarios) jCombUsuario.getSelectedItem());
-        ordensservico.setMscServicos((MscServicos) jCombServ.getSelectedItem());
+     public MscOrdensServico viewBean() {
+        MscOrdensServico mscordensservico = new MscOrdensServico();
+        mscordensservico.setIdmscOrdensServico( Util.strToInt(jTxtCod.getText()));
+        mscordensservico.setMscDataInicio(Util.strToDate(jFmtData.getText()));
+        mscordensservico.setMscValorTotal(Util.strToDouble(jTxtValor.getText()));
+        mscordensservico.setMscClientes((MscClientes) jCobCliente.getSelectedItem());
+        mscordensservico.setMscUsuarios((MscUsuarios) jCombUsuario.getSelectedItem());
+        mscordensservico.setMscServicos((MscServicos) jCombServ.getSelectedItem());
+         mscordensservico.setMscStatus(jCobStatus.getSelectedItem().toString());
+        mscordensservico.setMscTecnicoResponsavel(jCobTec.getSelectedItem().toString());
+
        
-        return ordensservico;
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
+        return mscordensservico;
     }
+      public void beanView(MscOrdensServico mscOrdensServico) {
+        jTxtCod.setText(Util.intToStr(mscOrdensServico.getIdmscOrdensServico()));
+        jFmtData.setText(Util.dateToStr(mscOrdensServico.getMscDataInicio()));
+        jTxtValor.setText(Util.doubleToStr(mscOrdensServico.getMscValorTotal()));
+        jCobCliente.setSelectedItem(mscOrdensServico.getMscClientes());
+        jCombUsuario.setSelectedItem(mscOrdensServico.getMscUsuarios());
+         jCombServ.setSelectedItem(mscOrdensServico.getMscServicos());
+         jCobStatus.setSelectedItem(mscOrdensServico.getMscStatus());
+        jCobTec.setSelectedItem(mscOrdensServico.getMscTecnicoResponsavel());
+        
+        OrdemServicoAparelhoDao ordemServicoAparelhoDao = new OrdemServicoAparelhoDao();
+        List lista = (List) ordemServicoAparelhoDao.listAparelhos(mscOrdensServico);
+        controllerOrdemDeServicoAparelho.setList(lista);
+    }
+     
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -132,28 +122,14 @@ private boolean incluir;
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-<<<<<<< HEAD
-        jFmtNota = new javax.swing.JFormattedTextField();
         jCobStatus = new javax.swing.JComboBox<>();
-=======
-        jCobStatus = new javax.swing.JComboBox<String>();
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
         jFmtData = new javax.swing.JFormattedTextField();
         jBtnAlterar = new javax.swing.JButton();
         jBtnConfirmar = new javax.swing.JButton();
         jBtnCancelar = new javax.swing.JButton();
         jBtnPesquisar = new javax.swing.JButton();
-<<<<<<< HEAD
-        jFmtCliente = new javax.swing.JFormattedTextField();
-        jFmtUsuario = new javax.swing.JFormattedTextField();
-        jFmtServ = new javax.swing.JFormattedTextField();
         jCobTec = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
-        jFmtValor = new javax.swing.JFormattedTextField();
-=======
-        jCobTec = new javax.swing.JComboBox<String>();
-        jLabel8 = new javax.swing.JLabel();
-        jFmtValor = new javax.swing.JFormattedTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableOrdem = new javax.swing.JTable();
         jBtnIncluir = new javax.swing.JButton();
@@ -162,24 +138,15 @@ private boolean incluir;
         jBtnInclusao = new javax.swing.JButton();
         jBtnSave = new javax.swing.JButton();
         jBtnCancel = new javax.swing.JButton();
-        jCobCliente = new javax.swing.JComboBox<String>();
-        jCombUsuario = new javax.swing.JComboBox<String>();
-        jCombServ = new javax.swing.JComboBox<String>();
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
+        jCobCliente = new javax.swing.JComboBox<MscClientes>();
+        jCombUsuario = new javax.swing.JComboBox<MscUsuarios>();
+        jCombServ = new javax.swing.JComboBox<MscServicos>();
+        jTxtValor = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Numero da nota");
 
-<<<<<<< HEAD
-        jLabel2.setText("Codigo de Cliente");
-
-        jLabel3.setText("Tecnico Responsavel");
-
-        jLabel4.setText("Codigo de Usuario");
-
-        jLabel5.setText(" Codigo de Serviço");
-=======
         jLabel2.setText("Cliente");
 
         jLabel3.setText("Tecnico Responsavel");
@@ -187,17 +154,12 @@ private boolean incluir;
         jLabel4.setText("Usuario");
 
         jLabel5.setText(" Serviço");
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
 
         jLabel6.setText("Data de Inicio");
 
         jLabel7.setText("Status");
 
-<<<<<<< HEAD
         jCobStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Concluido", "Em andamento", "Aberto", "Esperando confirmação" }));
-=======
-        jCobStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Concluido", "Em andamento", "Aberto", "Esperando confirmação" }));
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
 
         jFmtData.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -205,11 +167,7 @@ private boolean incluir;
             }
         });
 
-<<<<<<< HEAD
-        jBtnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/alterar.png"))); // NOI18N
-=======
         jBtnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/alterar.png"))); // NOI18N
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
         jBtnAlterar.setText("Alterar");
         jBtnAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -217,11 +175,7 @@ private boolean incluir;
             }
         });
 
-<<<<<<< HEAD
-        jBtnConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/ok.png"))); // NOI18N
-=======
         jBtnConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ok.png"))); // NOI18N
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
         jBtnConfirmar.setText("Confirmar");
         jBtnConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -229,11 +183,7 @@ private boolean incluir;
             }
         });
 
-<<<<<<< HEAD
-        jBtnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/exit.png"))); // NOI18N
-=======
         jBtnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/exit.png"))); // NOI18N
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
         jBtnCancelar.setText("Cancelar");
         jBtnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -241,11 +191,7 @@ private boolean incluir;
             }
         });
 
-<<<<<<< HEAD
-        jBtnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pesquisar.png"))); // NOI18N
-=======
         jBtnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/pesquisar.png"))); // NOI18N
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
         jBtnPesquisar.setText("Pesquisar");
         jBtnPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -253,17 +199,7 @@ private boolean incluir;
             }
         });
 
-<<<<<<< HEAD
-        jFmtUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFmtUsuarioActionPerformed(evt);
-            }
-        });
-
-        jCobTec.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mathias", "Nelson", "Sirlene", "Mateus" }));
-=======
-        jCobTec.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Mathias", "Nelson", "Sirlene", "Mateus" }));
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
+        jCobTec.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mathias", "Mateus" }));
         jCobTec.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCobTecActionPerformed(evt);
@@ -272,14 +208,6 @@ private boolean incluir;
 
         jLabel8.setText("Valor Total");
 
-        jFmtValor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFmtValorActionPerformed(evt);
-            }
-        });
-
-<<<<<<< HEAD
-=======
         jTableOrdem.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -336,70 +264,17 @@ private boolean incluir;
             }
         });
 
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
+        jCobCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCobClienteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-<<<<<<< HEAD
-                .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jFmtServ, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jFmtNota, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jCobStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(12, 12, 12)))
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jFmtData, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jFmtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(23, 23, 23)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jFmtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel4)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(24, 24, 24)
-                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jCobTec, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 35, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(jFmtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(114, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jBtnConfirmar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jBtnAlterar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jBtnPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                    .addComponent(jBtnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(127, 127, 127))
-=======
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(145, 145, 145)
@@ -419,9 +294,9 @@ private boolean incluir;
                                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jCobStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jFmtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
+                                    .addComponent(jTxtValor)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -470,50 +345,10 @@ private boolean incluir;
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-<<<<<<< HEAD
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jFmtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFmtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFmtNota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jFmtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFmtServ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCobTec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCobStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFmtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBtnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBtnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(68, 68, 68))
-=======
                 .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -542,11 +377,12 @@ private boolean incluir;
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jLabel7)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jCobStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jCobStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTxtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jLabel8)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jFmtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGap(29, 29, 29))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
@@ -565,7 +401,6 @@ private boolean incluir;
                     .addComponent(jBtnIncluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jBtnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(17, 17, 17))
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
         );
 
         pack();
@@ -577,124 +412,82 @@ private boolean incluir;
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
         // TODO add your handling code here:
-<<<<<<< HEAD
-        habilitar(true);
-=======
-         
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
+          Util.habilitar(true, jTxtCod, jCobCliente, jFmtData, jCombUsuario, 
+            jCombServ, jCobTec,jCobStatus,jTxtValor,
+            jBtnConfirmar, jBtnCancelar);
+        Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+        //Util.limpar(jTxtCod, jCobCliente, jFmtData, jCombUsuario, 
+            //jCombServ, jCobTec,jCobStatus,jTxtValor);
+controllerOrdemDeServicoAparelho.setList(new ArrayList());
+        incluir = false;
+       
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
         // TODO add your handling code here:
-<<<<<<< HEAD
-        //desabilitar();
-        habilitar(false);
-         Ordem_servicoBean ordem_servico = new Ordem_servicoBean();
-    int cod = Integer.parseInt(jFmtNota.getText());
-    ordem_servico.setMsc_idOrdensServico(cod);
-     String dataTexto = jFmtData.getText().trim();
-    if (dataTexto.isEmpty() || dataTexto.contains(" ")) {
-        JOptionPane.showMessageDialog(this, "A data de nascimento é obrigatória!");
-        return;
-    }
-    try {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        Date data = sdf.parse(dataTexto);
-        ordem_servico.setMsc_data_inicio(data);
-    } catch (ParseException e) {
-        JOptionPane.showMessageDialog(this, "Data inválida!");
-        return;
-    }
-    ordem_servico.setMsc_status(jCobStatus.getSelectedItem().toString());
-    ordem_servico.setMsc_Tecnico_responsavel(jCobTec.getSelectedItem().toString());
-    ordem_servico.setMsc_valorTotal(jFmtValor.getText());
-    ordem_servico.setMsc_fkCliente(Integer.parseInt(jFmtCliente.getText()));
-    ordem_servico.setMsc_fkUsuarios(Integer.parseInt(jFmtUsuario.getText()));
-    ordem_servico.setMsc_fkServico(Integer.parseInt(jFmtServ.getText()));
+       Ordem_servicoDao ordem_servicoDao = new Ordem_servicoDao();       
+            OrdemServicoAparelhoDao ordemServicoAparelhoDao = new OrdemServicoAparelhoDao();
+        MscOrdensServico mscOrdensServico = viewBean();
+        if (incluir == true) {
+            ordem_servicoDao.insert(mscOrdensServico);
+            for (int ind = 0; ind < jTableOrdem.getRowCount(); ind++) {
+                MscOrdemServicoAparelho mscOrdemServicoAparelho = controllerOrdemDeServicoAparelho.getBean(ind);
+                mscOrdemServicoAparelho.setMscOrdensServico(mscOrdensServico);
+                ordemServicoAparelhoDao.insert(mscOrdemServicoAparelho);
+            }
+        } else {
+            ordem_servicoDao.update(mscOrdensServico);
 
-     Ordem_servicoDao dao = new Ordem_servicoDao();
-    
-     Ordem_servicoBean existente = (Ordem_servicoBean) dao.list(cod);
-    if (existente == null) {
-        dao.insert(ordem_servico);
-        JOptionPane.showMessageDialog(this, "Usuário cadastrado com sucesso!");
-    } else {
-        dao.update(ordem_servico);
-        JOptionPane.showMessageDialog(this, "Usuário alterado com sucesso!");
-    }
-    
- limpar();
-=======
-      MscOrdensservico ordensservico = viewBean();
+        }
+
+       Util.habilitar(false, jTxtCod, jCobCliente, jFmtData, jCombUsuario, 
+            jCombServ, jCobTec,jCobStatus,jTxtValor,
+            jBtnConfirmar, jBtnCancelar);
+        Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+        Util.limpar(jTxtCod, jCobCliente, jFmtData, jCombUsuario, 
+            jCombServ, jCobTec,jCobStatus,jTxtValor);
+controllerOrdemDeServicoAparelho.setList(new ArrayList());
         
     
     
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
     }//GEN-LAST:event_jBtnConfirmarActionPerformed
 
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed
         // TODO add your handling code here:
-<<<<<<< HEAD
-        String id = JOptionPane.showInputDialog(null, "Entre com o código");
-        int codigo = Integer.parseInt(id);
-        Ordem_servicoDao ordem_servicoDao = new Ordem_servicoDao();
-        Ordem_servicoBean ordem_servico = (Ordem_servicoBean) ordem_servicoDao.list(codigo);
-        if (ordem_servico ==  null){
-            JOptionPane.showMessageDialog(null, "Codigo Não encontrado");
-        }
-        else{
-            jFmtNota.setText(id);
-       jFmtCliente.setText(String.valueOf(ordem_servico.getMsc_fkCliente()));
-        jCobStatus.setSelectedItem(ordem_servico.getMsc_status());
-        jCobTec.setSelectedItem(ordem_servico.getMsc_Tecnico_responsavel());
-         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-    String dataFormatada = sdf.format(ordem_servico.getMsc_data_inicio());
-    jFmtData.setText(dataFormatada);
-       jFmtCliente.setText(String.valueOf(ordem_servico.getMsc_fkCliente()));
-        jFmtUsuario.setText(String.valueOf(ordem_servico.getMsc_fkUsuarios()));
-       jFmtServ.setText(String.valueOf(ordem_servico.getMsc_fkServico()));
-       jFmtValor.setText(String.valueOf(ordem_servico.getMsc_valorTotal()));
-
-      
-        }
-    }//GEN-LAST:event_jBtnPesquisarActionPerformed
-
-    private void jFmtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFmtUsuarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jFmtUsuarioActionPerformed
-
-=======
-        
+        JDlgOrdemDeServicoPesquisar jDlgOrdemDeServicoPesquisar = new JDlgOrdemDeServicoPesquisar(null, true);
+        jDlgOrdemDeServicoPesquisar.setTelaAnterior(this);
+        jDlgOrdemDeServicoPesquisar.setVisible(true);
     }//GEN-LAST:event_jBtnPesquisarActionPerformed
 
          
         
         
     
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
-    private void jFmtValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFmtValorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jFmtValorActionPerformed
-
     private void jCobTecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCobTecActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jCobTecActionPerformed
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
         // TODO add your handling code here:
-<<<<<<< HEAD
-        //desabilitar();
-        habilitar(false);
-        limpar();
-    }//GEN-LAST:event_jBtnCancelarActionPerformed
-
-=======
-       
+        Util.habilitar(false, jTxtCod, jCobCliente, jFmtData, jCombUsuario, 
+            jCombServ, jCobTec,jCobStatus,jTxtValor,
+            jBtnConfirmar, jBtnCancelar);
+        Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+        Util.limpar(jTxtCod, jCobCliente, jFmtData, jCombUsuario, 
+            jCombServ, jCobTec,jCobStatus,jTxtValor);
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
         // TODO add your handling code here:
-        
+         Util.habilitar(true, jTxtCod, jCobCliente, jFmtData, jCombUsuario, 
+            jCombServ, jCobTec,jCobStatus,jTxtValor,
+            jBtnConfirmar, jBtnCancelar);
+        Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+        Util.limpar(jTxtCod, jCobCliente, jFmtData, jCombUsuario, 
+            jCombServ, jCobTec,jCobStatus,jTxtValor);
+controllerOrdemDeServicoAparelho.setList(new ArrayList());
+
+        incluir = true;
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
     private void jTxtCodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtCodActionPerformed
@@ -703,24 +496,50 @@ private boolean incluir;
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
         // TODO add your handling code here:
-        
+         if (Util.perguntar("Deseja excluir ?") == true) {
+            Ordem_servicoDao ordem_servicoDao = new Ordem_servicoDao();       
+            OrdemServicoAparelhoDao ordemServicoAparelhoDao = new OrdemServicoAparelhoDao();
+            
+               
+              for (int ind = 0; ind < jTableOrdem.getRowCount(); ind++) {
+                MscOrdemServicoAparelho mscOrdemServicoAparelho = controllerOrdemDeServicoAparelho.getBean(ind);
+                ordemServicoAparelhoDao.delete(mscOrdemServicoAparelho);
+            }
+               ordem_servicoDao.delete(viewBean()); 
+        }
+         Util.limpar(jTxtCod, jCobCliente, jFmtData, jCombUsuario, 
+            jCombServ, jCobTec,jCobStatus,jTxtValor);
+        controllerOrdemDeServicoAparelho.setList(new ArrayList());
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
     private void jBtnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSaveActionPerformed
         // TODO add your handling code here:
-     
+      JDlgOrdemDeServicoAparelho jDlgOrdemDeServicoAparelho = new JDlgOrdemDeServicoAparelho(null, true);
+        jDlgOrdemDeServicoAparelho.setVisible(true);
     }//GEN-LAST:event_jBtnSaveActionPerformed
 
     private void jBtnInclusaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnInclusaoActionPerformed
         // TODO add your handling code here:
-  
+   JDlgOrdemDeServicoAparelho jDlgOrdemDeServicoAparelho = new JDlgOrdemDeServicoAparelho(null, true);
+        jDlgOrdemDeServicoAparelho.setTelaAnterior(this);
+        jDlgOrdemDeServicoAparelho.setVisible(true);
     }//GEN-LAST:event_jBtnInclusaoActionPerformed
 
     private void jBtnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelActionPerformed
         // TODO add your handling code here:
+           if (jTableOrdem.getSelectedRow() == -1) {
+            Util.mensagem("Oh seu loco, precisa selecionar uma linha.");
+        } else {
+            if (Util.perguntar("Deseja excluir o produto ?") == true) {
+                controllerOrdemDeServicoAparelho.removeBean(jTableOrdem.getSelectedRow());
+            }
+        }
     }//GEN-LAST:event_jBtnCancelActionPerformed
 
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
+    private void jCobClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCobClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCobClienteActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -765,18 +584,6 @@ private boolean incluir;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnAlterar;
-<<<<<<< HEAD
-    private javax.swing.JButton jBtnCancelar;
-    private javax.swing.JButton jBtnConfirmar;
-    private javax.swing.JButton jBtnPesquisar;
-    private javax.swing.JComboBox<String> jCobStatus;
-    private javax.swing.JComboBox<String> jCobTec;
-    private javax.swing.JFormattedTextField jFmtCliente;
-    private javax.swing.JFormattedTextField jFmtData;
-    private javax.swing.JFormattedTextField jFmtNota;
-    private javax.swing.JFormattedTextField jFmtServ;
-    private javax.swing.JFormattedTextField jFmtUsuario;
-=======
     private javax.swing.JButton jBtnCancel;
     private javax.swing.JButton jBtnCancelar;
     private javax.swing.JButton jBtnConfirmar;
@@ -785,14 +592,12 @@ private boolean incluir;
     private javax.swing.JButton jBtnInclusao;
     private javax.swing.JButton jBtnPesquisar;
     private javax.swing.JButton jBtnSave;
-    private javax.swing.JComboBox<String> jCobCliente;
+    private javax.swing.JComboBox<MscClientes> jCobCliente;
     private javax.swing.JComboBox<String> jCobStatus;
     private javax.swing.JComboBox<String> jCobTec;
-    private javax.swing.JComboBox<String> jCombServ;
-    private javax.swing.JComboBox<String> jCombUsuario;
+    private javax.swing.JComboBox<MscServicos> jCombServ;
+    private javax.swing.JComboBox<MscUsuarios> jCombUsuario;
     private javax.swing.JFormattedTextField jFmtData;
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
-    private javax.swing.JFormattedTextField jFmtValor;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -801,11 +606,9 @@ private boolean incluir;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-<<<<<<< HEAD
-=======
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableOrdem;
     private javax.swing.JTextField jTxtCod;
->>>>>>> c306d2f80dbe35c36662e202c193df1adabc7d2e
+    private javax.swing.JTextField jTxtValor;
     // End of variables declaration//GEN-END:variables
 }

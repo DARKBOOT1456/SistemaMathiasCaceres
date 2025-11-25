@@ -58,7 +58,7 @@ public class OrdemServicoAparelhoDao extends AbstractDao{
       public Object listAparelhos(MscOrdensServico mscOrdensServico) {
         session.beginTransaction();
         Criteria criteria = session.createCriteria(MscOrdemServicoAparelho.class);
-        criteria.add(Restrictions.eq("Ordem Serviço", mscOrdensServico));
+        criteria.add(Restrictions.eq("mscOrdensServico", mscOrdensServico));
         List lista = criteria.list();
         session.getTransaction().commit();        
         return lista;

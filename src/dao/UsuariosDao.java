@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
 
 import bean.MscUsuarios;
@@ -10,10 +5,6 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 
-/**
- *
- * @author @mathias
- */
 public class UsuariosDao extends AbstractDao {
 
     @Override
@@ -45,7 +36,7 @@ public class UsuariosDao extends AbstractDao {
     public Object list(int codigo) {
         session.beginTransaction();
         Criteria criteria = session.createCriteria(MscUsuarios.class);
-        criteria.add(Restrictions.eq("idmsc_usuarios", codigo));
+        criteria.add(Restrictions.eq("idmscUsuarios", codigo));
         List lista = criteria.list();
         session.getTransaction().commit();
         return lista;
@@ -57,10 +48,38 @@ public class UsuariosDao extends AbstractDao {
         Criteria criteria = session.createCriteria(MscUsuarios.class);
         List lista = criteria.list();
         session.getTransaction().commit();
-        return lista;    }
-    public static void main(String[]args){
-        UsuariosDao usuariosDao = new UsuariosDao();
-        usuariosDao.listAll();
+        return lista;
     }
-     
+
+    // MÉTODO LOGIN AJUSTADO - APENAS ISSO MUDEI
+    public MscUsuarios login(String apelido, String senha) {
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(MscUsuarios.class);
+        
+        // Agora usando mscApelido em vez de mscNome
+        criteria.add(Restrictions.eq("mscApelido", apelido));
+        criteria.add(Restrictions.eq("mscSenha", senha));
+
+        List<MscUsuarios> lista = criteria.list();
+        session.getTransaction().commit();
+
+        if (!lista.isEmpty()) {
+            return lista.get(0); 
+        } else {
+            return null; 
+        }
+    }
+
+    public static void main(String[] args) {
+        UsuariosDao usuariosDao = new UsuariosDao();
+        
+        // Agora usa apelido e senha
+        MscUsuarios usuario = usuariosDao.login("apelidoDoUsuario", "senhaDoUsuario");
+
+        if (usuario != null) {
+            System.out.println("Login bem-sucedido! Usuário: " + usuario.getMscNome());
+        } else {
+            System.out.println("Apelido ou senha inválidos.");
+        }
+    }
 }

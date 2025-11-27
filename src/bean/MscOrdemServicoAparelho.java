@@ -5,6 +5,8 @@ package bean;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -49,7 +51,7 @@ public class MscOrdemServicoAparelho  implements java.io.Serializable {
     }
    
      @Id 
-
+  @GeneratedValue(strategy = IDENTITY)
     
     @Column(name="msc_idOs_Aparelho", unique=true, nullable=false)
     public int getMscIdOsAparelho() {
@@ -60,7 +62,7 @@ public class MscOrdemServicoAparelho  implements java.io.Serializable {
         this.mscIdOsAparelho = mscIdOsAparelho;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
+@ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="msc_fkAparelho")
     public MscAparelhos getMscAparelhos() {
         return this.mscAparelhos;
@@ -70,7 +72,7 @@ public class MscOrdemServicoAparelho  implements java.io.Serializable {
         this.mscAparelhos = mscAparelhos;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
+@ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="msc_fkOs")
     public MscOrdensServico getMscOrdensServico() {
         return this.mscOrdensServico;
@@ -80,7 +82,7 @@ public class MscOrdemServicoAparelho  implements java.io.Serializable {
         this.mscOrdensServico = mscOrdensServico;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
+@ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="msc_fkservico")
     public MscServicos getMscServicos() {
         return this.mscServicos;

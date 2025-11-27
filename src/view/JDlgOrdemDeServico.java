@@ -21,6 +21,7 @@ import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 import tools.Util;
@@ -76,6 +77,11 @@ public class JDlgOrdemDeServico extends javax.swing.JDialog {
     
     
     }
+
+    public JTable getjTableOrdem() {
+        return jTableOrdem;
+    }
+    
      public MscOrdensServico viewBean() {
         MscOrdensServico mscordensservico = new MscOrdensServico();
         mscordensservico.setIdmscOrdensServico( Util.strToInt(jTxtCod.getText()));
@@ -418,7 +424,6 @@ public class JDlgOrdemDeServico extends javax.swing.JDialog {
         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
         //Util.limpar(jTxtCod, jCobCliente, jFmtData, jCombUsuario, 
             //jCombServ, jCobTec,jCobStatus,jTxtValor);
-controllerOrdemDeServicoAparelho.setList(new ArrayList());
         incluir = false;
        
     }//GEN-LAST:event_jBtnAlterarActionPerformed
@@ -437,7 +442,14 @@ controllerOrdemDeServicoAparelho.setList(new ArrayList());
             }
         } else {
             ordem_servicoDao.update(mscOrdensServico);
-
+ //excluo todos os pedidos produtos do pedido
+            ordemServicoAparelhoDao.deleteAparelhos(mscOrdensServico);
+            //incluo os pedidos produtos
+            for (int ind = 0; ind < jTableOrdem.getRowCount(); ind++) {
+                MscOrdemServicoAparelho mscOrdemServicoAparelho = controllerOrdemDeServicoAparelho.getBean(ind);
+                mscOrdemServicoAparelho.setMscOrdensServico(mscOrdensServico);
+                ordemServicoAparelhoDao.insert(mscOrdemServicoAparelho);
+            }
         }
 
        Util.habilitar(false, jTxtCod, jCobCliente, jFmtData, jCombUsuario, 
@@ -515,13 +527,15 @@ controllerOrdemDeServicoAparelho.setList(new ArrayList());
     private void jBtnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSaveActionPerformed
         // TODO add your handling code here:
       JDlgOrdemDeServicoAparelho jDlgOrdemDeServicoAparelho = new JDlgOrdemDeServicoAparelho(null, true);
-        jDlgOrdemDeServicoAparelho.setVisible(true);
+       MscOrdemServicoAparelho mscOrdemServicoAparelho = controllerOrdemDeServicoAparelho.getBean(jTableOrdem.getSelectedRow());
+        jDlgOrdemDeServicoAparelho.setTelaAnterior(this, mscOrdemServicoAparelho);
+      jDlgOrdemDeServicoAparelho.setVisible(true);
     }//GEN-LAST:event_jBtnSaveActionPerformed
 
     private void jBtnInclusaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnInclusaoActionPerformed
         // TODO add your handling code here:
    JDlgOrdemDeServicoAparelho jDlgOrdemDeServicoAparelho = new JDlgOrdemDeServicoAparelho(null, true);
-        jDlgOrdemDeServicoAparelho.setTelaAnterior(this);
+        jDlgOrdemDeServicoAparelho.setTelaAnterior(this, null);
         jDlgOrdemDeServicoAparelho.setVisible(true);
     }//GEN-LAST:event_jBtnInclusaoActionPerformed
 

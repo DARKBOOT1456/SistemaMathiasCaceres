@@ -17,6 +17,7 @@ import tools.Util;
  */
 public class JDlgOrdemDeServicoAparelho extends javax.swing.JDialog {
  JDlgOrdemDeServico jDlgOrdemDeServico;
+ boolean incluir = false;
     /**
      * Creates new form JDlgOrdemDeServicoAparelho
      */
@@ -33,8 +34,15 @@ public class JDlgOrdemDeServicoAparelho extends javax.swing.JDialog {
         }
         Util.habilitar(false, jTxtUnitario, jTxtTotal);
     }
- public void setTelaAnterior(JDlgOrdemDeServico jDlgOrdemDeServico) {
+ public void setTelaAnterior(JDlgOrdemDeServico jDlgOrdemDeServico ,MscOrdemServicoAparelho mscOrdemServicoAparelho ) {
         this.jDlgOrdemDeServico = jDlgOrdemDeServico;
+         if (mscOrdemServicoAparelho != null) {
+            incluir = false;
+            jCboAparelhos.setSelectedItem(mscOrdemServicoAparelho.getMscAparelhos());
+            jTxtQuantidade.setText(Util.intToStr(mscOrdemServicoAparelho.getMscQuantidade()));
+        } else {
+            incluir = true;
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.

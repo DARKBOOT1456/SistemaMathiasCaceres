@@ -44,7 +44,17 @@ public class OrdemServicoAparelhoDao extends AbstractDao{
         session.delete(object);
         session.getTransaction().commit();        
     }
-
+public void deleteAparelhos(MscOrdensServico mscOrdensServico) {
+        List lista = (List) listAparelhos(mscOrdensServico);
+        session.beginTransaction();
+        for (int i = 0; i < lista.size(); i++) {
+            MscOrdemServicoAparelho mscOrdemServicoAparelho = (MscOrdemServicoAparelho) lista.get(i);
+            session.flush();
+            session.clear();
+            session.delete(mscOrdemServicoAparelho);
+        }
+        session.getTransaction().commit();
+    }
     @Override
     public Object list(int codigo) {
         session.beginTransaction();

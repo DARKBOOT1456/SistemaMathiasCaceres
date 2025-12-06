@@ -50,7 +50,34 @@ public class Ordem_servicoDao extends AbstractDao {
         session.getTransaction().commit();
         return lista;
     }
+public Object listCliente(String cliente) {
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(MscOrdensServico.class);
+        criteria.add(Restrictions.like("fkmsc_Cliente", "%" + cliente + "%"));
+        List lista = criteria.list();
+        session.getTransaction().commit();
+        return lista;
+    }
 
+    public Object listValor(double valor) {
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(MscOrdensServico.class);
+        criteria.add(Restrictions.ge("msc_valorTotal", "%" + valor + "%"));
+        List lista = criteria.list();
+        session.getTransaction().commit();
+        return lista;
+    }
+
+    public Object listClienteValor(String cliente, double valor) {
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(MscOrdensServico.class);
+        criteria.add(Restrictions.like("fkmsc_Cliente", "%" + cliente + "%"));
+        criteria.add(Restrictions.ge("msc_valorTotal", "%" + valor + "%"));
+        List lista = criteria.list();
+        session.getTransaction().commit();
+        return lista;
+    }
+    
     @Override
     public Object listAll() {
         session.beginTransaction();

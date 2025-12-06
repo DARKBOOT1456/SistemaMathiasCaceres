@@ -313,6 +313,9 @@ JDlgClientes telaClientes = new JDlgClientes(this, true);
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         // TODO add your handling code here:
+        JDlgConsultaServicos jDlgConsultaServicos = new JDlgConsultaServicos(this, true);
+        jDlgConsultaServicos.setVisible(true);
+        
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed

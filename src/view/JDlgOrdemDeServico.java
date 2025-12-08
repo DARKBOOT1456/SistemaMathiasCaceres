@@ -421,7 +421,7 @@ public class JDlgOrdemDeServico extends javax.swing.JDialog {
         // TODO add your handling code here:
           Util.habilitar(true, jTxtCod, jCobCliente, jFmtData, jCombUsuario, 
             jCombServ, jCobTec,jCobStatus,jTxtValor,
-            jBtnConfirmar, jBtnCancelar);
+            jBtnConfirmar, jBtnCancelar,jBtnInclusao, jBtnSave,jBtnCancel);
         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
         //Util.limpar(jTxtCod, jCobCliente, jFmtData, jCombUsuario, 
             //jCombServ, jCobTec,jCobStatus,jTxtValor);
@@ -484,7 +484,7 @@ controllerOrdemDeServicoAparelho.setList(new ArrayList());
         // TODO add your handling code here:
         Util.habilitar(false, jTxtCod, jCobCliente, jFmtData, jCombUsuario, 
             jCombServ, jCobTec,jCobStatus,jTxtValor,
-            jBtnConfirmar, jBtnCancelar);
+            jBtnConfirmar, jBtnCancelar, jBtnInclusao, jBtnSave,jBtnCancel);
         Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
         Util.limpar(jTxtCod, jCobCliente, jFmtData, jCombUsuario, 
             jCombServ, jCobTec,jCobStatus,jTxtValor);

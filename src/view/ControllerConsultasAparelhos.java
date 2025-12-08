@@ -47,7 +47,7 @@ public class ControllerConsultasAparelhos extends AbstractTableModel {
         } else if (columnIndex ==1) {
             return aparelhos.getMscMarca();        
         } else if (columnIndex ==2) {
-            return aparelhos.getMsc_valor_unitario();
+            return aparelhos.getMscValorUnitario();
         } 
         return "";
     }

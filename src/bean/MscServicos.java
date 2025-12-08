@@ -2,7 +2,6 @@ package bean;
 // Generated 14/10/2025 12:54:27 by Hibernate Tools 4.3.1
 
 
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -28,7 +27,7 @@ public class MscServicos  implements java.io.Serializable {
      private int idmscServicos;
      private String mscNomeServico;
      private String mscDescricao;
-     private BigDecimal mscValor;
+     private double mscValor;
      private String mscTempoEstimado;
      private String mscCategoria;
      private Date mscDataCadastro;
@@ -42,7 +41,7 @@ public class MscServicos  implements java.io.Serializable {
         this.idmscServicos = idmscServicos;
        
     }
-    public MscServicos(int idmscServicos, String mscNomeServico, String mscDescricao, BigDecimal mscValor, String mscTempoEstimado, String mscCategoria, Date mscDataCadastro, Set mscOrdemServicoAparelhos) {
+    public MscServicos(int idmscServicos, String mscNomeServico, String mscDescricao, double mscValor, String mscTempoEstimado, String mscCategoria, Date mscDataCadastro, Set mscOrdemServicoAparelhos) {
        this.idmscServicos = idmscServicos;
        this.mscNomeServico = mscNomeServico;
        this.mscDescricao = mscDescricao;
@@ -87,11 +86,11 @@ public class MscServicos  implements java.io.Serializable {
 
     
     @Column(name="msc_valor", nullable=false, precision=10)
-    public BigDecimal getMscValor() {
+    public double getMscValor() {
         return this.mscValor;
     }
     
-    public void setMscValor(BigDecimal mscValor) {
+    public void setMscValor(double mscValor) {
         this.mscValor = mscValor;
     }
 

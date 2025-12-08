@@ -54,7 +54,7 @@ public class ServicosDao extends AbstractDao {
 public Object listNomeServico(String NomeServico) {
         session.beginTransaction();
         Criteria criteria = session.createCriteria(MscServicos.class);
-        criteria.add(Restrictions.like("msc_nome_servico", "%" + NomeServico + "%"));
+        criteria.add(Restrictions.like("mscNomeServico", "%" + NomeServico + "%"));
         List lista = criteria.list();
         session.getTransaction().commit();
         return lista;
@@ -63,7 +63,7 @@ public Object listNomeServico(String NomeServico) {
     public Object listValor(double valor) {
         session.beginTransaction();
         Criteria criteria = session.createCriteria(MscServicos.class);
-        criteria.add(Restrictions.ge("msc_valor", "%" + valor + "%"));
+        criteria.add(Restrictions.ge("mscValor", valor ));
         List lista = criteria.list();
         session.getTransaction().commit();
         return lista;
@@ -72,8 +72,8 @@ public Object listNomeServico(String NomeServico) {
     public Object listNomeServicoValor(String NomeServico, double valor) {
         session.beginTransaction();
         Criteria criteria = session.createCriteria(MscServicos.class);
-        criteria.add(Restrictions.like("msc_nome_servico", "%" + NomeServico + "%"));
-        criteria.add(Restrictions.ge("msc_valor", "%" + valor + "%"));
+        criteria.add(Restrictions.like("mscNomeServico", "%" + NomeServico + "%"));
+        criteria.add(Restrictions.ge("mscValor", valor));
         List lista = criteria.list();
         session.getTransaction().commit();
         return lista;

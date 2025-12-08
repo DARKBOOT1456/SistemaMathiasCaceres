@@ -200,9 +200,9 @@ public class JDlgOrdemDeServicoAparelho extends javax.swing.JDialog {
     private void jCboAparelhosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCboAparelhosActionPerformed
         // TODO add your handling code here:
         MscAparelhos mscAparelhos = (MscAparelhos) jCboAparelhos.getSelectedItem();
-        jTxtUnitario.setText(Util.doubleToStr(mscAparelhos.getMsc_valor_unitario())); 
+        jTxtUnitario.setText(Util.doubleToStr(mscAparelhos.getMscValorUnitario())); 
         int quant = Util.strToInt(jTxtQuantidade.getText());
-        jTxtTotal.setText(Util.doubleToStr( quant * mscAparelhos.getMsc_valor_unitario()));
+        jTxtTotal.setText(Util.doubleToStr( quant * mscAparelhos.getMscValorUnitario()));
     }//GEN-LAST:event_jCboAparelhosActionPerformed
 
     private void jTxtQuantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtQuantidadeActionPerformed
@@ -222,7 +222,7 @@ public class JDlgOrdemDeServicoAparelho extends javax.swing.JDialog {
          if(jTxtQuantidade.getText().isEmpty() == false){
         MscAparelhos mscAparelhos = (MscAparelhos) jCboAparelhos.getSelectedItem();
         int quant = Util.strToInt(jTxtQuantidade.getText());
-        jTxtTotal.setText(Util.doubleToStr( quant * mscAparelhos.getMsc_valor_unitario())); //aqui tbm nao tem no aparelhos
+        jTxtTotal.setText(Util.doubleToStr( quant * mscAparelhos.getMscValorUnitario()));
        } else {
            Util.limpar(jTxtTotal);
        }

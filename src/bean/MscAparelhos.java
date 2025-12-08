@@ -127,14 +127,14 @@ public class MscAparelhos implements java.io.Serializable {
     public void setMscTipodeEquipamento(String mscTipodeEquipamento) {
         this.mscTipodeEquipamento = mscTipodeEquipamento;
     }
-    @Column(name = "msc_valor_unitario", nullable = false, precision=10)
-    public double getMsc_valor_unitario() {
-        return this.mscValorUnitario;
-    }
+    @Column(name = "msc_valor_unitario", nullable = false, precision = 10)
+public double getMscValorUnitario() {
+    return mscValorUnitario;
+}
 
-    public void setMsc_valor_unitario(double mscValorUnitario) {
-        this.mscValorUnitario = mscValorUnitario;
-    }
+public void setMscValorUnitario(double mscValorUnitario) {
+    this.mscValorUnitario = mscValorUnitario;
+}
 @Override
     public String toString() {
         return this.idmscAparelhos + " - " + this.mscMarca;

@@ -71,11 +71,7 @@ public class JDlgServicos extends javax.swing.JDialog {
         jTxtCodigo.setText(Util.intToStr(servicosBean.getIdmscServicos()));
          jTxtNomeServ.setText(servicosBean.getMscNomeServico());
          jTxtDesc.setText(servicosBean.getMscDescricao());
-        if (servicosBean.getMscValor() != null) {
-    jFmtValor.setText(servicosBean.getMscValor().toPlainString());
-} else {
-    jFmtValor.setText("");
-}
+        jFmtValor.setText(String.valueOf(servicosBean.getMscValor()));
          jFmtData.setText(Util.dateToStr(servicosBean.getMscDataCadastro()));
          jTxtTempo.setText(servicosBean.getMscTempoEstimado());
          String categoria = servicosBean.getMscCategoria();
@@ -95,8 +91,17 @@ if (categoria != null) {
     servicosBean.setMscNomeServico(jTxtNomeServ.getText());
     servicosBean.setMscDescricao(jTxtDesc.getText());
     
-    String valorStr = jFmtValor.getText().replace(",", "."); 
-    servicosBean.setMscValor(new BigDecimal(valorStr));
+   String valorStr = jFmtValor.getText().replace(",", "."); 
+double valor = 0.0; // valor padrão
+if (!valorStr.isEmpty()) {
+    try {
+        valor = Double.parseDouble(valorStr);
+    } catch (NumberFormatException e) {
+        valor = 0.0; 
+    }
+}
+servicosBean.setMscValor(valor);
+
     
     
     String dataTexto = jFmtData.getText().trim();

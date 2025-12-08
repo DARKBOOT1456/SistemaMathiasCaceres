@@ -45,7 +45,7 @@ public class AparelhosDao extends AbstractDao {
     public Object list(int codigo) {
         session.beginTransaction();
         Criteria criteria = session.createCriteria(MscAparelhos.class);
-        criteria.add(Restrictions.eq("idmsc_aparelhos", codigo));
+        criteria.add(Restrictions.eq("idmscAparelhos", codigo));
         List lista = criteria.list();
         session.getTransaction().commit();
         return lista;
@@ -53,7 +53,7 @@ public class AparelhosDao extends AbstractDao {
  public Object listMarca(String marca) {
         session.beginTransaction();
         Criteria criteria = session.createCriteria(MscAparelhos.class);
-        criteria.add(Restrictions.like("msc_marca", "%" + marca + "%"));
+        criteria.add(Restrictions.like("mscMarca", "%" + marca + "%"));
         List lista = criteria.list();
         session.getTransaction().commit();
         return lista;
@@ -62,7 +62,7 @@ public class AparelhosDao extends AbstractDao {
     public Object listValor(double valor) {
         session.beginTransaction();
         Criteria criteria = session.createCriteria(MscAparelhos.class);
-        criteria.add(Restrictions.ge("msc_valor_unitario", "%" + valor + "%"));
+       criteria.add(Restrictions.ge("mscValorUnitario", valor));
         List lista = criteria.list();
         session.getTransaction().commit();
         return lista;
@@ -71,8 +71,8 @@ public class AparelhosDao extends AbstractDao {
     public Object listMarcaValor(String marca, double valor) {
         session.beginTransaction();
         Criteria criteria = session.createCriteria(MscAparelhos.class);
-        criteria.add(Restrictions.like("msc_marca", "%" + marca + "%"));
-        criteria.add(Restrictions.ge("msc_valor_unitario", "%" + valor + "%"));
+        criteria.add(Restrictions.like("mscMarca", "%" + marca + "%"));
+       criteria.add(Restrictions.ge("mscValorUnitario", valor));
         List lista = criteria.list();
         session.getTransaction().commit();
         return lista;

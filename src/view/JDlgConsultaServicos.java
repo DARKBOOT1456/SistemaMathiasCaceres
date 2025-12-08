@@ -26,7 +26,7 @@ public class JDlgConsultaServicos extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
-        setTitle("Consultar Aparelhos");
+        setTitle("Consultar Serviços");
    
         controllerConsultasServicos = new ControllerConsultasServicos();
         ServicosDao servicosDao = new ServicosDao();
@@ -87,7 +87,7 @@ public class JDlgConsultaServicos extends javax.swing.JDialog {
             }
         });
 
-        jLabel1.setText("Serviço");
+        jLabel1.setText("Nome Do Serviço");
 
         jLabel2.setText("Valor ");
 

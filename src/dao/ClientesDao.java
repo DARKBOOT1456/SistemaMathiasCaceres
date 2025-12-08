@@ -53,7 +53,7 @@ public class ClientesDao extends AbstractDao {
 public Object listNome(String nome) {
         session.beginTransaction();
         Criteria criteria = session.createCriteria(MscClientes.class);
-        criteria.add(Restrictions.like("msc_nome", "%" + nome + "%"));
+        criteria.add(Restrictions.like("mscNome", "%" + nome + "%"));
         List lista = criteria.list();
         session.getTransaction().commit();
         return lista;
@@ -62,7 +62,7 @@ public Object listNome(String nome) {
     public Object listCpf(String cpf) {
         session.beginTransaction();
         Criteria criteria = session.createCriteria(MscClientes.class);
-        criteria.add(Restrictions.ge("msc_cpf", "%" + cpf + "%"));
+        criteria.add(Restrictions.ge("mscCpf", "%" + cpf + "%"));
         List lista = criteria.list();
         session.getTransaction().commit();
         return lista;
@@ -71,8 +71,8 @@ public Object listNome(String nome) {
     public Object listNomeCpf(String nome, String cpf) {
         session.beginTransaction();
         Criteria criteria = session.createCriteria(MscClientes.class);
-        criteria.add(Restrictions.like("msc_nome", "%" + nome + "%"));
-        criteria.add(Restrictions.ge("msc_cpf", "%" + cpf + "%"));
+        criteria.add(Restrictions.like("mscNome", "%" + nome + "%"));
+        criteria.add(Restrictions.ge("mscCpf", "%" + cpf + "%"));
         List lista = criteria.list();
         session.getTransaction().commit();
         return lista;

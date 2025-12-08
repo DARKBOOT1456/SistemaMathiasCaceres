@@ -17,7 +17,7 @@ import view.JDlgUsuarios;
  * @author Marcos
  */
 public class JDlgConsultaClientes extends javax.swing.JDialog {
-  ControllerConsultasAparelhos controllerConsultasAparelhos;
+  ControllerConsultasClientes controllerConsultasClientes;
     /**
      * Creates new form JDlgMscUsuariosPesquisar
      */
@@ -28,11 +28,11 @@ public class JDlgConsultaClientes extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         setTitle("Consultar Clientes");
    
-        controllerConsultasAparelhos = new ControllerConsultasAparelhos();
+        controllerConsultasClientes = new ControllerConsultasClientes();
         ClientesDao clientesDao = new ClientesDao();
         List lista = new ArrayList();
-        controllerConsultasAparelhos.setList(lista);
-        jTable1.setModel(controllerConsultasAparelhos);
+        controllerConsultasClientes.setList(lista);
+        jTable1.setModel(controllerConsultasClientes);
         
     //    controllerMscUsuarios = new ControllerMscUsuarios();
     //    MscUsuariosDAO usuariosDAO = new MscUsuariosDAO();
@@ -172,7 +172,7 @@ public class JDlgConsultaClientes extends javax.swing.JDialog {
     lista = (List) clientesDao.listAll();
 }
 
-        controllerConsultasAparelhos.setList(lista);
+        controllerConsultasClientes.setList(lista);
     }//GEN-LAST:event_jBtnConsultarActionPerformed
 
     /**

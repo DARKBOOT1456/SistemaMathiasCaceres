@@ -53,7 +53,8 @@ public class JDlgOrdemDeServico extends javax.swing.JDialog {
         setLocationRelativeTo(null); 
        Util.habilitar(false, jTxtCod, jCobCliente, jFmtData, jCombUsuario, 
             jCombServ, jCobTec,jCobStatus,jTxtValor,
-            jBtnConfirmar, jBtnCancelar);
+            jBtnInclusao, jBtnSave,jBtnCancel);
+       Util.habilitar(true, jBtnIncluir,jBtnAlterar,jBtnExcluir,jBtnPesquisar);
         ClientesDao clientesDAO = new ClientesDao();
         List lista = (List) clientesDAO.listAll();
         for (int i = 0; i < lista.size(); i++) {

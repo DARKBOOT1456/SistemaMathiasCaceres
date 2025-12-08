@@ -187,9 +187,15 @@ public class JDlgOrdemDeServicoAparelho extends javax.swing.JDialog {
         MscOrdemServicoAparelho mscOrdemServicoAparelho = new MscOrdemServicoAparelho();
         mscOrdemServicoAparelho.setMscAparelhos((MscAparelhos) jCboAparelhos.getSelectedItem());
         mscOrdemServicoAparelho.setMscQuantidade(Util.strToInt(jTxtQuantidade.getText()) );
-        mscOrdemServicoAparelho.setMscValorUnitario(Util.strToDouble(jTxtUnitario.getText()) );                
-        jDlgOrdemDeServico.controllerOrdemDeServicoAparelho.addBean(mscOrdemServicoAparelho);
+        mscOrdemServicoAparelho.setMscValorUnitario(Util.strToDouble(jTxtUnitario.getText()) );  
+         if (incluir == true) {
+           jDlgOrdemDeServico.controllerOrdemDeServicoAparelho.addBean(mscOrdemServicoAparelho);
+        } else {
+            jDlgOrdemDeServico.controllerOrdemDeServicoAparelho.removeBean(jDlgOrdemDeServico.getjTableOrdem().getSelectedRow());
+            jDlgOrdemDeServico.controllerOrdemDeServicoAparelho.addBean(mscOrdemServicoAparelho);
+        }
         setVisible(false);
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

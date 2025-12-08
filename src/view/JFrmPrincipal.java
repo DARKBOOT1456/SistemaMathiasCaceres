@@ -91,7 +91,7 @@ public class JFrmPrincipal extends javax.swing.JFrame {
         });
         jToolBar1.add(jButton4);
 
-        jButton5.setText("jButton3");
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/audit_11857425_resized.png"))); // NOI18N
         jButton5.setFocusable(false);
         jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -102,7 +102,7 @@ public class JFrmPrincipal extends javax.swing.JFrame {
         });
         jToolBar1.add(jButton5);
 
-        jButton6.setText("jButton3");
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/focus_15439157_resized.png"))); // NOI18N
         jButton6.setFocusable(false);
         jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton6.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -195,7 +195,7 @@ public class JFrmPrincipal extends javax.swing.JFrame {
         jMnuMovimentos1.setText("Consultas");
 
         jMenuItem8.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/celular.png"))); // NOI18N
+        jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/loupe_1112542_resized.png"))); // NOI18N
         jMenuItem8.setMnemonic('O');
         jMenuItem8.setText("Aparelhos");
         jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
@@ -207,7 +207,7 @@ public class JFrmPrincipal extends javax.swing.JFrame {
         jMnuMovimentos1.add(jSeparator3);
 
         jMenuItem7.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Ordem de serviço.png"))); // NOI18N
+        jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/audit_11857425_resized.png"))); // NOI18N
         jMenuItem7.setMnemonic('O');
         jMenuItem7.setText("Ordem de Serviço");
         jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
@@ -218,7 +218,7 @@ public class JFrmPrincipal extends javax.swing.JFrame {
         jMnuMovimentos1.add(jMenuItem7);
 
         jMenuItem5.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Manutençao.png"))); // NOI18N
+        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/seo-search-engine-optimization_15563_resized.png"))); // NOI18N
         jMenuItem5.setMnemonic('S');
         jMenuItem5.setText("Serviço");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
@@ -229,7 +229,7 @@ public class JFrmPrincipal extends javax.swing.JFrame {
         jMnuMovimentos1.add(jMenuItem5);
 
         jMenuItem6.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/clientes.gif"))); // NOI18N
+        jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/focus_15439157_resized.png"))); // NOI18N
         jMenuItem6.setMnemonic('C');
         jMenuItem6.setText("Clientes");
         jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
@@ -342,10 +342,14 @@ JDlgClientes telaClientes = new JDlgClientes(this, true);
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
+          JDlgConsultaOrdemDeServico jDlgConsultaOrdemDeServico = new JDlgConsultaOrdemDeServico(this, true);
+        jDlgConsultaOrdemDeServico.setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
+         JDlgConsultaClientes jDlgConsultaClientes = new JDlgConsultaClientes(this, true);
+        jDlgConsultaClientes.setVisible(true);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     /**

@@ -22,7 +22,7 @@ public class JDlgLogin extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         
-        // ADICIONE APENAS ESTA LINHA - não mexa no initComponents()
+       
         configurarEventos();
     }
 
@@ -84,7 +84,7 @@ public class JDlgLogin extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-// MÉTODO NOVO - ADICIONE APENAS ESTE MÉTODO FORA DO initComponents()
+
     private void configurarEventos() {
         jBtnLogar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,14 +93,14 @@ public class JDlgLogin extends javax.swing.JDialog {
         });
     }
     
-    // MÉTODO NOVO - ADICIONE APENAS ESTE MÉTODO FORA DO initComponents()
+
     
     private void fazerLogin() {
-    // Pega os valores dos campos
+   
     String apelido = jtxtApelido.getText().trim();
     String senha = jTxtSenha.getText().trim();
     
-    // Valida se os campos não estão vazios
+   
     if (apelido.isEmpty() || senha.isEmpty()) {
         JOptionPane.showMessageDialog(this, 
             "Por favor, preencha apelido e senha!", 
@@ -110,21 +110,21 @@ public class JDlgLogin extends javax.swing.JDialog {
     }
     
     try {
-        // Cria o DAO e faz o login
+        
         UsuariosDao usuarioDao = new UsuariosDao();
         MscUsuarios usuario = usuarioDao.login(apelido, senha);
         
         if (usuario != null) {
-            // Login bem-sucedido
+          
             JOptionPane.showMessageDialog(this, 
                 "Login realizado com sucesso!\nBem-vindo: " + usuario.getMscNome(),
                 "Sucesso", 
                 JOptionPane.INFORMATION_MESSAGE);
             
-            // Fecha a tela de login
+           
             this.dispose();
             
-            // ABRE A TELA PRINCIPAL
+           
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
                     new JFrmPrincipal().setVisible(true);
@@ -132,13 +132,13 @@ public class JDlgLogin extends javax.swing.JDialog {
             });
             
         } else {
-            // Login falhou
+            
             JOptionPane.showMessageDialog(this, 
                 "Apelido ou senha inválidos!", 
                 "Erro de Login", 
                 JOptionPane.ERROR_MESSAGE);
             
-            // Limpa os campos para tentar novamente
+           
             jTxtSenha.setText("");
             jtxtApelido.requestFocus();
         }

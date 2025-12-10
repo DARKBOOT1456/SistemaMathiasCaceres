@@ -14,6 +14,7 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -40,6 +41,27 @@ public class JDlgOrdemDeServico extends javax.swing.JDialog {
     ControllerOrdemDeServicoAparelho controllerOrdemDeServicoAparelho;
 
     boolean incluir;
+    private boolean validarDataInicio(String dataStr) {
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    sdf.setLenient(false);
+
+    try {
+        Date data = sdf.parse(dataStr);
+        Calendar cal = Calendar.getInstance();
+        Date hoje = cal.getTime();
+
+        if (data.after(hoje)) {
+            JOptionPane.showMessageDialog(this, "A data de início não pode ser futura!");
+            return false;
+        }
+
+        return true;
+
+    } catch (ParseException ex) {
+        JOptionPane.showMessageDialog(this, "Data de início inválida! Digite no formato dd/MM/yyyy");
+        return false;
+    }
+}
 
     /**
      * Creates new form JDlgOrdemDeServico
@@ -49,6 +71,13 @@ public class JDlgOrdemDeServico extends javax.swing.JDialog {
         initComponents();
         setTitle("Movimento Ordem de serviço");
         setLocationRelativeTo(null);
+        try {
+    MaskFormatter mask = new MaskFormatter("##/##/####");
+    mask.setPlaceholderCharacter('_');
+    jFmtData.setFormatterFactory(new DefaultFormatterFactory(mask));
+} catch (Exception e) {
+    e.printStackTrace();
+}
         Util.habilitar(false,
                 jTxtCod,
                 jCobCliente,
@@ -222,7 +251,7 @@ public class JDlgOrdemDeServico extends javax.swing.JDialog {
             }
         });
 
-        jCobTec.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mathias", "Mateus" }));
+        jCobTec.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mathias", "Mateus", "Nelson", "Sirlene" }));
         jCobTec.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCobTecActionPerformed(evt);
@@ -328,10 +357,11 @@ public class JDlgOrdemDeServico extends javax.swing.JDialog {
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(jTxtCod, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(54, 54, 54)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jCobCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addGap(38, 38, 38)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jCobCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(16, 16, 16)))
                                 .addGap(26, 26, 26)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jCombUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -444,6 +474,9 @@ public class JDlgOrdemDeServico extends javax.swing.JDialog {
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
         // TODO add your handling code here:
+        if (!validarDataInicio(jFmtData.getText())) {
+    return;
+}
         Ordem_servicoDao ordem_servicoDao = new Ordem_servicoDao();
         OrdemServicoAparelhoDao ordemServicoAparelhoDao = new OrdemServicoAparelhoDao();
         MscOrdensServico mscOrdensServico = viewBean();
@@ -504,7 +537,7 @@ public class JDlgOrdemDeServico extends javax.swing.JDialog {
         Util.habilitar(true, jTxtCod, jCobCliente, jFmtData, jCombUsuario,
                 jCobTec, jCobStatus, jTxtValor,
                 jBtnConfirmar, jBtnCancelar, jBtnInclusao, jBtnSave, jBtnCancel);
-        Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+        Util.habilitar(false, jTxtValor,jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
         Util.limpar(jTxtCod, jCobCliente, jFmtData, jCombUsuario,
                 jCobTec, jCobStatus, jTxtValor);
         controllerOrdemDeServicoAparelho.setList(new ArrayList());

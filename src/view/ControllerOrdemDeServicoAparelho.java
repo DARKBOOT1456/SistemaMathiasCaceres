@@ -44,7 +44,7 @@ public class ControllerOrdemDeServicoAparelho extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 6;
+        return 7;
     }
 
     @Override
@@ -59,8 +59,10 @@ public class ControllerOrdemDeServicoAparelho extends AbstractTableModel {
         } else if (columnIndex ==3) {
             return ordemDeServicoAparelho.getMscQuantidade();
         }else if (columnIndex ==4) {
-            return ordemDeServicoAparelho.getMscValorUnitario();
+             return ordemDeServicoAparelho.getMscObservacoes();
         }else if (columnIndex ==5) {
+            return ordemDeServicoAparelho.getMscValorUnitario();
+        }else if (columnIndex ==6) {
             return ordemDeServicoAparelho.getMscValorUnitario()*ordemDeServicoAparelho.getMscQuantidade();
         }
         return ""; 
@@ -77,8 +79,10 @@ public class ControllerOrdemDeServicoAparelho extends AbstractTableModel {
         } else if ( columnIndex == 3) {
             return "Quantidade";
         } else if ( columnIndex == 4) {
+            return "Observação";
+        }else if ( columnIndex == 5) {
             return "Valor Unitário";
-        }  else if ( columnIndex == 5) {
+        }  else if ( columnIndex == 6) {
             return "Total";
         }
         return "";

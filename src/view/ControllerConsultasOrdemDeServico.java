@@ -45,7 +45,7 @@ public class ControllerConsultasOrdemDeServico extends AbstractTableModel {
         if ( columnIndex == 0 ){
             return ordensServico.getIdmscOrdensServico();
         } else if (columnIndex ==1) {
-            return ordensServico.getMscClientes();            
+            return ordensServico.getMscTecnicoResponsavel();            
         } else if (columnIndex ==2) {
             return ordensServico.getMscValorTotal();
         } 
@@ -56,9 +56,9 @@ public class ControllerConsultasOrdemDeServico extends AbstractTableModel {
     @Override
     public String getColumnName(int columnIndex) {
         if ( columnIndex == 0) {
-            return "Código";
+            return "Código Da Nota";
         } else if ( columnIndex == 1) {
-            return "Cliente";               
+            return "Tecnico Responsavel";               
         }  else if ( columnIndex == 2) {
             return "Valor Total";
         } 

@@ -55,7 +55,7 @@ public class JDlgConsultaOrdemDeServico extends javax.swing.JDialog {
         jTable1 = new javax.swing.JTable();
         jBtnOk = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jTxtCodigoDaNota = new javax.swing.JTextField();
+        jTxtTecResp = new javax.swing.JTextField();
         jTxtValor = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jBtnConsultar = new javax.swing.JButton();
@@ -89,7 +89,13 @@ public class JDlgConsultaOrdemDeServico extends javax.swing.JDialog {
             }
         });
 
-        jLabel1.setText("Codigo Da Nota");
+        jLabel1.setText("Tecnico Responsavel");
+
+        jTxtTecResp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTxtTecRespActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Valor Total");
 
@@ -124,7 +130,7 @@ public class JDlgConsultaOrdemDeServico extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
-                            .addComponent(jTxtCodigoDaNota, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTxtTecResp, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
@@ -143,7 +149,7 @@ public class JDlgConsultaOrdemDeServico extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTxtCodigoDaNota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTxtTecResp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -177,10 +183,10 @@ public class JDlgConsultaOrdemDeServico extends javax.swing.JDialog {
         // TODO add your handling code here:
         Ordem_servicoDao ordem_servicoDao = new Ordem_servicoDao();
         List lista;
-        if ((jTxtCodigoDaNota.getText().isEmpty() == false) && (jTxtValor.getText().isEmpty() == false)){
-            lista = (List) ordem_servicoDao.listNotaValor(jTxtCodigoDaNota.getText(), Util.strToDouble(jTxtValor.getText()));
-        }else if (jTxtCodigoDaNota.getText().isEmpty() == false){
-            lista  = (List) ordem_servicoDao.listNota(jTxtCodigoDaNota.getText());
+        if ((jTxtTecResp.getText().isEmpty() == false) && (jTxtValor.getText().isEmpty() == false)){
+            lista = (List) ordem_servicoDao.listTecValor(jTxtTecResp.getText(), Util.strToDouble(jTxtValor.getText()));
+        }else if (jTxtTecResp.getText().isEmpty() == false){
+            lista  = (List) ordem_servicoDao.listTec(jTxtTecResp.getText());
         }else if (jTxtValor.getText().isEmpty() == false){
             lista = (List) ordem_servicoDao.listValor(Util.strToDouble(jTxtValor.getText()));
         }else {
@@ -203,6 +209,10 @@ public class JDlgConsultaOrdemDeServico extends javax.swing.JDialog {
             System.err.println("Erro de Impressão: " + e.getMessage());
         }
     }//GEN-LAST:event_jBtnPdfActionPerformed
+
+    private void jTxtTecRespActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtTecRespActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTxtTecRespActionPerformed
 
     /**
      * @param args the command line arguments
@@ -269,7 +279,7 @@ public class JDlgConsultaOrdemDeServico extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTxtCodigoDaNota;
+    private javax.swing.JTextField jTxtTecResp;
     private javax.swing.JTextField jTxtValor;
     // End of variables declaration//GEN-END:variables
 }

@@ -50,11 +50,10 @@ public class Ordem_servicoDao extends AbstractDao {
         session.getTransaction().commit();
         return lista;
     }
-public Object listNota(String nota) {
+public Object listTec(String tec) {
     session.beginTransaction();
     Criteria criteria = session.createCriteria(MscOrdensServico.class);
-    Integer codigo = Integer.valueOf(nota); 
-    criteria.add(Restrictions.eq("idmscOrdensServico", codigo));
+    criteria.add(Restrictions.like("mscTecnicoResponsavel", "%" + tec + "%"));
     List lista = criteria.list();
     session.getTransaction().commit();
     return lista;
@@ -70,11 +69,10 @@ public Object listNota(String nota) {
         return lista;
     }
 
-    public Object listNotaValor(String nota, double valor) {
+    public Object listTecValor(String tec, double valor) {
     session.beginTransaction();
-    Criteria criteria = session.createCriteria(MscOrdensServico.class);
-    Integer codigo = Integer.valueOf(nota); 
-    criteria.add(Restrictions.eq("idmscOrdensServico", codigo));
+    Criteria criteria = session.createCriteria(MscOrdensServico.class); 
+      criteria.add(Restrictions.like("idmscOrdensServico", "%" + tec + "%"));
     criteria.add(Restrictions.ge("mscValorTotal", valor));
     List lista = criteria.list();
     session.getTransaction().commit();

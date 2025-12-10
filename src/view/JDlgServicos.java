@@ -378,12 +378,19 @@ servicosBean.setMscValor(valor);
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
         // TODO add your handling code here:
-         Util.habilitar(true, jTxtCodigo,jTxtNomeServ,  jTxtDesc,
+        if (jTxtCodigo.getText().isEmpty() || jTxtCodigo.getText().equals("0")) {
+            JOptionPane.showMessageDialog(null,
+                    "Antes de Alterar, você deve adicionar ou pesquisar uma ordem de serviço.",
+                    "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+         Util.habilitar(true, jTxtNomeServ,  jTxtDesc,
                 jFmtValor, jTxtTempo, jCboCat, jFmtData, 
                   jBtnConfirmar, jBtnCancelar);
         
-         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+         Util.habilitar(false,jTxtCodigo, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
            incluir = false;
+           jTxtNomeServ.grabFocus();
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed

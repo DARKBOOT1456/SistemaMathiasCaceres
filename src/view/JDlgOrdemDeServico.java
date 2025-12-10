@@ -1,6 +1,5 @@
 package view;
 
-
 import bean.MscClientes;
 import bean.MscOrdemServicoAparelho;
 import bean.MscOrdensServico;
@@ -32,111 +31,107 @@ import view.JDlgClientes;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
-
 /**
  *
  * @author mathi
  */
 public class JDlgOrdemDeServico extends javax.swing.JDialog {
-    
-  ControllerOrdemDeServicoAparelho controllerOrdemDeServicoAparelho;
 
- boolean incluir;
-    
+    ControllerOrdemDeServicoAparelho controllerOrdemDeServicoAparelho;
+
+    boolean incluir;
+
     /**
      * Creates new form JDlgOrdemDeServico
      */
     public JDlgOrdemDeServico(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-         setTitle("Movimento Ordem de serviço");
-        setLocationRelativeTo(null); 
-        Util.habilitar(false, 
-    jTxtCod, 
-    jCobCliente, 
-    jFmtData, 
-    jCombUsuario, 
-    jCobTec, 
-    jCobStatus, 
-    jTxtValor,
-    jBtnInclusao, 
-    jBtnSave, 
-    jBtnCancel,
-    jBtnConfirmar,  
-    jBtnCancelar
-);
+        setTitle("Movimento Ordem de serviço");
+        setLocationRelativeTo(null);
+        Util.habilitar(false,
+                jTxtCod,
+                jCobCliente,
+                jFmtData,
+                jCombUsuario,
+                jCobTec,
+                jCobStatus,
+                jTxtValor,
+                jBtnInclusao,
+                jBtnSave,
+                jBtnCancel,
+                jBtnConfirmar,
+                jBtnCancelar
+        );
 
-
-Util.habilitar(true, 
-    jBtnIncluir,
-    jBtnAlterar,
-    jBtnExcluir, 
-    jBtnPesquisar
-);
+        Util.habilitar(true,
+                jBtnIncluir,
+                jBtnAlterar,
+                jBtnExcluir,
+                jBtnPesquisar
+        );
         ClientesDao clientesDAO = new ClientesDao();
         List lista = (List) clientesDAO.listAll();
         for (int i = 0; i < lista.size(); i++) {
-            jCobCliente.addItem( (MscClientes) lista.get(i));            
+            jCobCliente.addItem((MscClientes) lista.get(i));
         }
-     
-         UsuariosDao usuarios = new UsuariosDao();
+
+        UsuariosDao usuarios = new UsuariosDao();
         List listaUsu = (List) usuarios.listAll();
         for (Object object : listaUsu) {
             jCombUsuario.addItem((MscUsuarios) object);
         }
-        
-        
+
         controllerOrdemDeServicoAparelho = new ControllerOrdemDeServicoAparelho();
         controllerOrdemDeServicoAparelho.setList(new ArrayList());
         jTableOrdem.setModel(controllerOrdemDeServicoAparelho);
-    
-    
-    }
-public void atualizarTotal() {
-    double total = 0;
 
-    for (int i = 0; i < controllerOrdemDeServicoAparelho.getRowCount(); i++) {
-        MscOrdemServicoAparelho item = controllerOrdemDeServicoAparelho.getBean(i);
-
-        double valorItem = item.getMscQuantidade() * item.getMscValorUnitario();
-        total += valorItem;
     }
 
-    jTxtValor.setText(String.valueOf(total));
-}
+    public void atualizarTotal() {
+        double total = 0;
+
+        for (int i = 0; i < controllerOrdemDeServicoAparelho.getRowCount(); i++) {
+            MscOrdemServicoAparelho item = controllerOrdemDeServicoAparelho.getBean(i);
+
+            double valorItem = item.getMscQuantidade() * item.getMscValorUnitario();
+            total += valorItem;
+        }
+
+        jTxtValor.setText(String.valueOf(total));
+    }
 
     public JTable getjTableOrdem() {
         return jTableOrdem;
     }
-    
-     public MscOrdensServico viewBean() {
+
+    public MscOrdensServico viewBean() {
         MscOrdensServico mscordensservico = new MscOrdensServico();
-        mscordensservico.setIdmscOrdensServico( Util.strToInt(jTxtCod.getText()));
+        mscordensservico.setIdmscOrdensServico(Util.strToInt(jTxtCod.getText()));
         mscordensservico.setMscDataInicio(Util.strToDate(jFmtData.getText()));
         mscordensservico.setMscValorTotal(Util.strToDouble(jTxtValor.getText()));
         mscordensservico.setMscClientes((MscClientes) jCobCliente.getSelectedItem());
         mscordensservico.setMscUsuarios((MscUsuarios) jCombUsuario.getSelectedItem());
-         mscordensservico.setMscStatus(jCobStatus.getSelectedItem().toString());
+        mscordensservico.setMscStatus(jCobStatus.getSelectedItem().toString());
         mscordensservico.setMscTecnicoResponsavel(jCobTec.getSelectedItem().toString());
 
-       
         return mscordensservico;
     }
-      public void beanView(MscOrdensServico mscOrdensServico) {
+
+    public void beanView(MscOrdensServico mscOrdensServico) {
         jTxtCod.setText(Util.intToStr(mscOrdensServico.getIdmscOrdensServico()));
         jFmtData.setText(Util.dateToStr(mscOrdensServico.getMscDataInicio()));
         jTxtValor.setText(Util.doubleToStr(mscOrdensServico.getMscValorTotal()));
         jCobCliente.setSelectedItem(mscOrdensServico.getMscClientes());
         jCombUsuario.setSelectedItem(mscOrdensServico.getMscUsuarios());
-         jCobStatus.setSelectedItem(mscOrdensServico.getMscStatus());
+        jCobStatus.setSelectedItem(mscOrdensServico.getMscStatus());
         jCobTec.setSelectedItem(mscOrdensServico.getMscTecnicoResponsavel());
-        
+
         OrdemServicoAparelhoDao ordemServicoAparelhoDao = new OrdemServicoAparelhoDao();
         List lista = (List) ordemServicoAparelhoDao.listAparelhos(mscOrdensServico);
         controllerOrdemDeServicoAparelho.setList(lista);
         atualizarTotal();
     }
-     
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -317,11 +312,10 @@ public void atualizarTotal() {
                                         .addGap(28, 28, 28)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jCobTec, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jCobStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jCobTec, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(jCobStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
@@ -329,12 +323,15 @@ public void atualizarTotal() {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(40, 40, 40)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jTxtCod, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(54, 54, 54)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jCobCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jTxtCod, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(54, 54, 54)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jCobCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addGap(26, 26, 26)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jCombUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -376,26 +373,28 @@ public void atualizarTotal() {
                     .addComponent(jTxtCod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jCobCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jCombUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addGap(38, 38, 38))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jFmtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jCobTec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel7)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jCobStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTxtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel8)
-                            .addGap(29, 29, 29))))
+                                .addComponent(jTxtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addGap(29, 29, 29))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel7))
+                                .addGap(38, 38, 38))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jFmtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jCobTec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(35, 35, 35)
@@ -425,21 +424,28 @@ public void atualizarTotal() {
     }//GEN-LAST:event_jFmtDataActionPerformed
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
+        if (jTxtCod.getText().isEmpty() || jTxtCod.getText().equals("0")) {
+            JOptionPane.showMessageDialog(null,
+                    "Antes de Alterar, você deve adicionar ou pesquisar uma ordem de serviço.",
+                    "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
         // TODO add your handling code here:
-          Util.habilitar(true, jTxtCod, jCobCliente, jFmtData, jCombUsuario, 
-            jCobTec,jCobStatus,jTxtValor,
-            jBtnConfirmar, jBtnCancelar,jBtnInclusao, jBtnSave,jBtnCancel);
-        Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+        Util.habilitar(true, jCobCliente, jFmtData, jCombUsuario,
+                jCobTec, jCobStatus ,
+                jBtnConfirmar, jBtnCancelar, jBtnInclusao, jBtnSave, jBtnCancel);
+        Util.habilitar(false, jTxtValor,jTxtCod, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
         //Util.limpar(jTxtCod, jCobCliente, jFmtData, jCombUsuario, 
-            //jCombServ, jCobTec,jCobStatus,jTxtValor);
+        //jCombServ, jCobTec,jCobStatus,jTxtValor);
         incluir = false;
-       
+        jCobCliente.grabFocus();
+
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
         // TODO add your handling code here:
-       Ordem_servicoDao ordem_servicoDao = new Ordem_servicoDao();       
-            OrdemServicoAparelhoDao ordemServicoAparelhoDao = new OrdemServicoAparelhoDao();
+        Ordem_servicoDao ordem_servicoDao = new Ordem_servicoDao();
+        OrdemServicoAparelhoDao ordemServicoAparelhoDao = new OrdemServicoAparelhoDao();
         MscOrdensServico mscOrdensServico = viewBean();
         if (incluir == true) {
             ordem_servicoDao.insert(mscOrdensServico);
@@ -450,7 +456,7 @@ public void atualizarTotal() {
             }
         } else {
             ordem_servicoDao.update(mscOrdensServico);
- //excluo todos os pedidos produtos do pedido
+            //excluo todos os pedidos produtos do pedido
             ordemServicoAparelhoDao.deleteAparelhos(mscOrdensServico);
             //incluo os pedidos produtos
             for (int ind = 0; ind < jTableOrdem.getRowCount(); ind++) {
@@ -460,52 +466,48 @@ public void atualizarTotal() {
             }
         }
 
-       Util.habilitar(false, jTxtCod, jCobCliente, jFmtData, jCombUsuario, 
-            jCobTec,jCobStatus,jTxtValor,
-            jBtnConfirmar, jBtnCancelar);
+        Util.habilitar(false, jTxtCod, jCobCliente, jFmtData, jCombUsuario,
+                jCobTec, jCobStatus, jTxtValor,
+                jBtnConfirmar, jBtnCancelar);
         Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
-        Util.limpar(jTxtCod, jCobCliente, jFmtData, jCombUsuario, 
-             jCobTec,jCobStatus,jTxtValor);
-controllerOrdemDeServicoAparelho.setList(new ArrayList());
-        
-    
-    
+        Util.limpar(jTxtCod, jCobCliente, jFmtData, jCombUsuario,
+                jCobTec, jCobStatus, jTxtValor);
+        controllerOrdemDeServicoAparelho.setList(new ArrayList());
+
+
     }//GEN-LAST:event_jBtnConfirmarActionPerformed
 
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed
-         // TODO add your handling code here:
+        // TODO add your handling code here:
         JDlgOrdemDeServicoPesquisar jDlgOrdemDeServicoPesquisar = new JDlgOrdemDeServicoPesquisar(null, true);
         jDlgOrdemDeServicoPesquisar.setTelaAnterior(this);
         jDlgOrdemDeServicoPesquisar.setVisible(true);
     }//GEN-LAST:event_jBtnPesquisarActionPerformed
 
-         
-        
-        
-    
+
     private void jCobTecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCobTecActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jCobTecActionPerformed
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
         // TODO add your handling code here:
-        Util.habilitar(false, jTxtCod, jCobCliente, jFmtData, jCombUsuario, 
-            jCobTec,jCobStatus,jTxtValor,
-            jBtnConfirmar, jBtnCancelar, jBtnInclusao, jBtnSave,jBtnCancel);
+        Util.habilitar(false, jTxtCod, jCobCliente, jFmtData, jCombUsuario,
+                jCobTec, jCobStatus, jTxtValor,
+                jBtnConfirmar, jBtnCancelar, jBtnInclusao, jBtnSave, jBtnCancel);
         Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
-        Util.limpar(jTxtCod, jCobCliente, jFmtData, jCombUsuario, 
-             jCobTec,jCobStatus,jTxtValor);
+        Util.limpar(jTxtCod, jCobCliente, jFmtData, jCombUsuario,
+                jCobTec, jCobStatus, jTxtValor);
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
         // TODO add your handling code here:
-         Util.habilitar(true, jTxtCod, jCobCliente, jFmtData, jCombUsuario, 
-             jCobTec,jCobStatus,jTxtValor,
-            jBtnConfirmar, jBtnCancelar, jBtnInclusao, jBtnSave,jBtnCancel);
+        Util.habilitar(true, jTxtCod, jCobCliente, jFmtData, jCombUsuario,
+                jCobTec, jCobStatus, jTxtValor,
+                jBtnConfirmar, jBtnCancelar, jBtnInclusao, jBtnSave, jBtnCancel);
         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
-        Util.limpar(jTxtCod, jCobCliente, jFmtData, jCombUsuario, 
-             jCobTec,jCobStatus,jTxtValor);
-controllerOrdemDeServicoAparelho.setList(new ArrayList());
+        Util.limpar(jTxtCod, jCobCliente, jFmtData, jCombUsuario,
+                jCobTec, jCobStatus, jTxtValor);
+        controllerOrdemDeServicoAparelho.setList(new ArrayList());
 
         incluir = true;
     }//GEN-LAST:event_jBtnIncluirActionPerformed
@@ -515,50 +517,53 @@ controllerOrdemDeServicoAparelho.setList(new ArrayList());
     }//GEN-LAST:event_jTxtCodActionPerformed
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
-  
-    if (jTxtCod.getText().isEmpty() || jTxtCod.getText().equals("0")) {
-        JOptionPane.showMessageDialog(null, 
-            "Antes de excluir, você deve adicionar ou pesquisar uma ordem de serviço.", 
-            "Aviso", JOptionPane.WARNING_MESSAGE);
-        return; 
-    }
-    if (Util.perguntar("Deseja excluir esta ordem de serviço?")) {
-        Ordem_servicoDao ordem_servicoDao = new Ordem_servicoDao();       
-        OrdemServicoAparelhoDao ordemServicoAparelhoDao = new OrdemServicoAparelhoDao();
 
-        try {
-            for (int ind = 0; ind < jTableOrdem.getRowCount(); ind++) {
-                MscOrdemServicoAparelho mscOrdemServicoAparelho = controllerOrdemDeServicoAparelho.getBean(ind);
-                ordemServicoAparelhoDao.delete(mscOrdemServicoAparelho);
-            }
-      
-            ordem_servicoDao.delete(viewBean());
-
-            Util.limpar(jTxtCod, jCobCliente, jFmtData, jCombUsuario, 
-                        jCobTec, jCobStatus, jTxtValor);
-           
-            controllerOrdemDeServicoAparelho.setList(new ArrayList());
-            JOptionPane.showMessageDialog(null, "Ordem de serviço excluída com sucesso!", 
-                                          "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-        } catch (Exception ex) {  
-            JOptionPane.showMessageDialog(null, "Erro ao excluir a ordem de serviço: " + ex.getMessage(), 
-                                          "Erro", JOptionPane.ERROR_MESSAGE);
+        if (jTxtCod.getText().isEmpty() || jTxtCod.getText().equals("0")) {
+            JOptionPane.showMessageDialog(null,
+                    "Antes de excluir, você deve adicionar ou pesquisar uma ordem de serviço.",
+                    "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
         }
-    }
+        if (Util.perguntar("Deseja excluir esta ordem de serviço?")) {
+            Ordem_servicoDao ordem_servicoDao = new Ordem_servicoDao();
+            OrdemServicoAparelhoDao ordemServicoAparelhoDao = new OrdemServicoAparelhoDao();
+
+            try {
+                for (int ind = 0; ind < jTableOrdem.getRowCount(); ind++) {
+                    MscOrdemServicoAparelho mscOrdemServicoAparelho = controllerOrdemDeServicoAparelho.getBean(ind);
+                    ordemServicoAparelhoDao.delete(mscOrdemServicoAparelho);
+                }
+
+                ordem_servicoDao.delete(viewBean());
+
+                Util.limpar(jTxtCod, jCobCliente, jFmtData, jCombUsuario,
+                        jCobTec, jCobStatus, jTxtValor);
+
+                controllerOrdemDeServicoAparelho.setList(new ArrayList());
+                JOptionPane.showMessageDialog(null, "Ordem de serviço excluída com sucesso!",
+                        "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Erro ao excluir a ordem de serviço: " + ex.getMessage(),
+                        "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
     private void jBtnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSaveActionPerformed
         // TODO add your handling code here:
-      JDlgOrdemDeServicoAparelho jDlgOrdemDeServicoAparelho = new JDlgOrdemDeServicoAparelho(null, true);
-       MscOrdemServicoAparelho mscOrdemServicoAparelho = controllerOrdemDeServicoAparelho.getBean(jTableOrdem.getSelectedRow());
+          if (jTableOrdem.getSelectedRow() == -1) {
+            Util.mensagem("Antes de Alterar, você deve adicionar um Aparelho.");
+        } else {
+        JDlgOrdemDeServicoAparelho jDlgOrdemDeServicoAparelho = new JDlgOrdemDeServicoAparelho(null, true);
+        MscOrdemServicoAparelho mscOrdemServicoAparelho = controllerOrdemDeServicoAparelho.getBean(jTableOrdem.getSelectedRow());
         jDlgOrdemDeServicoAparelho.setTelaAnterior(this, mscOrdemServicoAparelho);
-      jDlgOrdemDeServicoAparelho.setVisible(true);
-      atualizarTotal();
+        jDlgOrdemDeServicoAparelho.setVisible(true);
+        atualizarTotal();}
     }//GEN-LAST:event_jBtnSaveActionPerformed
 
     private void jBtnInclusaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnInclusaoActionPerformed
         // TODO add your handling code here:
-   JDlgOrdemDeServicoAparelho jDlgOrdemDeServicoAparelho = new JDlgOrdemDeServicoAparelho(null, true);
+        JDlgOrdemDeServicoAparelho jDlgOrdemDeServicoAparelho = new JDlgOrdemDeServicoAparelho(null, true);
         jDlgOrdemDeServicoAparelho.setTelaAnterior(this, null);
         jDlgOrdemDeServicoAparelho.setVisible(true);
         atualizarTotal();
@@ -566,15 +571,15 @@ controllerOrdemDeServicoAparelho.setList(new ArrayList());
 
     private void jBtnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelActionPerformed
         // TODO add your handling code here:
-           if (jTableOrdem.getSelectedRow() == -1) {
-            Util.mensagem("Oh seu loco, precisa selecionar uma linha.");
+        if (jTableOrdem.getSelectedRow() == -1) {
+            Util.mensagem("Adicione um Aparelho para excluir");
         } else {
             if (Util.perguntar("Deseja excluir o produto ?") == true) {
                 controllerOrdemDeServicoAparelho.removeBean(jTableOrdem.getSelectedRow());
                 atualizarTotal();
             }
         }
-          
+
 
     }//GEN-LAST:event_jBtnCancelActionPerformed
 

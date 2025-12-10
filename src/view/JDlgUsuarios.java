@@ -447,12 +447,19 @@ public class JDlgUsuarios extends javax.swing.JDialog {
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
         // TODO add your handling code here:
-        Util.habilitar(true, jTxtCodigo,jTxtNome,  jTxtApelido,
+         if (jTxtCodigo.getText().isEmpty() || jTxtCodigo.getText().equals("0")) {
+            JOptionPane.showMessageDialog(null,
+                    "Antes de Alterar, você deve adicionar ou pesquisar uma ordem de serviço.",
+                    "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        Util.habilitar(true,jTxtNome,  jTxtApelido,
                 jFmtCpf, jFmtDataNascimento, jPwdSenha, jCboNivel, 
                 jChbAtivo,    jBtnConfirmar, jBtnCancelar);
                 
-        Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+        Util.habilitar(false,  jTxtCodigo,jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
            incluir = false;
+           jTxtNome.grabFocus();
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed

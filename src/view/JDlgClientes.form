@@ -100,7 +100,7 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jTxtEnde" min="-2" pref="171" max="-2" attributes="0"/>
                                       <Component id="jLabel9" min="-2" pref="117" max="-2" attributes="0"/>
-                                      <Component id="jLabel7" min="-2" pref="51" max="-2" attributes="0"/>
+                                      <Component id="jLabel7" alignment="0" min="-2" pref="94" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">

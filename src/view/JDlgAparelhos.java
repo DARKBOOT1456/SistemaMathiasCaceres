@@ -379,12 +379,19 @@ public class JDlgAparelhos extends javax.swing.JDialog {
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
         // TODO add your handling code here:
-        Util.habilitar(true, jTxtCod, jTxtMarca, jTxtNumero,
+        if (jTxtCod.getText().isEmpty() || jTxtCod.getText().equals("0")) {
+            JOptionPane.showMessageDialog(null,
+                    "Antes de Alterar, você deve adicionar ou pesquisar uma ordem de serviço.",
+                    "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        Util.habilitar(true,  jTxtMarca, jTxtNumero,
                 jFmtData, jCboTipo, jTxtModelo, jCboChip,
                 jTxtCor, jBtnConfirmar, jBtnCancelar);
 
-        Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+        Util.habilitar(false,jTxtCod, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
         incluir = false;
+        jTxtMarca.grabFocus();
 
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 

@@ -103,7 +103,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jBtnAlterar" min="-2" pref="139" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jBtnExcluir" pref="121" max="32767" attributes="0"/>
+              <Component id="jBtnExcluir" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jBtnConfirmar" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -381,6 +381,7 @@
           <Image iconType="3" name="/img/Excluir.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Excluir"/>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnExcluirActionPerformed"/>

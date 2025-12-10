@@ -51,10 +51,29 @@ public class JDlgOrdemDeServico extends javax.swing.JDialog {
         initComponents();
          setTitle("Movimento Ordem de serviço");
         setLocationRelativeTo(null); 
-       Util.habilitar(false, jTxtCod, jCobCliente, jFmtData, jCombUsuario, 
-            jCombServ, jCobTec,jCobStatus,jTxtValor,
-            jBtnInclusao, jBtnSave,jBtnCancel);
-       Util.habilitar(true, jBtnIncluir,jBtnAlterar,jBtnExcluir,jBtnPesquisar);
+        Util.habilitar(false, 
+    jTxtCod, 
+    jCobCliente, 
+    jFmtData, 
+    jCombUsuario, 
+    jCombServ, 
+    jCobTec, 
+    jCobStatus, 
+    jTxtValor,
+    jBtnInclusao, 
+    jBtnSave, 
+    jBtnCancel,
+    jBtnConfirmar,  
+    jBtnCancelar
+);
+
+
+Util.habilitar(true, 
+    jBtnIncluir,
+    jBtnAlterar,
+    jBtnExcluir, 
+    jBtnPesquisar
+);
         ClientesDao clientesDAO = new ClientesDao();
         List lista = (List) clientesDAO.listAll();
         for (int i = 0; i < lista.size(); i++) {
@@ -78,6 +97,18 @@ public class JDlgOrdemDeServico extends javax.swing.JDialog {
     
     
     }
+public void atualizarTotal() {
+    double total = 0;
+
+    for (int i = 0; i < controllerOrdemDeServicoAparelho.getRowCount(); i++) {
+        MscOrdemServicoAparelho item = controllerOrdemDeServicoAparelho.getBean(i);
+
+        double valorItem = item.getMscQuantidade() * item.getMscValorUnitario();
+        total += valorItem;
+    }
+
+    jTxtValor.setText(String.valueOf(total));
+}
 
     public JTable getjTableOrdem() {
         return jTableOrdem;
@@ -110,6 +141,7 @@ public class JDlgOrdemDeServico extends javax.swing.JDialog {
         OrdemServicoAparelhoDao ordemServicoAparelhoDao = new OrdemServicoAparelhoDao();
         List lista = (List) ordemServicoAparelhoDao.listAparelhos(mscOrdensServico);
         controllerOrdemDeServicoAparelho.setList(lista);
+        atualizarTotal();
     }
      
 
@@ -244,6 +276,7 @@ public class JDlgOrdemDeServico extends javax.swing.JDialog {
 
         jBtnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Excluir.png"))); // NOI18N
         jBtnExcluir.setText("Excluir");
+        jBtnExcluir.setToolTipText("");
         jBtnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnExcluirActionPerformed(evt);
@@ -341,7 +374,7 @@ public class JDlgOrdemDeServico extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+                .addComponent(jBtnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtnConfirmar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -464,7 +497,7 @@ controllerOrdemDeServicoAparelho.setList(new ArrayList());
     }//GEN-LAST:event_jBtnConfirmarActionPerformed
 
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed
-        // TODO add your handling code here:
+         // TODO add your handling code here:
         JDlgOrdemDeServicoPesquisar jDlgOrdemDeServicoPesquisar = new JDlgOrdemDeServicoPesquisar(null, true);
         jDlgOrdemDeServicoPesquisar.setTelaAnterior(this);
         jDlgOrdemDeServicoPesquisar.setVisible(true);
@@ -506,21 +539,36 @@ controllerOrdemDeServicoAparelho.setList(new ArrayList());
     }//GEN-LAST:event_jTxtCodActionPerformed
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
-        // TODO add your handling code here:
-         if (Util.perguntar("Deseja excluir ?") == true) {
-            Ordem_servicoDao ordem_servicoDao = new Ordem_servicoDao();       
-            OrdemServicoAparelhoDao ordemServicoAparelhoDao = new OrdemServicoAparelhoDao();
-            
-               
-              for (int ind = 0; ind < jTableOrdem.getRowCount(); ind++) {
+  
+    if (jTxtCod.getText().isEmpty() || jTxtCod.getText().equals("0")) {
+        JOptionPane.showMessageDialog(null, 
+            "Antes de excluir, você deve adicionar ou pesquisar uma ordem de serviço.", 
+            "Aviso", JOptionPane.WARNING_MESSAGE);
+        return; 
+    }
+    if (Util.perguntar("Deseja excluir esta ordem de serviço?")) {
+        Ordem_servicoDao ordem_servicoDao = new Ordem_servicoDao();       
+        OrdemServicoAparelhoDao ordemServicoAparelhoDao = new OrdemServicoAparelhoDao();
+
+        try {
+            for (int ind = 0; ind < jTableOrdem.getRowCount(); ind++) {
                 MscOrdemServicoAparelho mscOrdemServicoAparelho = controllerOrdemDeServicoAparelho.getBean(ind);
                 ordemServicoAparelhoDao.delete(mscOrdemServicoAparelho);
             }
-               ordem_servicoDao.delete(viewBean()); 
+      
+            ordem_servicoDao.delete(viewBean());
+
+            Util.limpar(jTxtCod, jCobCliente, jFmtData, jCombUsuario, 
+                        jCombServ, jCobTec, jCobStatus, jTxtValor);
+           
+            controllerOrdemDeServicoAparelho.setList(new ArrayList());
+            JOptionPane.showMessageDialog(null, "Ordem de serviço excluída com sucesso!", 
+                                          "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception ex) {  
+            JOptionPane.showMessageDialog(null, "Erro ao excluir a ordem de serviço: " + ex.getMessage(), 
+                                          "Erro", JOptionPane.ERROR_MESSAGE);
         }
-         Util.limpar(jTxtCod, jCobCliente, jFmtData, jCombUsuario, 
-            jCombServ, jCobTec,jCobStatus,jTxtValor);
-        controllerOrdemDeServicoAparelho.setList(new ArrayList());
+    }
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
     private void jBtnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSaveActionPerformed
@@ -529,6 +577,7 @@ controllerOrdemDeServicoAparelho.setList(new ArrayList());
        MscOrdemServicoAparelho mscOrdemServicoAparelho = controllerOrdemDeServicoAparelho.getBean(jTableOrdem.getSelectedRow());
         jDlgOrdemDeServicoAparelho.setTelaAnterior(this, mscOrdemServicoAparelho);
       jDlgOrdemDeServicoAparelho.setVisible(true);
+      atualizarTotal();
     }//GEN-LAST:event_jBtnSaveActionPerformed
 
     private void jBtnInclusaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnInclusaoActionPerformed
@@ -536,6 +585,7 @@ controllerOrdemDeServicoAparelho.setList(new ArrayList());
    JDlgOrdemDeServicoAparelho jDlgOrdemDeServicoAparelho = new JDlgOrdemDeServicoAparelho(null, true);
         jDlgOrdemDeServicoAparelho.setTelaAnterior(this, null);
         jDlgOrdemDeServicoAparelho.setVisible(true);
+        atualizarTotal();
     }//GEN-LAST:event_jBtnInclusaoActionPerformed
 
     private void jBtnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelActionPerformed
@@ -545,8 +595,11 @@ controllerOrdemDeServicoAparelho.setList(new ArrayList());
         } else {
             if (Util.perguntar("Deseja excluir o produto ?") == true) {
                 controllerOrdemDeServicoAparelho.removeBean(jTableOrdem.getSelectedRow());
+                atualizarTotal();
             }
         }
+          
+
     }//GEN-LAST:event_jBtnCancelActionPerformed
 
     private void jCobClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCobClienteActionPerformed

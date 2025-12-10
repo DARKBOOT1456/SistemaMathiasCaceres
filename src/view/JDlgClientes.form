@@ -28,13 +28,13 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jBtnAlterar" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jBtnIncluir" alignment="0" min="-2" pref="110" max="-2" attributes="0"/>
+                          <Component id="jBtnIncluir" max="32767" attributes="0"/>
+                          <Component id="jBtnAlterar" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="jBtnConfirmar" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="jBtnExcluir" alignment="1" min="-2" pref="119" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="jBtnConfirmar" max="32767" attributes="0"/>
+                          <Component id="jBtnExcluir" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -164,7 +164,7 @@
                   <Component id="jFmtDataNascimento" alignment="0" max="32767" attributes="0"/>
                   <Component id="jTxtTelefo1" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="10" max="32767" attributes="0"/>
+              <EmptySpace pref="8" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel11" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                   <Component id="jLabel7" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
@@ -200,23 +200,22 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jFmtDataCadastro" pref="26" max="32767" attributes="0"/>
+                  <Component id="jFmtDataCadastro" pref="24" max="32767" attributes="0"/>
                   <Component id="jFtfCep" alignment="0" max="32767" attributes="0"/>
                   <Component id="jTxtDefi" alignment="1" max="32767" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="jBtnPesquisar" alignment="0" min="-2" pref="39" max="-2" attributes="0"/>
-                  <Component id="jBtnIncluir" alignment="0" min="-2" pref="39" max="-2" attributes="0"/>
-                  <Component id="jBtnConfirmar" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jBtnAlterar" alignment="1" min="-2" pref="39" max="-2" attributes="0"/>
-                  <Component id="jBtnExcluir" alignment="1" min="-2" pref="39" max="-2" attributes="0"/>
-                  <Component id="jBtnCancelar" alignment="1" min="-2" pref="39" max="-2" attributes="0"/>
+                  <Component id="jBtnConfirmar" min="-2" max="-2" attributes="0"/>
+                  <Component id="jBtnPesquisar" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="jBtnIncluir" alignment="0" min="-2" pref="55" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="jBtnExcluir" max="32767" attributes="0"/>
+                  <Component id="jBtnAlterar" min="-2" pref="67" max="-2" attributes="0"/>
+                  <Component id="jBtnCancelar" max="32767" attributes="0"/>
+              </Group>
           </Group>
       </Group>
     </DimensionLayout>
@@ -386,7 +385,7 @@
     <Component class="javax.swing.JButton" name="jBtnCancelar">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/img/exit.png"/>
+          <Image iconType="3" name="/img/cancelar.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Cancelar"/>
       </Properties>

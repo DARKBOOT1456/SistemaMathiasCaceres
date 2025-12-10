@@ -66,7 +66,7 @@ ControllerServicos controllerServicos;
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jButton1.setText("Ok");
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ok.png"))); // NOI18N
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton1MouseClicked(evt);

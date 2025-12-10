@@ -4,6 +4,10 @@
  */
 package view;
 
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 /**
  *
  * @author mathi
@@ -14,10 +18,12 @@ public class JFrmPrincipal extends javax.swing.JFrame {
      * Creates new form JFrmPrincipal
      */
     public JFrmPrincipal() {
-    initComponents();
-        setTitle("SistemaMathiasCaceres");
-        setLocationRelativeTo(null);
-        setExtendedState(MAXIMIZED_BOTH); 
+     initComponents();
+    setTitle("SistemaMathiasCaceres");
+    setLocationRelativeTo(null);
+    setExtendedState(MAXIMIZED_BOTH); 
+
+   
 }
 
 
@@ -36,6 +42,7 @@ public class JFrmPrincipal extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMnuCadatros = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -113,6 +120,9 @@ public class JFrmPrincipal extends javax.swing.JFrame {
         });
         jToolBar1.add(jButton6);
 
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/LOGO.jpg"))); // NOI18N
+        jLabel2.setText("jLabel2");
+
         jMnuCadatros.setMnemonic('C');
         jMnuCadatros.setText("Cadastros");
 
@@ -162,7 +172,7 @@ public class JFrmPrincipal extends javax.swing.JFrame {
         jMnuCadatros.add(jSeparator1);
 
         jMnuSair.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
-        jMnuSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/exit.png"))); // NOI18N
+        jMnuSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/sair.png"))); // NOI18N
         jMnuSair.setMnemonic('S');
         jMnuSair.setText("Sair");
         jMnuSair.addActionListener(new java.awt.event.ActionListener() {
@@ -194,7 +204,7 @@ public class JFrmPrincipal extends javax.swing.JFrame {
         jMnuMovimentos1.setMnemonic('M');
         jMnuMovimentos1.setText("Consultas");
 
-        jMenuItem8.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem8.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_BACK_SPACE, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/loupe_1112542_resized.png"))); // NOI18N
         jMenuItem8.setMnemonic('O');
         jMenuItem8.setText("Aparelhos");
@@ -206,7 +216,7 @@ public class JFrmPrincipal extends javax.swing.JFrame {
         jMnuMovimentos1.add(jMenuItem8);
         jMnuMovimentos1.add(jSeparator3);
 
-        jMenuItem7.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem7.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/audit_11857425_resized.png"))); // NOI18N
         jMenuItem7.setMnemonic('O');
         jMenuItem7.setText("Ordem de Serviço");
@@ -217,7 +227,7 @@ public class JFrmPrincipal extends javax.swing.JFrame {
         });
         jMnuMovimentos1.add(jMenuItem7);
 
-        jMenuItem5.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem5.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/seo-search-engine-optimization_15563_resized.png"))); // NOI18N
         jMenuItem5.setMnemonic('S');
         jMenuItem5.setText("Serviço");
@@ -228,7 +238,7 @@ public class JFrmPrincipal extends javax.swing.JFrame {
         });
         jMnuMovimentos1.add(jMenuItem5);
 
-        jMenuItem6.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem6.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/focus_15439157_resized.png"))); // NOI18N
         jMenuItem6.setMnemonic('C');
         jMenuItem6.setText("Clientes");
@@ -247,13 +257,19 @@ public class JFrmPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addContainerGap(263, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 221, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addContainerGap(320, Short.MAX_VALUE))
         );
 
         pack();
@@ -393,6 +409,7 @@ JDlgClientes telaClientes = new JDlgClientes(this, true);
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;

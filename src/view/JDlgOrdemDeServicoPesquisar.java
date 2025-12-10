@@ -26,7 +26,7 @@ public class JDlgOrdemDeServicoPesquisar extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
-        setTitle("Pesquisar Pedidos");
+        setTitle("Pesquisar Ordem De Serviço");
         controllerOrdemDeServico = new ControllerOrdemDeServico();
         Ordem_servicoDao ordem_servicoDao = new Ordem_servicoDao();
         List lista = (List) ordem_servicoDao.listAll();
@@ -70,7 +70,7 @@ public class JDlgOrdemDeServicoPesquisar extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        jBtnOk.setText("OK");
+        jBtnOk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ok.png"))); // NOI18N
         jBtnOk.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jBtnOkMouseClicked(evt);

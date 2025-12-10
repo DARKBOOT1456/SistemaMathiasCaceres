@@ -28,18 +28,18 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jBtnAlterar" pref="110" max="32767" attributes="0"/>
+                          <Component id="jBtnAlterar" max="32767" attributes="0"/>
                           <Component id="jBtnIncluir" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="jBtnConfirmar" min="-2" max="-2" attributes="0"/>
-                          <Component id="jBtnExcluir" min="-2" pref="119" max="-2" attributes="0"/>
+                          <Component id="jBtnExcluir" min="-2" pref="141" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jBtnPesquisar" min="-2" max="-2" attributes="0"/>
-                          <Component id="jBtnCancelar" min="-2" pref="108" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="jBtnPesquisar" max="32767" attributes="0"/>
+                          <Component id="jBtnCancelar" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -68,7 +68,7 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="36" max="32767" attributes="0"/>
+              <EmptySpace pref="28" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -123,19 +123,20 @@
                   <Component id="jCboChip" pref="33" max="32767" attributes="0"/>
                   <Component id="jTxtCor" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="38" max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="jBtnPesquisar" alignment="0" min="-2" pref="39" max="-2" attributes="0"/>
-                  <Component id="jBtnIncluir" alignment="0" min="-2" pref="39" max="-2" attributes="0"/>
-                  <Component id="jBtnConfirmar" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace pref="36" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jBtnAlterar" alignment="1" min="-2" pref="39" max="-2" attributes="0"/>
-                  <Component id="jBtnExcluir" alignment="1" min="-2" pref="39" max="-2" attributes="0"/>
-                  <Component id="jBtnCancelar" alignment="1" min="-2" pref="39" max="-2" attributes="0"/>
+                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                      <Component id="jBtnPesquisar" alignment="3" min="-2" pref="57" max="-2" attributes="0"/>
+                      <Component id="jBtnConfirmar" alignment="3" max="32767" attributes="0"/>
+                  </Group>
+                  <Component id="jBtnIncluir" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="jBtnAlterar" min="-2" pref="64" max="-2" attributes="0"/>
+                  <Component id="jBtnExcluir" alignment="0" max="32767" attributes="0"/>
+                  <Component id="jBtnCancelar" alignment="0" max="32767" attributes="0"/>
+              </Group>
           </Group>
       </Group>
     </DimensionLayout>
@@ -256,7 +257,7 @@
     <Component class="javax.swing.JButton" name="jBtnCancelar">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/img/exit.png"/>
+          <Image iconType="3" name="/img/cancelar.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Cancelar"/>
       </Properties>

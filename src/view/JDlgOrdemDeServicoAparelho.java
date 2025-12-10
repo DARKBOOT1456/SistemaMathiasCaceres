@@ -7,7 +7,9 @@ package view;
 
 import bean.MscAparelhos;
 import bean.MscOrdemServicoAparelho;
+import bean.MscServicos;
 import dao.AparelhosDao;
+import dao.ServicosDao;
 import java.util.List;
 import tools.Util;
 
@@ -32,6 +34,11 @@ public class JDlgOrdemDeServicoAparelho extends javax.swing.JDialog {
         for (Object object : lista) {
             jCboAparelhos.addItem((MscAparelhos) object);
         }
+        ServicosDao servicosDao = new ServicosDao();
+        List lista1 = (List) servicosDao.listAll();
+        for (Object object : lista1) {
+            jCboServicos.addItem((MscServicos) object);
+        }
         Util.habilitar(false, jTxtUnitario, jTxtTotal);
     }
  public void setTelaAnterior(JDlgOrdemDeServico jDlgOrdemDeServico ,MscOrdemServicoAparelho mscOrdemServicoAparelho ) {
@@ -39,6 +46,7 @@ public class JDlgOrdemDeServicoAparelho extends javax.swing.JDialog {
          if (mscOrdemServicoAparelho != null) {
             incluir = false;
             jCboAparelhos.setSelectedItem(mscOrdemServicoAparelho.getMscAparelhos());
+             jCboServicos.setSelectedItem(mscOrdemServicoAparelho.getMscAparelhos());
             jTxtQuantidade.setText(Util.intToStr(mscOrdemServicoAparelho.getMscQuantidade()));
         } else {
             incluir = true;
@@ -55,7 +63,7 @@ public class JDlgOrdemDeServicoAparelho extends javax.swing.JDialog {
 
         jTxtQuantidade = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jCboAparelhos = new javax.swing.JComboBox<MscAparelhos>();
+        jCboServicos = new javax.swing.JComboBox<MscServicos>();
         jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jTxtUnitario = new javax.swing.JTextField();
@@ -63,6 +71,8 @@ public class JDlgOrdemDeServicoAparelho extends javax.swing.JDialog {
         jTxtTotal = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jCboAparelhos = new javax.swing.JComboBox<MscAparelhos>();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -79,9 +89,9 @@ public class JDlgOrdemDeServicoAparelho extends javax.swing.JDialog {
 
         jLabel2.setText("Quantidade");
 
-        jCboAparelhos.addActionListener(new java.awt.event.ActionListener() {
+        jCboServicos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCboAparelhosActionPerformed(evt);
+                jCboServicosActionPerformed(evt);
             }
         });
 
@@ -118,6 +128,14 @@ public class JDlgOrdemDeServicoAparelho extends javax.swing.JDialog {
             }
         });
 
+        jCboAparelhos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCboAparelhosActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("Serviços");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -125,7 +143,7 @@ public class JDlgOrdemDeServicoAparelho extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jButton1)
@@ -134,21 +152,22 @@ public class JDlgOrdemDeServicoAparelho extends javax.swing.JDialog {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
-                                    .addComponent(jTxtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jTxtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jCboAparelhos, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(44, 44, 44)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jTxtUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel3))
+                                    .addComponent(jLabel3)
+                                    .addComponent(jCboServicos, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel5))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jTxtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel4))))
                         .addGap(25, 25, 25))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jCboAparelhos, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(jLabel1)
+                        .addContainerGap(339, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -156,6 +175,10 @@ public class JDlgOrdemDeServicoAparelho extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jCboServicos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4))
@@ -165,9 +188,9 @@ public class JDlgOrdemDeServicoAparelho extends javax.swing.JDialog {
                             .addComponent(jTxtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(4, 4, 4)
                         .addComponent(jCboAparelhos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTxtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -185,6 +208,7 @@ public class JDlgOrdemDeServicoAparelho extends javax.swing.JDialog {
         // TODO add your handling code here:
         MscOrdemServicoAparelho mscOrdemServicoAparelho = new MscOrdemServicoAparelho();
         mscOrdemServicoAparelho.setMscAparelhos((MscAparelhos) jCboAparelhos.getSelectedItem());
+        mscOrdemServicoAparelho.setMscServicos((MscServicos) jCboServicos.getSelectedItem());
         mscOrdemServicoAparelho.setMscQuantidade(Util.strToInt(jTxtQuantidade.getText()) );
         mscOrdemServicoAparelho.setMscValorUnitario(Util.strToDouble(jTxtUnitario.getText()) );  
          if (incluir == true) {
@@ -202,13 +226,10 @@ public class JDlgOrdemDeServicoAparelho extends javax.swing.JDialog {
         setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jCboAparelhosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCboAparelhosActionPerformed
+    private void jCboServicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCboServicosActionPerformed
         // TODO add your handling code here:
-        MscAparelhos mscAparelhos = (MscAparelhos) jCboAparelhos.getSelectedItem();
-        jTxtUnitario.setText(Util.doubleToStr(mscAparelhos.getMscValorUnitario())); 
-        int quant = Util.strToInt(jTxtQuantidade.getText());
-        jTxtTotal.setText(Util.doubleToStr( quant * mscAparelhos.getMscValorUnitario()));
-    }//GEN-LAST:event_jCboAparelhosActionPerformed
+        
+    }//GEN-LAST:event_jCboServicosActionPerformed
 
     private void jTxtQuantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtQuantidadeActionPerformed
         // TODO add your handling code here:
@@ -232,6 +253,14 @@ public class JDlgOrdemDeServicoAparelho extends javax.swing.JDialog {
            Util.limpar(jTxtTotal);
        }
     }//GEN-LAST:event_jTxtQuantidadeKeyReleased
+
+    private void jCboAparelhosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCboAparelhosActionPerformed
+        // TODO add your handling code here:
+         MscAparelhos mscAparelhos = (MscAparelhos) jCboAparelhos.getSelectedItem();
+        jTxtUnitario.setText(Util.doubleToStr(mscAparelhos.getMscValorUnitario())); 
+        int quant = Util.strToInt(jTxtQuantidade.getText());
+        jTxtTotal.setText(Util.doubleToStr( quant * mscAparelhos.getMscValorUnitario()));
+    }//GEN-LAST:event_jCboAparelhosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -279,10 +308,12 @@ public class JDlgOrdemDeServicoAparelho extends javax.swing.JDialog {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<MscAparelhos> jCboAparelhos;
+    private javax.swing.JComboBox<MscServicos> jCboServicos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JTextField jTxtQuantidade;
     private javax.swing.JTextField jTxtTotal;
     private javax.swing.JTextField jTxtUnitario;

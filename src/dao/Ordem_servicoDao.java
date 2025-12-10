@@ -53,7 +53,7 @@ public class Ordem_servicoDao extends AbstractDao {
 public Object listNota(String nota) {
     session.beginTransaction();
     Criteria criteria = session.createCriteria(MscOrdensServico.class);
-    Integer codigo = Integer.valueOf(nota); // converte String para Integer
+    Integer codigo = Integer.valueOf(nota); 
     criteria.add(Restrictions.eq("idmscOrdensServico", codigo));
     List lista = criteria.list();
     session.getTransaction().commit();
@@ -73,7 +73,7 @@ public Object listNota(String nota) {
     public Object listNotaValor(String nota, double valor) {
     session.beginTransaction();
     Criteria criteria = session.createCriteria(MscOrdensServico.class);
-    Integer codigo = Integer.valueOf(nota); // converte String para Integer
+    Integer codigo = Integer.valueOf(nota); 
     criteria.add(Restrictions.eq("idmscOrdensServico", codigo));
     criteria.add(Restrictions.ge("mscValorTotal", valor));
     List lista = criteria.list();

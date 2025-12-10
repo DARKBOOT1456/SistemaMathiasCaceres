@@ -29,7 +29,6 @@ public class MscOrdensServico  implements java.io.Serializable {
      private int idmscOrdensServico;
      private MscClientes mscClientes;
      private MscUsuarios mscUsuarios;
-     private MscServicos mscServicos;
      private Date mscDataInicio;
      private String mscStatus;
      private String mscTecnicoResponsavel;
@@ -44,11 +43,10 @@ public class MscOrdensServico  implements java.io.Serializable {
         this.idmscOrdensServico = idmscOrdensServico;
        
     }
-    public MscOrdensServico(int idmscOrdensServico, MscClientes mscClientes, MscUsuarios mscUsuarios, MscServicos mscServicos, Date mscDataInicio, String mscStatus, String mscTecnicoResponsavel, double mscValorTotal, Set mscOrdemServicoAparelhos) {
+    public MscOrdensServico(int idmscOrdensServico, MscClientes mscClientes, MscUsuarios mscUsuarios,  Date mscDataInicio, String mscStatus, String mscTecnicoResponsavel, double mscValorTotal, Set mscOrdemServicoAparelhos) {
        this.idmscOrdensServico = idmscOrdensServico;
        this.mscClientes = mscClientes;
        this.mscUsuarios = mscUsuarios;
-       this.mscServicos = mscServicos;
        this.mscDataInicio = mscDataInicio;
        this.mscStatus = mscStatus;
        this.mscTecnicoResponsavel = mscTecnicoResponsavel;
@@ -76,16 +74,6 @@ public class MscOrdensServico  implements java.io.Serializable {
     
     public void setMscClientes(MscClientes mscClientes) {
         this.mscClientes = mscClientes;
-    }
-    
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="fkmsc_Servicos")
-    public MscServicos getMscServicos() {
-        return this.mscServicos;
-    }
-    
-    public void setMscServicos(MscServicos mscServicos) {
-        this.mscServicos = mscServicos;
     }
 
 @ManyToOne(fetch=FetchType.LAZY)

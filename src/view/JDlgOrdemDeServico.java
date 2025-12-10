@@ -56,7 +56,6 @@ public class JDlgOrdemDeServico extends javax.swing.JDialog {
     jCobCliente, 
     jFmtData, 
     jCombUsuario, 
-    jCombServ, 
     jCobTec, 
     jCobStatus, 
     jTxtValor,
@@ -85,11 +84,7 @@ Util.habilitar(true,
         for (Object object : listaUsu) {
             jCombUsuario.addItem((MscUsuarios) object);
         }
-        ServicosDao servicos = new ServicosDao();
-        List listaServ = (List) servicos.listAll();
-        for (Object object : listaServ) {
-            jCombServ.addItem((MscServicos) object);
-        }
+        
         
         controllerOrdemDeServicoAparelho = new ControllerOrdemDeServicoAparelho();
         controllerOrdemDeServicoAparelho.setList(new ArrayList());
@@ -121,7 +116,6 @@ public void atualizarTotal() {
         mscordensservico.setMscValorTotal(Util.strToDouble(jTxtValor.getText()));
         mscordensservico.setMscClientes((MscClientes) jCobCliente.getSelectedItem());
         mscordensservico.setMscUsuarios((MscUsuarios) jCombUsuario.getSelectedItem());
-        mscordensservico.setMscServicos((MscServicos) jCombServ.getSelectedItem());
          mscordensservico.setMscStatus(jCobStatus.getSelectedItem().toString());
         mscordensservico.setMscTecnicoResponsavel(jCobTec.getSelectedItem().toString());
 
@@ -134,7 +128,6 @@ public void atualizarTotal() {
         jTxtValor.setText(Util.doubleToStr(mscOrdensServico.getMscValorTotal()));
         jCobCliente.setSelectedItem(mscOrdensServico.getMscClientes());
         jCombUsuario.setSelectedItem(mscOrdensServico.getMscUsuarios());
-         jCombServ.setSelectedItem(mscOrdensServico.getMscServicos());
          jCobStatus.setSelectedItem(mscOrdensServico.getMscStatus());
         jCobTec.setSelectedItem(mscOrdensServico.getMscTecnicoResponsavel());
         
@@ -158,7 +151,6 @@ public void atualizarTotal() {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jCobStatus = new javax.swing.JComboBox<>();
@@ -179,7 +171,6 @@ public void atualizarTotal() {
         jBtnCancel = new javax.swing.JButton();
         jCobCliente = new javax.swing.JComboBox<MscClientes>();
         jCombUsuario = new javax.swing.JComboBox<MscUsuarios>();
-        jCombServ = new javax.swing.JComboBox<MscServicos>();
         jTxtValor = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -191,8 +182,6 @@ public void atualizarTotal() {
         jLabel3.setText("Tecnico Responsavel");
 
         jLabel4.setText("Usuario");
-
-        jLabel5.setText(" Serviço");
 
         jLabel6.setText("Data de Inicio");
 
@@ -338,27 +327,18 @@ public void atualizarTotal() {
                                     .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
                                     .addComponent(jTxtValor)))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jTxtCod, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(40, 40, 40)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jTxtCod, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(54, 54, 54)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(21, 21, 21)
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel4))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jCobCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(36, 36, 36)
-                                        .addComponent(jCombUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jCobCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(26, 26, 26)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(42, 42, 42)
-                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(31, 31, 31)
-                                        .addComponent(jCombServ, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                    .addComponent(jCombUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(34, 34, 34)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 724, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -387,19 +367,15 @@ public void atualizarTotal() {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTxtCod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jCobCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jCombUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jCombServ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLabel5))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTxtCod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCobCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCombUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -451,7 +427,7 @@ public void atualizarTotal() {
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
         // TODO add your handling code here:
           Util.habilitar(true, jTxtCod, jCobCliente, jFmtData, jCombUsuario, 
-            jCombServ, jCobTec,jCobStatus,jTxtValor,
+            jCobTec,jCobStatus,jTxtValor,
             jBtnConfirmar, jBtnCancelar,jBtnInclusao, jBtnSave,jBtnCancel);
         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
         //Util.limpar(jTxtCod, jCobCliente, jFmtData, jCombUsuario, 
@@ -485,11 +461,11 @@ public void atualizarTotal() {
         }
 
        Util.habilitar(false, jTxtCod, jCobCliente, jFmtData, jCombUsuario, 
-            jCombServ, jCobTec,jCobStatus,jTxtValor,
+            jCobTec,jCobStatus,jTxtValor,
             jBtnConfirmar, jBtnCancelar);
         Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
         Util.limpar(jTxtCod, jCobCliente, jFmtData, jCombUsuario, 
-            jCombServ, jCobTec,jCobStatus,jTxtValor);
+             jCobTec,jCobStatus,jTxtValor);
 controllerOrdemDeServicoAparelho.setList(new ArrayList());
         
     
@@ -514,21 +490,21 @@ controllerOrdemDeServicoAparelho.setList(new ArrayList());
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
         // TODO add your handling code here:
         Util.habilitar(false, jTxtCod, jCobCliente, jFmtData, jCombUsuario, 
-            jCombServ, jCobTec,jCobStatus,jTxtValor,
+            jCobTec,jCobStatus,jTxtValor,
             jBtnConfirmar, jBtnCancelar, jBtnInclusao, jBtnSave,jBtnCancel);
         Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
         Util.limpar(jTxtCod, jCobCliente, jFmtData, jCombUsuario, 
-            jCombServ, jCobTec,jCobStatus,jTxtValor);
+             jCobTec,jCobStatus,jTxtValor);
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
         // TODO add your handling code here:
          Util.habilitar(true, jTxtCod, jCobCliente, jFmtData, jCombUsuario, 
-            jCombServ, jCobTec,jCobStatus,jTxtValor,
+             jCobTec,jCobStatus,jTxtValor,
             jBtnConfirmar, jBtnCancelar, jBtnInclusao, jBtnSave,jBtnCancel);
         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
         Util.limpar(jTxtCod, jCobCliente, jFmtData, jCombUsuario, 
-            jCombServ, jCobTec,jCobStatus,jTxtValor);
+             jCobTec,jCobStatus,jTxtValor);
 controllerOrdemDeServicoAparelho.setList(new ArrayList());
 
         incluir = true;
@@ -559,7 +535,7 @@ controllerOrdemDeServicoAparelho.setList(new ArrayList());
             ordem_servicoDao.delete(viewBean());
 
             Util.limpar(jTxtCod, jCobCliente, jFmtData, jCombUsuario, 
-                        jCombServ, jCobTec, jCobStatus, jTxtValor);
+                        jCobTec, jCobStatus, jTxtValor);
            
             controllerOrdemDeServicoAparelho.setList(new ArrayList());
             JOptionPane.showMessageDialog(null, "Ordem de serviço excluída com sucesso!", 
@@ -661,14 +637,12 @@ controllerOrdemDeServicoAparelho.setList(new ArrayList());
     private javax.swing.JComboBox<MscClientes> jCobCliente;
     private javax.swing.JComboBox<String> jCobStatus;
     private javax.swing.JComboBox<String> jCobTec;
-    private javax.swing.JComboBox<MscServicos> jCombServ;
     private javax.swing.JComboBox<MscUsuarios> jCombUsuario;
     private javax.swing.JFormattedTextField jFmtData;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;

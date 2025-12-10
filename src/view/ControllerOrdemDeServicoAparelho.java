@@ -44,7 +44,7 @@ public class ControllerOrdemDeServicoAparelho extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 5;
+        return 6;
     }
 
     @Override
@@ -54,11 +54,13 @@ public class ControllerOrdemDeServicoAparelho extends AbstractTableModel {
             return ordemDeServicoAparelho.getMscAparelhos().getIdmscAparelhos();
         } else if (columnIndex ==1) {
             return ordemDeServicoAparelho.getMscAparelhos().getMscModelo();
-        } else if (columnIndex ==2) {
-            return ordemDeServicoAparelho.getMscQuantidade();
+        } else if (columnIndex ==2) { 
+              return ordemDeServicoAparelho.getMscServicos().getMscNomeServico();
         } else if (columnIndex ==3) {
-            return ordemDeServicoAparelho.getMscValorUnitario();
+            return ordemDeServicoAparelho.getMscQuantidade();
         }else if (columnIndex ==4) {
+            return ordemDeServicoAparelho.getMscValorUnitario();
+        }else if (columnIndex ==5) {
             return ordemDeServicoAparelho.getMscValorUnitario()*ordemDeServicoAparelho.getMscQuantidade();
         }
         return ""; 
@@ -69,14 +71,16 @@ public class ControllerOrdemDeServicoAparelho extends AbstractTableModel {
         if ( columnIndex == 0) {
             return "Código";
         } else if ( columnIndex == 1) {
-            return "Aparelho";         
-        } else if ( columnIndex == 2) {
-            return "Quantidade";
+            return "Aparelho";   
+        }else if ( columnIndex == 2) {
+            return "Serviço";
         } else if ( columnIndex == 3) {
-            return "Valor Unitário";
+            return "Quantidade";
         } else if ( columnIndex == 4) {
+            return "Valor Unitário";
+        }  else if ( columnIndex == 5) {
             return "Total";
-        } 
+        }
         return "";
     }
 }

@@ -13,6 +13,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Calendar;
+import javax.swing.text.MaskFormatter;
 
 /**
  *
@@ -53,6 +54,16 @@ public class JDlgUsuarios extends javax.swing.JDialog {
         initComponents(); 
         setTitle("Cadastro de Usuarios");
         setLocationRelativeTo(null); 
+       
+        try {
+    MaskFormatter cpfMask = new MaskFormatter("###.###.###-##");
+    cpfMask.setPlaceholderCharacter('_');
+    jFmtCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(cpfMask));
+} catch (ParseException e) {
+    e.printStackTrace();
+}
+        
+        
        Util.habilitar(false, jTxtCodigo,jTxtNome,  jTxtApelido,
                 jFmtCpf, jFmtDataNascimento, jPwdSenha, jCboNivel, 
                 jChbAtivo,    jBtnConfirmar, jBtnCancelar);
@@ -66,6 +77,7 @@ public class JDlgUsuarios extends javax.swing.JDialog {
 } catch (java.text.ParseException e) {
     e.printStackTrace();
 }
+    
     }
     
     public void beanView(MscUsuarios usuarios) {

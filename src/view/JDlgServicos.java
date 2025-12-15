@@ -7,14 +7,20 @@ package view;
 import bean.MscServicos;
 import dao.ServicosDao;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import tools.Util;
 import java.text.ParseException;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.NumberFormatter;
 
 
 /**
@@ -53,6 +59,8 @@ public class JDlgServicos extends javax.swing.JDialog {
         setTitle("Cadastro de Serviços");
         setLocationRelativeTo(null); 
       
+ 
+    
          Util.habilitar(false, jTxtCodigo,jTxtNomeServ,  jTxtDesc,
                 jFmtValor, jTxtTempo, jCboCat, jFmtData, 
                   jBtnConfirmar, jBtnCancelar);
@@ -395,6 +403,9 @@ servicosBean.setMscValor(valor);
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
         // TODO add your handling code here:
+     
+
+
         if (!validarData(jFmtData.getText())) {
         return; 
     }

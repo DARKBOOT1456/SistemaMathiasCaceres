@@ -90,6 +90,12 @@ public class JDlgConsultaAparelhos extends javax.swing.JDialog {
 
         jLabel1.setText("Marca");
 
+        jTxtValor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTxtValorActionPerformed(evt);
+            }
+        });
+
         jLabel2.setText("Valor Maior que ");
 
         jBtnConsultar.setText("Consultar");
@@ -202,6 +208,10 @@ public class JDlgConsultaAparelhos extends javax.swing.JDialog {
             System.err.println("Erro de Impressão: " + e.getMessage());
         }
     }//GEN-LAST:event_jBtnPdfActionPerformed
+
+    private void jTxtValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtValorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTxtValorActionPerformed
 
     /**
      * @param args the command line arguments

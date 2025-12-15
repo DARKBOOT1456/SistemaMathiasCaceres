@@ -72,7 +72,7 @@ public Object listTec(String tec) {
     public Object listTecValor(String tec, double valor) {
     session.beginTransaction();
     Criteria criteria = session.createCriteria(MscOrdensServico.class); 
-      criteria.add(Restrictions.like("idmscOrdensServico", "%" + tec + "%"));
+      criteria.add(Restrictions.like("mscTecnicoResponsavel", "%" + tec + "%"));
     criteria.add(Restrictions.ge("mscValorTotal", valor));
     List lista = criteria.list();
     session.getTransaction().commit();

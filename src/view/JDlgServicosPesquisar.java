@@ -64,6 +64,11 @@ ControllerServicos controllerServicos;
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ok.png"))); // NOI18N
@@ -112,10 +117,16 @@ ControllerServicos controllerServicos;
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
-          if (evt.getClickCount() == 2) {
+         
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+
+        // TODO add your handling code here:
+         if (evt.getClickCount() == 2) {
             jButton1ActionPerformed(null);
         }
-    }//GEN-LAST:event_jButton1MouseClicked
+    }//GEN-LAST:event_jTable1MouseClicked
 
     /**
      * @param args the command line arguments

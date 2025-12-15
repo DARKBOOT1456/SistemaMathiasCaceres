@@ -91,6 +91,12 @@ public class JDlgConsultaClientes extends javax.swing.JDialog {
 
         jLabel1.setText("Nome");
 
+        jTxtCpf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTxtCpfActionPerformed(evt);
+            }
+        });
+
         jLabel2.setText("CPF");
 
         jBtnConsultar.setText("Consultar");
@@ -204,6 +210,10 @@ public class JDlgConsultaClientes extends javax.swing.JDialog {
             System.err.println("Erro de Impressão: " + e.getMessage());
         }
     }//GEN-LAST:event_jBtnPdfActionPerformed
+
+    private void jTxtCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtCpfActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTxtCpfActionPerformed
 
     /**
      * @param args the command line arguments

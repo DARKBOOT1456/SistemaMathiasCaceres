@@ -97,7 +97,7 @@ public class JDlgConsultaOrdemDeServico extends javax.swing.JDialog {
             }
         });
 
-        jLabel2.setText("Valor Total");
+        jLabel2.setText("Valor Maior que");
 
         jBtnConsultar.setText("Consultar");
         jBtnConsultar.addActionListener(new java.awt.event.ActionListener() {

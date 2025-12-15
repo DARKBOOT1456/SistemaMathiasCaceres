@@ -122,10 +122,7 @@ public class JDlgOrdemDeServicoPesquisar extends javax.swing.JDialog {
     }//GEN-LAST:event_jBtnOkActionPerformed
 
     private void jBtnOkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnOkMouseClicked
-        // TODO add your handling code here:
-         if (evt.getClickCount() == 2) {
-            jBtnOkActionPerformed(null);
-        }
+       
     }//GEN-LAST:event_jBtnOkMouseClicked
 
     /**

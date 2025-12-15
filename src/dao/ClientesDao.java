@@ -59,14 +59,14 @@ public Object listNome(String nome) {
         return lista;
     }
 
-    public Object listCpf(String cpf) {
-        session.beginTransaction();
-        Criteria criteria = session.createCriteria(MscClientes.class);
-        criteria.add(Restrictions.ge("mscCpf", "%" + cpf + "%"));
-        List lista = criteria.list();
-        session.getTransaction().commit();
-        return lista;
-    }
+   public Object listCpf(String cpf) {
+    session.beginTransaction();
+    Criteria criteria = session.createCriteria(MscClientes.class);
+    criteria.add(Restrictions.like("mscCpf", cpf + "%"));
+    List lista = criteria.list();
+    session.getTransaction().commit();
+    return lista;
+}
 
     public Object listNomeCpf(String nome, String cpf) {
         session.beginTransaction();

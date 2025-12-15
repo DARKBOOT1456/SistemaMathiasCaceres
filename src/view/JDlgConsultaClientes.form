@@ -129,6 +129,9 @@
     <Component class="javax.swing.JTextField" name="jTxtNome">
     </Component>
     <Component class="javax.swing.JTextField" name="jTxtCpf">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTxtCpfActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>

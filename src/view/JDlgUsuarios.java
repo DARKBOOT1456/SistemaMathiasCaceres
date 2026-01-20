@@ -93,37 +93,37 @@ public class JDlgUsuarios extends javax.swing.JDialog {
     }
    
     public MscUsuarios viewBean(){
-         MscUsuarios usuarios = new MscUsuarios();
-    int codigo = Util.strToInt(jTxtCodigo.getText());
-    usuarios.setIdmscUsuarios(codigo);
+        MscUsuarios usuarios = new MscUsuarios();
+
+    // 👉 SÓ SETA ID SE EXISTIR (ALTERAÇÃO / EXCLUSÃO)
+    if (!jTxtCodigo.getText().trim().isEmpty()) {
+        usuarios.setIdmscUsuarios(
+            Util.strToInt(jTxtCodigo.getText())
+        );
+    }
+
     usuarios.setMscNome(jTxtNome.getText());
     usuarios.setMscApelido(jTxtApelido.getText());
     usuarios.setMscCpf(jFmtCpf.getText());
-    
-    // CORREÇÃO DA DATA DE NASCIMENTO
+
     String dataTexto = jFmtDataNascimento.getText().trim();
     Date dataNascimento;
-    
+
     if (dataTexto.isEmpty() || dataTexto.equals("  /  /    ")) {
-        dataNascimento = new Date(); 
+        dataNascimento = new Date();
     } else {
         dataNascimento = Util.strToDate(dataTexto);
         if (dataNascimento == null) {
             dataNascimento = new Date();
         }
     }
+
     usuarios.setMscDataNascimento(dataNascimento);
-    
     usuarios.setMscSenha(jPwdSenha.getText());
     usuarios.setMscNivel(jCboNivel.getSelectedItem().toString());
-    
-    if(jChbAtivo.isSelected() == true){
-        usuarios.setMscAtivo("S");
-    } else {
-        usuarios.setMscAtivo("N");          
-    } 
-   
-        return usuarios;
+    usuarios.setMscAtivo(jChbAtivo.isSelected() ? "S" : "N");
+
+    return usuarios;
     }
 
     /**
@@ -364,10 +364,6 @@ public class JDlgUsuarios extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTxtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtCodigoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTxtCodigoActionPerformed
-
     private void jTxtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtNomeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTxtNomeActionPerformed
@@ -378,11 +374,11 @@ public class JDlgUsuarios extends javax.swing.JDialog {
 
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
         // TODO add your handling code here:
-         Util.habilitar(true, jTxtCodigo,jTxtNome,  jTxtApelido,
+         Util.habilitar(true,jTxtNome,  jTxtApelido,
                 jFmtCpf, jFmtDataNascimento, jPwdSenha, jCboNivel, 
                 jChbAtivo,    jBtnConfirmar, jBtnCancelar);
                 
-        Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+        Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar,jTxtCodigo);
            Util.limpar(jTxtCodigo,jTxtNome,  jTxtApelido,
                 jFmtCpf, jFmtDataNascimento, jPwdSenha, jCboNivel, 
                 jChbAtivo);
@@ -484,6 +480,10 @@ public class JDlgUsuarios extends javax.swing.JDialog {
     private void jFmtDataNascimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFmtDataNascimentoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jFmtDataNascimentoActionPerformed
+
+    private void jTxtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtCodigoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTxtCodigoActionPerformed
 
     /**
      * @param args the command line arguments

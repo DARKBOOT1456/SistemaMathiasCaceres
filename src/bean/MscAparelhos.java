@@ -18,7 +18,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "msc_aparelhos",
-         catalog = "db_mathias_caceres"
+         catalog = "mathiascaceres"
 )
 public class MscAparelhos implements java.io.Serializable {
 

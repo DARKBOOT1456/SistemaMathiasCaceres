@@ -135,16 +135,40 @@ public class JDlgOrdemDeServico extends javax.swing.JDialog {
     }
 
     public MscOrdensServico viewBean() {
-        MscOrdensServico mscordensservico = new MscOrdensServico();
-        mscordensservico.setIdmscOrdensServico(Util.strToInt(jTxtCod.getText()));
-        mscordensservico.setMscDataInicio(Util.strToDate(jFmtData.getText()));
-        mscordensservico.setMscValorTotal(Util.strToDouble(jTxtValor.getText()));
-        mscordensservico.setMscClientes((MscClientes) jCobCliente.getSelectedItem());
-        mscordensservico.setMscUsuarios((MscUsuarios) jCombUsuario.getSelectedItem());
-        mscordensservico.setMscStatus(jCobStatus.getSelectedItem().toString());
-        mscordensservico.setMscTecnicoResponsavel(jCobTec.getSelectedItem().toString());
+         MscOrdensServico mscordensservico = new MscOrdensServico();
 
-        return mscordensservico;
+    // 👉 SÓ SETA O ID SE EXISTIR (ALTERAR / EXCLUIR)
+    if (!jTxtCod.getText().trim().isEmpty()) {
+        mscordensservico.setIdmscOrdensServico(
+            Util.strToInt(jTxtCod.getText())
+        );
+    }
+
+    mscordensservico.setMscDataInicio(
+        Util.strToDate(jFmtData.getText())
+    );
+
+    mscordensservico.setMscValorTotal(
+        Util.strToDouble(jTxtValor.getText())
+    );
+
+    mscordensservico.setMscClientes(
+        (MscClientes) jCobCliente.getSelectedItem()
+    );
+
+    mscordensservico.setMscUsuarios(
+        (MscUsuarios) jCombUsuario.getSelectedItem()
+    );
+
+    mscordensservico.setMscStatus(
+        jCobStatus.getSelectedItem().toString()
+    );
+
+    mscordensservico.setMscTecnicoResponsavel(
+        jCobTec.getSelectedItem().toString()
+    );
+
+    return mscordensservico;
     }
 
     public void beanView(MscOrdensServico mscOrdensServico) {
@@ -534,10 +558,10 @@ public class JDlgOrdemDeServico extends javax.swing.JDialog {
 
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
         // TODO add your handling code here:
-        Util.habilitar(true, jTxtCod, jCobCliente, jFmtData, jCombUsuario,
+        Util.habilitar(true , jCobCliente, jFmtData, jCombUsuario,
                 jCobTec, jCobStatus, jTxtValor,
                 jBtnConfirmar, jBtnCancelar, jBtnInclusao, jBtnSave, jBtnCancel);
-        Util.habilitar(false, jTxtValor,jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+        Util.habilitar(false, jTxtValor,jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar,jTxtCod);
         Util.limpar(jTxtCod, jCobCliente, jFmtData, jCombUsuario,
                 jCobTec, jCobStatus, jTxtValor);
         controllerOrdemDeServicoAparelho.setList(new ArrayList());

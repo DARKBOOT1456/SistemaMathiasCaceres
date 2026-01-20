@@ -4,6 +4,10 @@ package bean;
 
 import java.util.Date;
 import java.util.HashSet;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,7 +23,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name="msc_usuarios"
-    ,catalog="db_mathias_caceres"
+    ,catalog="mathiascaceres"
 )
 public class MscUsuarios  implements java.io.Serializable {
 
@@ -54,13 +58,12 @@ public class MscUsuarios  implements java.io.Serializable {
   
     }
    
-     @Id 
-
-    
-    @Column(name="idmsc_usuarios", unique=true, nullable=false)
-    public int getIdmscUsuarios() {
-        return this.idmscUsuarios;
-    }
+     @Id
+@GeneratedValue(strategy = GenerationType.IDENTITY)
+@Column(name="idmsc_usuarios", unique=true, nullable=false)
+public int getIdmscUsuarios() {
+    return this.idmscUsuarios;
+}
     
     public void setIdmscUsuarios(int idmscUsuarios) {
         this.idmscUsuarios = idmscUsuarios;

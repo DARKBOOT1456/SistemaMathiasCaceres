@@ -92,31 +92,35 @@ if (categoria != null) {
         
     }
     public MscServicos viewBean(){
-         MscServicos servicosBean = new MscServicos();
-    int codigo = Util.strToInt(jTxtCodigo.getText());
-    servicosBean.setIdmscServicos(codigo);
+          MscServicos servicosBean = new MscServicos();
+
+    // 🔹 Só seta ID se estiver preenchido (edição)
+    if (!jTxtCodigo.getText().trim().isEmpty()) {
+        servicosBean.setIdmscServicos(
+            Util.strToInt(jTxtCodigo.getText())
+        );
+    }
 
     servicosBean.setMscNomeServico(jTxtNomeServ.getText());
     servicosBean.setMscDescricao(jTxtDesc.getText());
-    
-   String valorStr = jFmtValor.getText().replace(",", "."); 
-double valor = 0.0; // valor padrão
-if (!valorStr.isEmpty()) {
-    try {
-        valor = Double.parseDouble(valorStr);
-    } catch (NumberFormatException e) {
-        valor = 0.0; 
-    }
-}
-servicosBean.setMscValor(valor);
 
-    
-    
+    // Valor
+    String valorStr = jFmtValor.getText().replace(",", ".").trim();
+    double valor = 0.0;
+    if (!valorStr.isEmpty()) {
+        try {
+            valor = Double.parseDouble(valorStr);
+        } catch (NumberFormatException e) {
+            valor = 0.0;
+        }
+    }
+    servicosBean.setMscValor(valor);
+
+    // Data cadastro
     String dataTexto = jFmtData.getText().trim();
     Date dataCadastro;
-    
     if (dataTexto.isEmpty() || dataTexto.equals("  /  /    ")) {
-        dataCadastro = new Date(); 
+        dataCadastro = new Date();
     } else {
         dataCadastro = Util.strToDate(dataTexto);
         if (dataCadastro == null) {
@@ -124,11 +128,11 @@ servicosBean.setMscValor(valor);
         }
     }
     servicosBean.setMscDataCadastro(dataCadastro);
-    
+
     servicosBean.setMscTempoEstimado(jTxtTempo.getText());
     servicosBean.setMscCategoria(jCboCat.getSelectedItem().toString());
-   
-        return servicosBean;
+
+    return servicosBean;
     }
    
 
@@ -374,11 +378,11 @@ servicosBean.setMscValor(valor);
 
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
         // TODO add your handling code here:
-        Util.habilitar(true, jTxtCodigo,jTxtNomeServ,  jTxtDesc,
+        Util.habilitar(true,jTxtNomeServ,  jTxtDesc,
                 jFmtValor, jTxtTempo, jCboCat, jFmtData, 
                   jBtnConfirmar, jBtnCancelar);
         
-         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar,jTxtCodigo);
            Util.limpar(jTxtCodigo,jTxtNomeServ,  jTxtDesc,
                 jFmtValor, jTxtTempo, jCboCat, jFmtData);
             incluir = true;

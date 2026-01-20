@@ -141,19 +141,23 @@ jFmtCpf.setFormatterFactory(
     }
     public MscClientes viewBean(){
           MscClientes clientesBean = new MscClientes();
-    int codigo = Util.strToInt(jTxtCod.getText());
-    clientesBean.setIdmscClientes(codigo);
+
+    // 👉 SÓ SETA O ID SE EXISTIR (ALTERAR / EXCLUIR)
+    if (!jTxtCod.getText().trim().isEmpty()) {
+        clientesBean.setIdmscClientes(
+            Util.strToInt(jTxtCod.getText())
+        );
+    }
 
     clientesBean.setMscNome(jTtxtNome.getText());
     clientesBean.setMscRg(jTxtRg.getText());
     clientesBean.setMscCpf(jFmtCpf.getText());
-    
-   
+
     String dataNascTexto = jFmtDataNascimento.getText().trim();
     Date dataNascimento;
-    
+
     if (dataNascTexto.isEmpty() || dataNascTexto.equals("  /  /    ")) {
-        dataNascimento = new Date(); 
+        dataNascimento = new Date();
     } else {
         dataNascimento = Util.strToDate(dataNascTexto);
         if (dataNascimento == null) {
@@ -161,7 +165,7 @@ jFmtCpf.setFormatterFactory(
         }
     }
     clientesBean.setMscDataNascimento(dataNascimento);
-       
+
     clientesBean.setMscTelefone(jFmtTelefo1.getText());
     clientesBean.setMscTelefoneSecundario(jFmtTelefo.getText());
     clientesBean.setMscEmail(jTxtEmail.getText());
@@ -171,12 +175,12 @@ jFmtCpf.setFormatterFactory(
     clientesBean.setMscEstado(jTxtEstado.getText());
     clientesBean.setMscCep(jFtfCep.getText());
     clientesBean.setMscDeficiencia(jTxtDefi.getText());
-    
+
     String dataCadTexto = jFmtDataCadastro.getText().trim();
     Date dataCadastro;
-    
+
     if (dataCadTexto.isEmpty() || dataCadTexto.equals("  /  /    ")) {
-        dataCadastro = new Date(); 
+        dataCadastro = new Date();
     } else {
         dataCadastro = Util.strToDate(dataCadTexto);
         if (dataCadastro == null) {
@@ -184,9 +188,8 @@ jFmtCpf.setFormatterFactory(
         }
     }
     clientesBean.setMscDataCadastro(dataCadastro);
-          
-   
-        return clientesBean;
+
+    return clientesBean;
     }
 
     /**
@@ -423,8 +426,8 @@ jFmtCpf.setFormatterFactory(
                                 .addComponent(jTxtDefi, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jFmtTelefo, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jFmtTelefo, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jTxtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -565,12 +568,12 @@ jFmtCpf.setFormatterFactory(
 
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
         // TODO add your handling code here:
-        Util.habilitar(true, jTxtCod,jTtxtNome,  jFmtCpf,
+        Util.habilitar(true, jTtxtNome,  jFmtCpf,
                 jTxtRg, jFmtDataNascimento, jFmtTelefo1, jFmtTelefo, 
                 jTxtEmail,    jTxtEnde, jTxtBairro, jTxtCidade, jTxtEstado, jFtfCep,jFmtDataCadastro, 
                 jTxtDefi,  jBtnConfirmar, jBtnCancelar);
         
-        Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+        Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar,jTxtCod);
           Util.limpar(jTxtCod,jTtxtNome,  jFmtCpf,
                 jTxtRg, jFmtDataNascimento, jFmtTelefo1, jFmtTelefo, 
                 jTxtEmail,    jTxtEnde, jTxtBairro, jTxtCidade, jTxtEstado, jFtfCep,jFmtDataCadastro, 

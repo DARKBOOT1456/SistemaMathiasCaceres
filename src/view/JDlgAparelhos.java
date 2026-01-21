@@ -79,36 +79,45 @@ public class JDlgAparelhos extends javax.swing.JDialog {
 
     }
 
-    public MscAparelhos viewBean() {
-        MscAparelhos aparelhos = new MscAparelhos();
-        int codigo = Util.strToInt(jTxtCod.getText());
-        aparelhos.setIdmscAparelhos(codigo);
-        aparelhos.setMscMarca(jTxtMarca.getText());
-        aparelhos.setMscNumeroDeSerie(jTxtNumero.getText());
-        aparelhos.setMscModelo(jTxtModelo.getText());
-        
-    
+   public MscAparelhos viewBean() {
+    MscAparelhos aparelhos = new MscAparelhos();
+
+    // 👉 SÓ SETA O ID SE EXISTIR (ALTERAR / EXCLUIR)
+    String codTexto = jTxtCod.getText().trim();
+    if (!codTexto.isEmpty()) {
+        aparelhos.setIdmscAparelhos(Util.strToInt(codTexto));
+    }
+
+    aparelhos.setMscMarca(jTxtMarca.getText());
+    aparelhos.setMscNumeroDeSerie(jTxtNumero.getText());
+    aparelhos.setMscModelo(jTxtModelo.getText());
+
+    // Tratar Data de Entrada
     String dataTexto = jFmtData.getText().trim();
     Date dataEntrada;
-    
     if (dataTexto.isEmpty() || dataTexto.equals("  /  /    ")) {
-        dataEntrada = new Date(); 
+        dataEntrada = new Date(); // usa a data atual
     } else {
         dataEntrada = Util.strToDate(dataTexto);
-       
         if (dataEntrada == null) {
             dataEntrada = new Date();
         }
     }
     aparelhos.setMscDataEntrada(dataEntrada);
-    
-    aparelhos.setMscDataEntrada(dataEntrada);
-        aparelhos.setMscCor(jTxtCor.getText());
-        aparelhos.setMscTipodeEquipamento(jCboTipo.getSelectedItem().toString());
-        aparelhos.setMscChipRetirado(jCboChip.getSelectedItem().toString());
 
-        return aparelhos;
+    aparelhos.setMscCor(jTxtCor.getText());
+
+    // Verificar se ComboBox selecionou algum item
+    if (jCboTipo.getSelectedItem() != null) {
+        aparelhos.setMscTipodeEquipamento(jCboTipo.getSelectedItem().toString());
     }
+
+    if (jCboChip.getSelectedItem() != null) {
+        aparelhos.setMscChipRetirado(jCboChip.getSelectedItem().toString());
+    }
+
+    return aparelhos;
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -366,11 +375,11 @@ public class JDlgAparelhos extends javax.swing.JDialog {
 
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
         // TODO add your handling code here:
-        Util.habilitar(true, jTxtCod, jTxtMarca, jTxtNumero,
+        Util.habilitar(true , jTxtMarca, jTxtNumero,
                 jFmtData, jCboTipo, jTxtModelo, jCboChip,
                 jTxtCor, jBtnConfirmar, jBtnCancelar);
 
-        Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+        Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar,jTxtCod);
         Util.limpar(jTxtCod, jTxtMarca, jTxtNumero,
                 jFmtData, jCboTipo, jTxtModelo, jCboChip,
                 jTxtCor);
@@ -389,7 +398,7 @@ public class JDlgAparelhos extends javax.swing.JDialog {
                 jFmtData, jCboTipo, jTxtModelo, jCboChip,
                 jTxtCor, jBtnConfirmar, jBtnCancelar);
 
-        Util.habilitar(false,jTxtCod, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+        Util.habilitar(false,jTxtCod, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar,jTxtCod);
         incluir = false;
         jTxtMarca.grabFocus();
 
@@ -424,10 +433,10 @@ public class JDlgAparelhos extends javax.swing.JDialog {
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
         // TODO add your handling code here:
-        Util.habilitar(false, jTxtCod, jTxtMarca, jTxtNumero,
+        Util.habilitar(false, jTxtCod,jTxtMarca, jTxtNumero,
                 jFmtData, jCboTipo, jTxtModelo, jCboChip, jTxtCor, jBtnConfirmar, jBtnCancelar);
 
-        Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+        Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar );
         Util.limpar(jTxtCod, jTxtMarca, jTxtNumero,
                 jFmtData, jCboTipo, jTxtModelo, jCboChip,
                 jTxtCor);

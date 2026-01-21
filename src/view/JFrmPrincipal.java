@@ -4,6 +4,9 @@
  */
 package view;
 
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -332,9 +335,13 @@ JDlgClientes telaClientes = new JDlgClientes(this, true);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-        // TODO add your handling code here:
-         JDlgOrdemDeServico telaOS = new JDlgOrdemDeServico(this, true);
-        telaOS.setVisible(true);
+        try {
+            // TODO add your handling code here:
+            JDlgOrdemDeServico telaOS = new JDlgOrdemDeServico(this, true);
+            telaOS.setVisible(true);
+        } catch (ParseException ex) {
+            Logger.getLogger(JFrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed

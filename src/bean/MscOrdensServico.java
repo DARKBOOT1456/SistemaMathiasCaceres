@@ -35,6 +35,8 @@ public class MscOrdensServico  implements java.io.Serializable {
      private String mscStatus;
      private String mscTecnicoResponsavel;
      private double mscValorTotal;
+      private String mscNumero;
+       private String mscNumero2;
    
 
     public MscOrdensServico() {
@@ -45,7 +47,7 @@ public class MscOrdensServico  implements java.io.Serializable {
         this.idmscOrdensServico = idmscOrdensServico;
        
     }
-    public MscOrdensServico(int idmscOrdensServico, MscClientes mscClientes, MscUsuarios mscUsuarios,  Date mscDataInicio, String mscStatus, String mscTecnicoResponsavel, double mscValorTotal, Set mscOrdemServicoAparelhos) {
+    public MscOrdensServico(int idmscOrdensServico, MscClientes mscClientes, MscUsuarios mscUsuarios,  Date mscDataInicio, String mscStatus, String mscTecnicoResponsavel, double mscValorTotal,String mscNumero,String mscNumero2, Set mscOrdemServicoAparelhos) {
        this.idmscOrdensServico = idmscOrdensServico;
        this.mscClientes = mscClientes;
        this.mscUsuarios = mscUsuarios;
@@ -53,6 +55,8 @@ public class MscOrdensServico  implements java.io.Serializable {
        this.mscStatus = mscStatus;
        this.mscTecnicoResponsavel = mscTecnicoResponsavel;
        this.mscValorTotal = mscValorTotal;
+       this.mscNumero = mscNumero;
+       this.mscNumero2 = mscNumero2;
       
     }
    
@@ -125,6 +129,23 @@ public int getIdmscOrdensServico() {
     
     public void setMscValorTotal(double mscValorTotal) {
         this.mscValorTotal = mscValorTotal;
+    }
+    
+     @Column(name="msc_numero", nullable=false, length=50)
+    public String getMscNumero() {
+        return this.mscNumero;
+    }
+    
+    public void setMscNumero(String mscNumero) {
+        this.mscNumero = mscNumero;
+    }
+     @Column(name="msc_numero2", nullable=false, length=50)
+    public String getMscNumero2() {
+        return this.mscNumero2;
+    }
+    
+    public void setMscNumero2(String mscNumero2) {
+        this.mscNumero2 = mscNumero2;
     }
 
 

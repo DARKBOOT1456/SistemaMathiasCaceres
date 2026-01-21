@@ -44,7 +44,7 @@ public class ControllerOrdemDeServicoAparelho extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 7;
+        return 8;
     }
 
     @Override
@@ -53,16 +53,18 @@ public class ControllerOrdemDeServicoAparelho extends AbstractTableModel {
         if ( columnIndex == 0 ){
             return ordemDeServicoAparelho.getMscAparelhos().getIdmscAparelhos();
         } else if (columnIndex ==1) {
+            return ordemDeServicoAparelho.getMscAparelhos().getMscMarca();
+        } else if (columnIndex ==2) {
             return ordemDeServicoAparelho.getMscAparelhos().getMscModelo();
-        } else if (columnIndex ==2) { 
+        } else if (columnIndex ==3) { 
               return ordemDeServicoAparelho.getMscServicos().getMscNomeServico();
-        } else if (columnIndex ==3) {
+        } else if (columnIndex ==4) {
             return ordemDeServicoAparelho.getMscQuantidade();
-        }else if (columnIndex ==4) {
-             return ordemDeServicoAparelho.getMscObservacoes();
         }else if (columnIndex ==5) {
-            return ordemDeServicoAparelho.getMscValorUnitario();
+             return ordemDeServicoAparelho.getMscObservacoes();
         }else if (columnIndex ==6) {
+            return ordemDeServicoAparelho.getMscValorUnitario();
+        }else if (columnIndex ==7) {
             return ordemDeServicoAparelho.getMscValorUnitario()*ordemDeServicoAparelho.getMscQuantidade();
         }
         return ""; 
@@ -73,16 +75,18 @@ public class ControllerOrdemDeServicoAparelho extends AbstractTableModel {
         if ( columnIndex == 0) {
             return "Código";
         } else if ( columnIndex == 1) {
-            return "Aparelho";   
+            return "Aparelho";  
         }else if ( columnIndex == 2) {
+            return "Marca";
+        }else if ( columnIndex == 3) {
             return "Serviço";
-        } else if ( columnIndex == 3) {
-            return "Quantidade";
         } else if ( columnIndex == 4) {
+            return "Quantidade";
+        } else if ( columnIndex == 5) {
             return "Observação";
-        }else if ( columnIndex == 5) {
+        }else if ( columnIndex == 6) {
             return "Valor Unitário";
-        }  else if ( columnIndex == 6) {
+        }  else if ( columnIndex == 7) {
             return "Total";
         }
         return "";

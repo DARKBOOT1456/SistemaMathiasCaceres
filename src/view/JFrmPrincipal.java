@@ -5,10 +5,14 @@
 package view;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -63,6 +67,9 @@ public class JFrmPrincipal extends javax.swing.JFrame {
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
+        jMnuMovimentos2 = new javax.swing.JMenu();
+        jSeparator4 = new javax.swing.JPopupMenu.Separator();
+        menuRelatorio = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -254,6 +261,23 @@ public class JFrmPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMnuMovimentos1);
 
+        jMnuMovimentos2.setMnemonic('M');
+        jMnuMovimentos2.setText("Relatório ");
+        jMnuMovimentos2.add(jSeparator4);
+
+        menuRelatorio.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
+        menuRelatorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/relatori.png"))); // NOI18N
+        menuRelatorio.setMnemonic('O');
+        menuRelatorio.setText("Imprimir Relatório Final");
+        menuRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuRelatorioActionPerformed(evt);
+            }
+        });
+        jMnuMovimentos2.add(menuRelatorio);
+
+        jMenuBar1.add(jMnuMovimentos2);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -375,6 +399,12 @@ JDlgClientes telaClientes = new JDlgClientes(this, true);
         jDlgConsultaClientes.setVisible(true);
     }//GEN-LAST:event_jButton6ActionPerformed
 
+    private void menuRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRelatorioActionPerformed
+        // TODO add your handling code here:
+           // Chama diretamente o relatório
+    relatorio.PdfRelatorioFinal.gerarRelatorioMensal();
+    }//GEN-LAST:event_menuRelatorioActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -430,10 +460,13 @@ JDlgClientes telaClientes = new JDlgClientes(this, true);
     private javax.swing.JMenu jMnuCadatros;
     private javax.swing.JMenu jMnuMovimentos;
     private javax.swing.JMenu jMnuMovimentos1;
+    private javax.swing.JMenu jMnuMovimentos2;
     private javax.swing.JMenuItem jMnuSair;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
+    private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JMenuItem menuRelatorio;
     // End of variables declaration//GEN-END:variables
 }

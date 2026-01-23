@@ -6,6 +6,7 @@
 package dao;
 
 import bean.MscOrdensServico;
+import java.util.Date;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
@@ -90,5 +91,56 @@ public Object listTec(String tec) {
         Ordem_servicoDao ordem_servicoDao = new Ordem_servicoDao();
         ordem_servicoDao.listAll();
     }
-     
+     public List<MscOrdensServico> listarPorPeriodo(Date dataInicio, Date dataFim) {
+    session.beginTransaction();
+    try {
+        Criteria criteria = session.createCriteria(MscOrdensServico.class);
+        
+        // Adiciona as restrições de data
+        criteria.add(Restrictions.ge("mscDataInicio", dataInicio)); // maior ou igual à data início
+        criteria.add(Restrictions.le("mscDataInicio", dataFim));    // menor ou igual à data fim
+        
+        // Ordena por data
+        criteria.addOrder(org.hibernate.criterion.Order.asc("mscDataInicio"));
+        
+        List<MscOrdensServico> lista = criteria.list();
+        session.getTransaction().commit();
+        return lista;
+    } catch (Exception e) {
+        if (session.getTransaction() != null) {
+            session.getTransaction().rollback();
+        }
+        e.printStackTrace();
+        return null;
+    }
+}
+     public List<MscOrdensServico> listarPorPeriodoCompleto(Date dataInicio, Date dataFim) {
+    session.beginTransaction();
+    try {
+        Criteria criteria = session.createCriteria(MscOrdensServico.class);
+        
+        // Cria uma disjunção (OR) para verificar se a ordem está dentro do período
+        // Usando mscDataInicio OU mscDataFim (se existir)
+        org.hibernate.criterion.Disjunction disjunction = Restrictions.disjunction();
+        
+        // Se a data início da ordem estiver dentro do período
+        disjunction.add(Restrictions.between("mscDataInicio", dataInicio, dataFim));
+        
+        // Se você tiver data de término, pode adicionar também:
+        // disjunction.add(Restrictions.between("mscDataFim", dataInicio, dataFim));
+        
+        criteria.add(disjunction);
+        criteria.addOrder(org.hibernate.criterion.Order.asc("mscDataInicio"));
+        
+        List<MscOrdensServico> lista = criteria.list();
+        session.getTransaction().commit();
+        return lista;
+    } catch (Exception e) {
+        if (session.getTransaction() != null) {
+            session.getTransaction().rollback();
+        }
+        e.printStackTrace();
+        return null;
+    }
+}
 }

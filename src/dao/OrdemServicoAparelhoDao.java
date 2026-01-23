@@ -88,4 +88,5 @@ public void deleteAparelhos(MscOrdensServico mscOrdensServico) {
        OrdemServicoAparelhoDao ordemServicoAparelhoDao = new OrdemServicoAparelhoDao();
         ordemServicoAparelhoDao.listAll();
     }
+    
 }

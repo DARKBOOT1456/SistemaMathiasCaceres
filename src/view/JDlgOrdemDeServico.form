@@ -29,14 +29,14 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jBtnAlterar" min="-2" pref="139" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jBtnExcluir" max="32767" attributes="0"/>
+              <Component id="jBtnExcluir" min="-2" pref="150" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jBtnConfirmar" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="jBtnPesquisar" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="jBtnCancelar" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
@@ -91,7 +91,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="jLabel11" min="-2" pref="155" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="44" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="121" max="32767" attributes="0"/>
                           </Group>
                           <Component id="jCbxPagamento" max="32767" attributes="0"/>
                       </Group>
@@ -103,20 +103,27 @@
                   </Group>
                   <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
                       <Component id="jBtnPdf" min="-2" pref="80" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
                       <Component id="jBtnCancel" alignment="0" max="32767" attributes="0"/>
                       <Component id="jBtnInclusao" pref="0" max="32767" attributes="0"/>
                       <Component id="jBtnSave" alignment="1" min="-2" pref="81" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jBtnRegistrarPagamento2" alignment="1" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+              <Component id="jBtnServicos" min="-2" pref="98" max="-2" attributes="0"/>
+          </Group>
+          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace min="0" pref="1052" max="32767" attributes="0"/>
+                  <Component id="jBtnAparelho" min="-2" pref="101" max="-2" attributes="0"/>
+              </Group>
           </Group>
       </Group>
     </DimensionLayout>
@@ -171,37 +178,43 @@
                       <Component id="jTxtCod" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
+              <EmptySpace pref="12" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
                   <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                       <Component id="jBtnInclusao" min="-2" pref="66" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jBtnSave" min="-2" pref="69" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jBtnCancel" min="-2" pref="62" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jBtnRegistrarPagamento2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="jBtnServicos" pref="66" max="32767" attributes="0"/>
+                          <Component id="jBtnRegistrarPagamento2" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="57" max="32767" attributes="0"/>
                       <Component id="jBtnPdf" min="-2" pref="65" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
                   </Group>
               </Group>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jBtnConfirmar" alignment="1" max="32767" attributes="0"/>
-                  <Component id="jBtnIncluir" alignment="1" max="32767" attributes="0"/>
-                  <Component id="jBtnCancelar" alignment="1" max="32767" attributes="0"/>
+                  <Component id="jBtnIncluir" alignment="1" pref="64" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jBtnAlterar" alignment="3" min="-2" pref="61" max="-2" attributes="0"/>
                       <Component id="jBtnPesquisar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jBtnExcluir" alignment="3" max="32767" attributes="0"/>
+                      <Component id="jBtnConfirmar" alignment="3" max="32767" attributes="0"/>
+                      <Component id="jBtnCancelar" alignment="3" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+          </Group>
+          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="217" max="-2" attributes="0"/>
+                  <Component id="jBtnAparelho" min="-2" pref="63" max="-2" attributes="0"/>
+                  <EmptySpace pref="400" max="32767" attributes="0"/>
+              </Group>
           </Group>
       </Group>
     </DimensionLayout>
@@ -520,6 +533,26 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnRegistrarPagamento2ActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jBtnServicos">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/img/servicoss.png"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnServicosActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jBtnAparelho">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/img/celulares.png"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnAparelhoActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

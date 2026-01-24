@@ -1,10 +1,12 @@
 package view;
 
+import bean.MscAparelhos;
 import bean.MscClientes;
 import bean.MscOrdemServicoAparelho;
 import bean.MscOrdensServico;
 import bean.MscServicos;
 import bean.MscUsuarios;
+import dao.AparelhosDao;
 import dao.ClientesDao;
 import dao.OrdemServicoAparelhoDao;
 import dao.Ordem_servicoDao;
@@ -70,6 +72,52 @@ public class JDlgOrdemDeServico extends javax.swing.JDialog {
     
 }
 private javax.swing.JButton jBtnRegistrarPagamento;
+private void recarregarListaAparelhos() {
+    try {
+        // Aqui você recarrega a lista de aparelhos se necessário
+        // Por exemplo, se tiver algum combobox com aparelhos na sua tela:
+        /*
+        jCobAparelhos.removeAllItems();
+        AparelhosDao aparelhosDao = new AparelhosDao();
+        List<MscAparelhos> listaAparelhos = (List<MscAparelhos>) aparelhosDao.listAll();
+        for (MscAparelhos aparelho : listaAparelhos) {
+            jCobAparelhos.addItem(aparelho);
+        }
+        */
+        
+        System.out.println("Lista de aparelhos atualizada com sucesso!");
+        
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this,
+            "❌ Erro ao recarregar lista de aparelhos: " + e.getMessage(),
+            "Erro",
+            JOptionPane.ERROR_MESSAGE);
+    }
+}
+private void recarregarListaServicos() {
+    try {
+        // Recarrega a lista de serviços se necessário
+        // Por exemplo, se tiver algum combobox com serviços na sua tela:
+        /*
+        jCobServicos.removeAllItems();
+        ServicosDao servicosDao = new ServicosDao();
+        List<MscServicos> listaServicos = (List<MscServicos>) servicosDao.listAll();
+        for (MscServicos servico : listaServicos) {
+            jCobServicos.addItem(servico);
+        }
+        */
+        
+        System.out.println("Lista de serviços atualizada com sucesso!");
+        
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this,
+            "❌ Erro ao recarregar lista de serviços: " + e.getMessage(),
+            "Erro",
+            JOptionPane.ERROR_MESSAGE);
+    }
+}
     /**
      * Creates new form JDlgOrdemDeServico
      */
@@ -358,6 +406,8 @@ private double calcularTotalOrdem() {
         jTxtValor = new javax.swing.JTextField();
         jCbxPagamento = new javax.swing.JComboBox<>();
         jBtnRegistrarPagamento2 = new javax.swing.JButton();
+        jBtnServicos = new javax.swing.JButton();
+        jBtnAparelho = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -518,6 +568,20 @@ private double calcularTotalOrdem() {
             }
         });
 
+        jBtnServicos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/servicoss.png"))); // NOI18N
+        jBtnServicos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnServicosActionPerformed(evt);
+            }
+        });
+
+        jBtnAparelho.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/celulares.png"))); // NOI18N
+        jBtnAparelho.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnAparelhoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -528,14 +592,14 @@ private double calcularTotalOrdem() {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBtnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtnConfirmar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtnPesquisar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtnCancelar)
-                .addGap(49, 49, 49))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -578,14 +642,14 @@ private double calcularTotalOrdem() {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 44, Short.MAX_VALUE))
+                                .addGap(0, 121, Short.MAX_VALUE))
                             .addComponent(jCbxPagamento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTxtValor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(1, 1, 1)
@@ -595,7 +659,12 @@ private double calcularTotalOrdem() {
                         .addComponent(jBtnInclusao, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addComponent(jBtnSave, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jBtnRegistrarPagamento2, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap())
+                .addGap(37, 37, 37)
+                .addComponent(jBtnServicos, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGap(0, 1052, Short.MAX_VALUE)
+                    .addComponent(jBtnAparelho, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -637,32 +706,36 @@ private double calcularTotalOrdem() {
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTxtCod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
                         .addComponent(jBtnInclusao, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jBtnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jBtnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jBtnRegistrarPagamento2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jBtnPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(16, 16, 16))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jBtnServicos, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
+                            .addComponent(jBtnRegistrarPagamento2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                        .addComponent(jBtnPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBtnConfirmar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jBtnIncluir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jBtnCancelar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jBtnIncluir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jBtnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jBtnPesquisar)
-                        .addComponent(jBtnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jBtnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jBtnConfirmar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jBtnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(17, 17, 17))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(217, 217, 217)
+                    .addComponent(jBtnAparelho, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(400, Short.MAX_VALUE)))
         );
 
         pack();
@@ -1043,6 +1116,91 @@ jCbxPagamento.setSelectedIndex(0);
     }
     }//GEN-LAST:event_jBtnRegistrarPagamento2ActionPerformed
 
+    private void jBtnServicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnServicosActionPerformed
+        // TODO add your handling code here:
+         try {
+        // Abre a tela de cadastro de serviços
+        JDlgServicos dialog = new JDlgServicos((java.awt.Frame)this.getParent(), true);
+        
+        // Guarda o estado antes de abrir (número de serviços)
+        ServicosDao servicosDao = new ServicosDao();
+        List<MscServicos> servicosAntes = (List<MscServicos>) servicosDao.listAll();
+        int quantidadeAntes = servicosAntes != null ? servicosAntes.size() : 0;
+        
+        // Abre o diálogo
+        dialog.setVisible(true);
+        
+        // Verifica se houve cadastro (compara antes e depois)
+        List<MscServicos> servicosDepois = (List<MscServicos>) servicosDao.listAll();
+        int quantidadeDepois = servicosDepois != null ? servicosDepois.size() : 0;
+        
+        if (quantidadeDepois > quantidadeAntes) {
+            // Houve cadastro
+            JOptionPane.showMessageDialog(this,
+                "✅ Serviço cadastrado com sucesso!\n" +
+                "Ele já está disponível para uso nas ordens de serviço.",
+                "Sucesso",
+                JOptionPane.INFORMATION_MESSAGE);
+                
+            // Atualiza a lista se necessário
+            recarregarListaServicos();
+        } else {
+            // Não houve cadastro (usuário apenas fechou)
+            System.out.println("Usuário fechou a tela sem cadastrar novo serviço");
+        }
+            
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this,
+            "❌ Erro ao abrir cadastro de serviços: " + e.getMessage(),
+            "Erro",
+            JOptionPane.ERROR_MESSAGE);
+    }
+    }//GEN-LAST:event_jBtnServicosActionPerformed
+
+    private void jBtnAparelhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAparelhoActionPerformed
+        // TODO add your handling code here:
+         try {
+        // Abre a tela de cadastro de aparelhos
+        JDlgAparelhos dialog = new JDlgAparelhos((java.awt.Frame)this.getParent(), true);
+        
+        // Guarda o estado antes de abrir (número de aparelhos)
+        AparelhosDao aparelhosDao = new AparelhosDao();
+        List<MscAparelhos> aparelhosAntes = (List<MscAparelhos>) aparelhosDao.listAll();
+        int quantidadeAntes = aparelhosAntes != null ? aparelhosAntes.size() : 0;
+        
+        // Abre o diálogo
+        dialog.setVisible(true);
+        
+        // Verifica se houve cadastro (compara antes e depois)
+        List<MscAparelhos> aparelhosDepois = (List<MscAparelhos>) aparelhosDao.listAll();
+        int quantidadeDepois = aparelhosDepois != null ? aparelhosDepois.size() : 0;
+        
+        if (quantidadeDepois > quantidadeAntes) {
+            // Houve cadastro
+            JOptionPane.showMessageDialog(this,
+                "✅ Aparelho cadastrado com sucesso!\n" +
+                "Ele já está disponível para uso nas ordens de serviço.",
+                "Sucesso",
+                JOptionPane.INFORMATION_MESSAGE);
+                
+            // Atualiza a lista se necessário
+            recarregarListaAparelhos();
+        } else {
+            // Não houve cadastro (usuário apenas fechou)
+            System.out.println("Usuário fechou a tela sem cadastrar novo aparelho");
+        }
+            
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this,
+            "❌ Erro ao abrir cadastro de aparelhos: " + e.getMessage(),
+            "Erro",
+            JOptionPane.ERROR_MESSAGE);
+    }
+                   
+    }//GEN-LAST:event_jBtnAparelhoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1092,6 +1250,7 @@ jCbxPagamento.setSelectedIndex(0);
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnAlterar;
+    private javax.swing.JButton jBtnAparelho;
     private javax.swing.JButton jBtnCancel;
     private javax.swing.JButton jBtnCancelar;
     private javax.swing.JButton jBtnConfirmar;
@@ -1102,6 +1261,7 @@ jCbxPagamento.setSelectedIndex(0);
     private javax.swing.JButton jBtnPesquisar;
     private javax.swing.JButton jBtnRegistrarPagamento2;
     private javax.swing.JButton jBtnSave;
+    private javax.swing.JButton jBtnServicos;
     private javax.swing.JComboBox<String> jCbxPagamento;
     private javax.swing.JComboBox<MscClientes> jCobCliente;
     private javax.swing.JComboBox<String> jCobStatus;

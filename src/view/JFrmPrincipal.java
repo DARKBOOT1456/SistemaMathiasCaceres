@@ -27,7 +27,7 @@ public class JFrmPrincipal extends javax.swing.JFrame {
      */
     public JFrmPrincipal() {
      initComponents();
-    setTitle("SistemaMathiasCaceres");
+    setTitle("Irmãos M&M");
     setLocationRelativeTo(null);
     setExtendedState(MAXIMIZED_BOTH); 
 
@@ -79,7 +79,7 @@ public class JFrmPrincipal extends javax.swing.JFrame {
 
         jToolBar1.setRollover(true);
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/clientes.gif"))); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/clientes.png"))); // NOI18N
         jButton2.setFocusable(false);
         jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -152,7 +152,7 @@ public class JFrmPrincipal extends javax.swing.JFrame {
         jMnuCadatros.add(jMenuItem2);
 
         jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/clientes.gif"))); // NOI18N
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/clientes.png"))); // NOI18N
         jMenuItem3.setMnemonic('C');
         jMenuItem3.setText("Clientes");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {

@@ -49,6 +49,12 @@ public class JDlgLogin extends javax.swing.JDialog {
 
         jLabel2.setText("Senha");
 
+        jtxtApelido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtxtApelidoActionPerformed(evt);
+            }
+        });
+
         jBtnLogar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Login.png"))); // NOI18N
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/utilizador.png"))); // NOI18N
@@ -99,6 +105,10 @@ public class JDlgLogin extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jtxtApelidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtApelidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtxtApelidoActionPerformed
 
     private void configurarEventos() {
         jBtnLogar.addActionListener(new java.awt.event.ActionListener() {

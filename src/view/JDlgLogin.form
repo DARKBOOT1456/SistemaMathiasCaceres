@@ -83,6 +83,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jtxtApelido">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtxtApelidoActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jTxtSenha">
     </Component>

@@ -59,7 +59,9 @@ public class JDlgServicos extends javax.swing.JDialog {
         setTitle("Cadastro de Serviços");
         setLocationRelativeTo(null); 
       
- 
+  // MOSTRA "SELECIONE"
+    jCboCat.setSelectedIndex(0);
+   
     
          Util.habilitar(false, jTxtCodigo,jTxtNomeServ,  jTxtDesc,
                 jFmtValor, jTxtTempo, jCboCat, jFmtData, 
@@ -260,7 +262,7 @@ if (categoria != null) {
             }
         });
 
-        jCboCat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Celular", "Tablet", "Fone", "Notebook", "Computador", "Televisão", "Console de Videogame", "Outros Aparelhos Eletrônicos" }));
+        jCboCat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Celular", "Tablet", "Fone", "Notebook", "Computador", "Televisão", "Console de Videogame", "Outros Aparelhos Eletrônicos" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -385,6 +387,7 @@ if (categoria != null) {
          Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar,jTxtCodigo);
            Util.limpar(jTxtCodigo,jTxtNomeServ,  jTxtDesc,
                 jFmtValor, jTxtTempo, jCboCat, jFmtData);
+            jCboCat.setSelectedIndex(0);
             incluir = true;
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
@@ -399,6 +402,7 @@ if (categoria != null) {
          Util.habilitar(true, jTxtNomeServ,  jTxtDesc,
                 jFmtValor, jTxtTempo, jCboCat, jFmtData, 
                   jBtnConfirmar, jBtnCancelar);
+         
         
          Util.habilitar(false,jTxtCodigo, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
            incluir = false;
@@ -408,7 +412,17 @@ if (categoria != null) {
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
         // TODO add your handling code here:
      
-
+// ===== VALIDAÇÃO CATEGORIA =====
+if (jCboCat.getSelectedIndex() == 0) {
+    JOptionPane.showMessageDialog(
+        this,
+        "Selecione a categoria",
+        "Campo obrigatório",
+        JOptionPane.WARNING_MESSAGE
+    );
+    jCboCat.requestFocus();
+    return;
+}
 
         if (!validarData(jFmtData.getText())) {
         return; 
@@ -429,6 +443,8 @@ if (categoria != null) {
                 jFmtValor, jTxtTempo, jCboCat, jFmtData);
       Util.limpar(jTxtCodigo,jTxtNomeServ,  jTxtDesc,
                 jFmtValor, jTxtTempo, jCboCat, jFmtData);
+      
+       jCboCat.setSelectedIndex(0);
     }//GEN-LAST:event_jBtnConfirmarActionPerformed
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
@@ -440,6 +456,7 @@ if (categoria != null) {
  Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
         Util.limpar(jTxtCodigo,jTxtNomeServ,  jTxtDesc,
                 jFmtValor, jTxtTempo, jCboCat, jFmtData);
+         jCboCat.setSelectedIndex(0);
 // TODO add your handling code here:
        
     }//GEN-LAST:event_jBtnCancelarActionPerformed
@@ -458,7 +475,7 @@ if (categoria != null) {
         
          Util.limpar(jTxtCodigo,jTxtNomeServ,  jTxtDesc,
                 jFmtValor, jTxtTempo, jCboCat, jFmtData);
-      
+       jCboCat.setSelectedIndex(0);
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
     private void jFmtDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFmtDataActionPerformed

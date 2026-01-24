@@ -69,7 +69,7 @@ public class JDlgOrdemDeServico extends javax.swing.JDialog {
     
     
 }
-private JButton btnRegistrarPagamento;
+private javax.swing.JButton jBtnRegistrarPagamento;
     /**
      * Creates new form JDlgOrdemDeServico
      */
@@ -78,6 +78,40 @@ private JButton btnRegistrarPagamento;
         initComponents();
         setTitle("Movimento Ordem de serviço");
         setLocationRelativeTo(null);
+        
+        // Adicione esta variável na declaração de variáveis:
+
+
+// No método initComponents(), depois de criar jBtnPdf, adicione:
+jBtnRegistrarPagamento = new javax.swing.JButton();
+jBtnRegistrarPagamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/dinheiro.png"))); // NOI18N
+jBtnRegistrarPagamento.setText("Registrar Pagamento");
+jBtnRegistrarPagamento.addActionListener(new java.awt.event.ActionListener() {
+    public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jBtnRegistrarPagamento2ActionPerformed(evt);
+    }
+});
+
+// Se não tiver o ícone, você pode usar texto simples:
+// jBtnRegistrarPagamento.setText("💰 Registrar Pagamento");
+        
+        // ===== ITENS PADRÃO =====
+jCobCliente.insertItemAt(null, 0); // para objetos
+jCobCliente.setSelectedIndex(0);
+
+jCombUsuario.insertItemAt(null, 0);
+jCombUsuario.setSelectedIndex(0);
+
+jCobTec.insertItemAt("Selecione", 0);
+jCobTec.setSelectedIndex(0);
+
+jCobStatus.insertItemAt("Selecione", 0);
+jCobStatus.setSelectedIndex(0);
+
+jCbxPagamento.insertItemAt("Selecione", 0);
+jCbxPagamento.setSelectedIndex(0);
+
+        
          MaskFormatter brMask = new MaskFormatter("+55 (##) #####-####");
 brMask.setPlaceholderCharacter('_');
 jFmtNumero.setFormatterFactory(
@@ -116,7 +150,8 @@ jFmtNumero2.setFormatterFactory(
                 jBtnSave,
                 jBtnCancel,
                 jBtnConfirmar,
-                jBtnCancelar
+                jBtnCancelar,
+                jBtnRegistrarPagamento
         );
 
         Util.habilitar(true,
@@ -163,6 +198,33 @@ jFmtNumero2.setFormatterFactory(
     public MscOrdensServico viewBean() {
          MscOrdensServico mscordensservico = new MscOrdensServico();
 
+         if (jCobTec.getSelectedIndex() > 0) {
+    mscordensservico.setMscTecnicoResponsavel(
+        jCobTec.getSelectedItem().toString()
+    );
+}
+
+if (jCobStatus.getSelectedIndex() > 0) {
+    mscordensservico.setMscStatus(
+        jCobStatus.getSelectedItem().toString()
+    );
+}
+ if (jCbxPagamento.getSelectedIndex() > 0) {
+        String formaPagamento = jCbxPagamento.getSelectedItem().toString();
+        // Se for "À retirar", salva como null ou string vazia
+        if (formaPagamento.equals("Pagamento não Realizado")) {
+            mscordensservico.setMscFormaPagamento(null); // ou "" dependendo do seu banco
+        } else {
+            mscordensservico.setMscFormaPagamento(formaPagamento);
+        }
+    }
+
+//if (jCbxPagamento.getSelectedIndex() > 0) {
+//    mscordensservico.setMscFormaPagamento(
+//        jCbxPagamento.getSelectedItem().toString()
+//    );
+//}
+         
     // 👉 SÓ SETA O ID SE EXISTIR (ALTERAR / EXCLUIR)
     if (!jTxtCod.getText().trim().isEmpty()) {
         mscordensservico.setIdmscOrdensServico(
@@ -217,6 +279,13 @@ mscordensservico.setMscNumero2(
         jFmtNumero2.setText(mscOrdensServico.getMscNumero2());
         jTxtValor.setText(Util.doubleToStr(mscOrdensServico.getMscValorTotal()));
         jCbxPagamento.setSelectedItem(mscOrdensServico.getMscFormaPagamento());
+        // Ajuste para forma de pagamento
+    if (mscOrdensServico.getMscFormaPagamento() == null || 
+        mscOrdensServico.getMscFormaPagamento().isEmpty()) {
+        jCbxPagamento.setSelectedItem("Pagamento não Realizado");
+    } else {
+        jCbxPagamento.setSelectedItem(mscOrdensServico.getMscFormaPagamento());
+    }
         jCobCliente.setSelectedItem(mscOrdensServico.getMscClientes());
         jCombUsuario.setSelectedItem(mscOrdensServico.getMscUsuarios());
         jCobStatus.setSelectedItem(mscOrdensServico.getMscStatus());
@@ -262,13 +331,13 @@ private double calcularTotalOrdem() {
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jCobStatus = new javax.swing.JComboBox<String>();
+        jCobStatus = new javax.swing.JComboBox<>();
         jFmtData = new javax.swing.JFormattedTextField();
         jBtnAlterar = new javax.swing.JButton();
         jBtnConfirmar = new javax.swing.JButton();
         jBtnCancelar = new javax.swing.JButton();
         jBtnPesquisar = new javax.swing.JButton();
-        jCobTec = new javax.swing.JComboBox<String>();
+        jCobTec = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableOrdem = new javax.swing.JTable();
@@ -287,7 +356,8 @@ private double calcularTotalOrdem() {
         jFmtNumero2 = new javax.swing.JFormattedTextField();
         jLabel11 = new javax.swing.JLabel();
         jTxtValor = new javax.swing.JTextField();
-        jCbxPagamento = new javax.swing.JComboBox<String>();
+        jCbxPagamento = new javax.swing.JComboBox<>();
+        jBtnRegistrarPagamento2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -303,7 +373,7 @@ private double calcularTotalOrdem() {
 
         jLabel7.setText("Status");
 
-        jCobStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Concluido em espera de retirar", "Concluido Retirado Pelo Cliente", "Em andamento", "Aberto(desmontado)", "Esperando confirmação", "Confirmado Pelo Cliente", "Nulo", "Sem Solução" }));
+        jCobStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Concluido em espera de retirar", "Concluido Retirado Pelo Cliente", "Em andamento", "Aberto(desmontado)", "Esperando confirmação", "Confirmado Pelo Cliente", "Nulo", "Sem Solução" }));
 
         jFmtData.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -343,7 +413,7 @@ private double calcularTotalOrdem() {
             }
         });
 
-        jCobTec.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Mathias", "Mateus", "Nelson", "Sirlene" }));
+        jCobTec.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mathias", "Mateus", "Nelson", "Sirlene" }));
         jCobTec.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCobTecActionPerformed(evt);
@@ -434,10 +504,17 @@ private double calcularTotalOrdem() {
             }
         });
 
-        jCbxPagamento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Débito", "Crédito", "Pix", "Dinheiro" }));
+        jCbxPagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pagamento não Realizado", "Débito", "Crédito", "Pix", "Dinheiro" }));
         jCbxPagamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCbxPagamentoActionPerformed(evt);
+            }
+        });
+
+        jBtnRegistrarPagamento2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/dinheiro.png"))); // NOI18N
+        jBtnRegistrarPagamento2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnRegistrarPagamento2ActionPerformed(evt);
             }
         });
 
@@ -447,75 +524,78 @@ private double calcularTotalOrdem() {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jBtnIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtnConfirmar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jBtnPesquisar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jBtnCancelar)
+                .addGap(49, 49, 49))
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jBtnIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtnConfirmar)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTxtCod, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(23, 23, 23)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jCobCliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jBtnPesquisar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jBtnCancelar)
-                        .addGap(49, 49, 49))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jCombUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9)
+                            .addComponent(jFmtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jFmtNumero2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTxtCod, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(23, 23, 23)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jCobCliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jCombUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jFmtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jFmtNumero2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)))
-                            .addComponent(jScrollPane1)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(48, 48, 48)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(48, 48, 48)
-                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jFmtData, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jCobTec, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(23, 23, 23)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jCobStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jCbxPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTxtValor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jFmtData, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jCobTec, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(23, 23, 23)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jBtnPdf, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jBtnCancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jBtnInclusao, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                .addComponent(jBtnSave, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                        .addGap(21, 21, 21))))
+                            .addComponent(jCobStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 44, Short.MAX_VALUE))
+                            .addComponent(jCbxPagamento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTxtValor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(jBtnPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jBtnCancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jBtnInclusao, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(jBtnSave, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jBtnRegistrarPagamento2, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -557,21 +637,23 @@ private double calcularTotalOrdem() {
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTxtCod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(12, 12, 12)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
+                        .addGap(12, 12, 12)
                         .addComponent(jBtnInclusao, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jBtnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jBtnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jBtnRegistrarPagamento2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jBtnPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(16, 16, 16)))
+                        .addGap(16, 16, 16))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jBtnConfirmar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jBtnIncluir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -600,7 +682,7 @@ private double calcularTotalOrdem() {
         // TODO add your handling code here:
         Util.habilitar(true, jCobCliente, jFmtData, jCombUsuario,
                 jCobTec, jCobStatus ,jCbxPagamento,jFmtNumero,jFmtNumero2,
-                jBtnConfirmar, jBtnCancelar, jBtnInclusao, jBtnSave, jBtnCancel);
+                jBtnConfirmar, jBtnCancelar, jBtnInclusao, jBtnSave, jBtnCancel,jBtnRegistrarPagamento);
         Util.habilitar(false,jTxtValor ,jTxtCod, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
         //Util.limpar(jTxtCod, jCobCliente, jFmtData, jCombUsuario, 
         //jCombServ, jCobTec,jCobStatus,jTxtValor);
@@ -610,6 +692,69 @@ private double calcularTotalOrdem() {
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
+        // ===== VALIDAÇÕES =====
+    // Para combobox de objetos (jCobCliente, jCombUsuario)
+    if (jCobCliente.getSelectedItem() == null) {
+        JOptionPane.showMessageDialog(this,
+            "Selecione um cliente",
+            "Campo obrigatório",
+            JOptionPane.WARNING_MESSAGE
+        );
+        jCobCliente.requestFocus();
+        return;
+    }
+
+    if (jCombUsuario.getSelectedItem() == null) {
+        JOptionPane.showMessageDialog(this,
+            "Selecione um usuário",
+            "Campo obrigatório",
+            JOptionPane.WARNING_MESSAGE
+        );
+        jCombUsuario.requestFocus();
+        return;
+    }
+
+    // Para combobox de strings (jCobTec, jCobStatus, jCbxPagamento)
+    if (jCobTec.getSelectedItem() == null || 
+        jCobTec.getSelectedItem().equals("Selecione")) {
+        JOptionPane.showMessageDialog(this,
+            "Selecione o técnico responsável",
+            "Campo obrigatório",
+            JOptionPane.WARNING_MESSAGE
+        );
+        jCobTec.requestFocus();
+        return;
+    }
+
+    if (jCobStatus.getSelectedItem() == null || 
+        jCobStatus.getSelectedItem().equals("Selecione")) {
+        JOptionPane.showMessageDialog(this,
+            "Selecione o status da ordem",
+            "Campo obrigatório",
+            JOptionPane.WARNING_MESSAGE
+        );
+        jCobStatus.requestFocus();
+        return;
+    }
+
+   if (jCbxPagamento.getSelectedItem() == null || 
+    jCbxPagamento.getSelectedItem().equals("Selecione")) {
+    // Define automaticamente como "Pagamento não Realizado"
+    jCbxPagamento.setSelectedItem("Pagamento não Realizado");
+
+    }
+    
+    // Verificar se tem itens na tabela
+    if (controllerOrdemDeServicoAparelho.getRowCount() == 0) {
+        JOptionPane.showMessageDialog(this,
+            "Adicione pelo menos um aparelho/serviço!",
+            "Tabela vazia",
+            JOptionPane.WARNING_MESSAGE
+        );
+        jBtnInclusao.requestFocus();
+        return;
+    }
+        
         try {
             // TODO add your handling code here:
             if (!validarDataInicio(jFmtData.getText())) {
@@ -641,12 +786,16 @@ private double calcularTotalOrdem() {
 
         Util.habilitar(false, jTxtCod, jCobCliente, jFmtData, jCombUsuario,
                 jCobTec, jCobStatus, jCbxPagamento,jTxtValor,jFmtNumero,jFmtNumero2,
-                jBtnConfirmar, jBtnCancelar);
+                jBtnConfirmar, jBtnCancelar,jBtnRegistrarPagamento);
         Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
         Util.limpar(jTxtCod, jCobCliente, jFmtData, jCombUsuario,
-                jCobTec, jCobStatus, jCbxPagamento,jTxtValor);
+                jCobTec, jCobStatus, jCbxPagamento,jTxtValor,jFmtNumero,jFmtNumero2);
         controllerOrdemDeServicoAparelho.setList(new ArrayList());
-
+jCobCliente.setSelectedIndex(0);
+jCombUsuario.setSelectedIndex(0);
+jCobTec.setSelectedIndex(0);
+jCobStatus.setSelectedIndex(0);
+jCbxPagamento.setSelectedIndex(0);
 
     }//GEN-LAST:event_jBtnConfirmarActionPerformed
 
@@ -666,10 +815,15 @@ private double calcularTotalOrdem() {
         // TODO add your handling code here:
         Util.habilitar(false, jTxtCod, jCobCliente, jFmtData, jCombUsuario,
                 jCobTec, jCobStatus, jCbxPagamento,jTxtValor,jFmtNumero,jFmtNumero2,
-                jBtnConfirmar, jBtnCancelar, jBtnInclusao, jBtnSave, jBtnCancel);
+                jBtnConfirmar, jBtnCancelar, jBtnInclusao, jBtnSave, jBtnCancel,jBtnRegistrarPagamento);
         Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
         Util.limpar(jTxtCod, jCobCliente, jFmtData, jCombUsuario,
-                jCobTec, jCobStatus, jCbxPagamento,jTxtValor);
+                jCobTec, jCobStatus, jCbxPagamento,jTxtValor,jFmtNumero2,jFmtNumero);
+        jCobCliente.setSelectedIndex(0);
+jCombUsuario.setSelectedIndex(0);
+jCobTec.setSelectedIndex(0);
+jCobStatus.setSelectedIndex(0);
+jCbxPagamento.setSelectedIndex(0);
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
@@ -677,11 +831,15 @@ private double calcularTotalOrdem() {
         Util.habilitar(true , jCobCliente, jFmtData, jCombUsuario,
                 jCobTec, jCobStatus, jCbxPagamento,jTxtValor,jFmtNumero,jFmtNumero2,
                 jBtnConfirmar, jBtnCancelar, jBtnInclusao, jBtnSave, jBtnCancel);
-        Util.habilitar(false, jCbxPagamento,jTxtValor,jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar,jTxtCod);
+        Util.habilitar(false ,jTxtValor,jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar,jTxtCod,jBtnRegistrarPagamento);
         Util.limpar(jTxtCod, jCobCliente, jFmtData, jCombUsuario,
-                jCobTec, jCobStatus, jCbxPagamento,jTxtValor);
+                jCobTec, jCobStatus, jCbxPagamento,jTxtValor,jFmtNumero,jFmtNumero2);
         controllerOrdemDeServicoAparelho.setList(new ArrayList());
-
+jCobCliente.setSelectedIndex(0);
+jCombUsuario.setSelectedIndex(0);
+jCobTec.setSelectedIndex(0);
+jCobStatus.setSelectedIndex(0);
+jCbxPagamento.setSelectedIndex(0);
         incluir = true;
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
@@ -711,7 +869,11 @@ private double calcularTotalOrdem() {
 
                 Util.limpar(jTxtCod, jCobCliente, jFmtData, jCombUsuario,
                         jCobTec, jCobStatus, jCbxPagamento,jTxtValor,jFmtNumero,jFmtNumero2);
-
+jCobCliente.setSelectedIndex(0);
+jCombUsuario.setSelectedIndex(0);
+jCobTec.setSelectedIndex(0);
+jCobStatus.setSelectedIndex(0);
+jCbxPagamento.setSelectedIndex(0);
                 controllerOrdemDeServicoAparelho.setList(new ArrayList());
                 JOptionPane.showMessageDialog(null, "Ordem de serviço excluída com sucesso!",
                         "Sucesso", JOptionPane.INFORMATION_MESSAGE);
@@ -789,6 +951,98 @@ private double calcularTotalOrdem() {
         // TODO add your handling code here:
     }//GEN-LAST:event_jCbxPagamentoActionPerformed
 
+    private void jBtnRegistrarPagamento2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRegistrarPagamento2ActionPerformed
+        // TODO add your handling code here:
+         if (jTxtCod.getText().isEmpty() || jTxtCod.getText().equals("0")) {
+        JOptionPane.showMessageDialog(this,
+            "Selecione uma ordem de serviço para registrar o pagamento!",
+            "Aviso",
+            JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+    
+    // Verificar se já está pago
+    String formaPagamentoAtual = (String) jCbxPagamento.getSelectedItem();
+    if (formaPagamentoAtual != null && 
+        !formaPagamentoAtual.equals("Selecione") && 
+        !formaPagamentoAtual.equals("Pagamento não Realizado")) {
+        
+        int resposta = JOptionPane.showConfirmDialog(this,
+            "Esta ordem já tem forma de pagamento registrada: " + formaPagamentoAtual + 
+            "\nDeseja alterar a forma de pagamento?",
+            "Pagamento já registrado",
+            JOptionPane.YES_NO_OPTION);
+        
+        if (resposta != JOptionPane.YES_OPTION) {
+            return;
+        }
+    }
+    
+    // Mostrar opções de pagamento
+    String[] opcoesPagamento = {"Débito", "Crédito", "Pix", "Dinheiro", "Cancelar"};
+    int escolha = JOptionPane.showOptionDialog(this,
+        "REGISTRAR PAGAMENTO PARA RETIRADA\n\n" +
+        "Cliente: " + (jCobCliente.getSelectedItem() != null ? 
+                      ((MscClientes)jCobCliente.getSelectedItem()).getMscNome() : "N/A") + "\n" +
+        "Valor Total: R$ " + jTxtValor.getText() + "\n" +
+        "Status atual: " + jCobStatus.getSelectedItem(),
+        "Registrar Pagamento",
+        JOptionPane.DEFAULT_OPTION,
+        JOptionPane.QUESTION_MESSAGE,
+        null,
+        opcoesPagamento,
+        opcoesPagamento[4]);
+    
+    if (escolha >= 0 && escolha <= 3) {
+        String formaPagamentoSelecionada = opcoesPagamento[escolha];
+        
+        // Atualizar no combobox
+        jCbxPagamento.setSelectedItem(formaPagamentoSelecionada);
+        
+        // Perguntar se quer atualizar o status também
+        int atualizarStatus = JOptionPane.showConfirmDialog(this,
+            "Deseja atualizar o status para 'Concluido Retirado Pelo Cliente'?",
+            "Atualizar Status",
+            JOptionPane.YES_NO_OPTION);
+        
+        if (atualizarStatus == JOptionPane.YES_OPTION) {
+            jCobStatus.setSelectedItem("Concluido Retirado Pelo Cliente");
+        }
+        
+        // Perguntar se quer salvar agora
+        int salvarAgora = JOptionPane.showConfirmDialog(this,
+            "Deseja salvar as alterações agora?",
+            "Salvar Alterações",
+            JOptionPane.YES_NO_OPTION);
+        
+        if (salvarAgora == JOptionPane.YES_OPTION) {
+            try {
+                Ordem_servicoDao ordemDao = new Ordem_servicoDao();
+                MscOrdensServico ordem = viewBean();
+                ordemDao.update(ordem);
+                
+                JOptionPane.showMessageDialog(this,
+                    "✅ Pagamento registrado com sucesso!\n" +
+                    "• Forma: " + formaPagamentoSelecionada + "\n" +
+                    "• Status: " + jCobStatus.getSelectedItem(),
+                    "Sucesso",
+                    JOptionPane.INFORMATION_MESSAGE);
+                    
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this,
+                    "❌ Erro ao registrar pagamento: " + e.getMessage(),
+                    "Erro",
+                    JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this,
+                "Alterações preparadas. Clique em 'Confirmar' para salvar.",
+                "Aviso",
+                JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+    }//GEN-LAST:event_jBtnRegistrarPagamento2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -846,6 +1100,7 @@ private double calcularTotalOrdem() {
     private javax.swing.JButton jBtnInclusao;
     private javax.swing.JButton jBtnPdf;
     private javax.swing.JButton jBtnPesquisar;
+    private javax.swing.JButton jBtnRegistrarPagamento2;
     private javax.swing.JButton jBtnSave;
     private javax.swing.JComboBox<String> jCbxPagamento;
     private javax.swing.JComboBox<MscClientes> jCobCliente;

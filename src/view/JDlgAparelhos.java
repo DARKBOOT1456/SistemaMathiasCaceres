@@ -50,6 +50,13 @@ public class JDlgAparelhos extends javax.swing.JDialog {
         initComponents();
         setTitle("Cadastro de Aparelhos");
         setLocationRelativeTo(null);
+        
+        jCboTipo.insertItemAt("Selecione", 0);
+jCboTipo.setSelectedIndex(0);
+
+jCboChip.insertItemAt("Selecione", 0);
+jCboChip.setSelectedIndex(0);
+        
         Util.habilitar(false, jTxtCod, jTxtMarca, jTxtNumero,
                 jFmtData, jCboTipo, jTxtModelo, jCboChip,
                 jTxtCor, jBtnConfirmar, jBtnCancelar);
@@ -74,8 +81,8 @@ public class JDlgAparelhos extends javax.swing.JDialog {
         jFmtData.setText(Util.dateToStr(aparelhosBean.getMscDataEntrada()));
         jTxtCor.setText(aparelhosBean.getMscCor());
         jCboTipo.setSelectedItem(aparelhosBean.getMscTipodeEquipamento());
-        String chip = aparelhosBean.getMscChipRetirado();
-        jCboChip.setSelectedItem(chip.equals("S") ? "Sim" : "Não");
+        jCboChip.setSelectedItem(aparelhosBean.getMscChipRetirado());
+
 
     }
 
@@ -115,6 +122,17 @@ public class JDlgAparelhos extends javax.swing.JDialog {
     if (jCboChip.getSelectedItem() != null) {
         aparelhos.setMscChipRetirado(jCboChip.getSelectedItem().toString());
     }
+    if (!jCboTipo.getSelectedItem().equals("Selecione")) {
+    aparelhos.setMscTipodeEquipamento(
+        jCboTipo.getSelectedItem().toString()
+    );
+}
+
+if (!jCboChip.getSelectedItem().equals("Selecione")) {
+    aparelhos.setMscChipRetirado(
+        jCboChip.getSelectedItem().toString()
+    );
+}
 
     return aparelhos;
 }
@@ -383,6 +401,8 @@ public class JDlgAparelhos extends javax.swing.JDialog {
         Util.limpar(jTxtCod, jTxtMarca, jTxtNumero,
                 jFmtData, jCboTipo, jTxtModelo, jCboChip,
                 jTxtCor);
+        jCboTipo.setSelectedIndex(0);
+jCboChip.setSelectedIndex(0);
         incluir = true;
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
@@ -429,6 +449,8 @@ public class JDlgAparelhos extends javax.swing.JDialog {
     Util.limpar(jTxtCod, jTxtMarca, jTxtNumero,
             jFmtData, jCboTipo, jTxtModelo, jCboChip,
             jTxtCor);
+    jCboTipo.setSelectedIndex(0);
+jCboChip.setSelectedIndex(0);
     }//GEN-LAST:event_jBtnConfirmarActionPerformed
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
@@ -440,6 +462,8 @@ public class JDlgAparelhos extends javax.swing.JDialog {
         Util.limpar(jTxtCod, jTxtMarca, jTxtNumero,
                 jFmtData, jCboTipo, jTxtModelo, jCboChip,
                 jTxtCor);
+        jCboTipo.setSelectedIndex(0);
+jCboChip.setSelectedIndex(0);
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
@@ -455,6 +479,8 @@ public class JDlgAparelhos extends javax.swing.JDialog {
     Util.limpar(jTxtCod, jTxtMarca, jTxtNumero,
             jFmtData, jCboTipo, jTxtModelo, jCboChip,
             jTxtCor);
+    jCboTipo.setSelectedIndex(0);
+jCboChip.setSelectedIndex(0);
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
     private void jCboChipItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCboChipItemStateChanged

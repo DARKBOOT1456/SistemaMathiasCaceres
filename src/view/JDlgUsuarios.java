@@ -54,6 +54,8 @@ public class JDlgUsuarios extends javax.swing.JDialog {
         initComponents(); 
         setTitle("Cadastro de Usuarios");
         setLocationRelativeTo(null); 
+       jCboNivel.setSelectedIndex(0);
+       jChbAtivo.setVisible(false);
        
         try {
     MaskFormatter cpfMask = new MaskFormatter("###.###.###-##");
@@ -88,7 +90,9 @@ public class JDlgUsuarios extends javax.swing.JDialog {
          jFmtDataNascimento.setText(Util.dateToStr(usuarios.getMscDataNascimento()));
          jPwdSenha.setText(usuarios.getMscSenha());
         jCboNivel.setSelectedItem(usuarios.getMscNivel());
-         jChbAtivo.setSelected(usuarios.getMscAtivo().equals("S"));
+         jChbAtivo.setVisible(true);
+jChbAtivo.setSelected("S".equals(usuarios.getMscAtivo()));
+
    
     }
    
@@ -251,7 +255,7 @@ public class JDlgUsuarios extends javax.swing.JDialog {
             }
         });
 
-        jCboNivel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Funcionário", "Convidado" }));
+        jCboNivel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecionar", "Administrador", "Funcionário", "Convidado" }));
         jCboNivel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCboNivelActionPerformed(evt);
@@ -374,6 +378,10 @@ public class JDlgUsuarios extends javax.swing.JDialog {
 
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
         // TODO add your handling code here:
+        
+        jChbAtivo.setVisible(true);
+    jChbAtivo.setSelected(false); // começa desmarcado
+    
          Util.habilitar(true,jTxtNome,  jTxtApelido,
                 jFmtCpf, jFmtDataNascimento, jPwdSenha, jCboNivel, 
                 jChbAtivo,    jBtnConfirmar, jBtnCancelar);
@@ -382,6 +390,7 @@ public class JDlgUsuarios extends javax.swing.JDialog {
            Util.limpar(jTxtCodigo,jTxtNome,  jTxtApelido,
                 jFmtCpf, jFmtDataNascimento, jPwdSenha, jCboNivel, 
                 jChbAtivo);
+            jCboNivel.setSelectedIndex(0);
             incluir = true;
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
@@ -402,6 +411,7 @@ public class JDlgUsuarios extends javax.swing.JDialog {
       Util.limpar(jTxtCodigo, jTxtNome, jTxtApelido, 
                 jFmtCpf, jFmtDataNascimento, 
                 jPwdSenha,jCboNivel,jChbAtivo);
+       jCboNivel.setSelectedIndex(0);
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
     private void jChbAtivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jChbAtivoActionPerformed
@@ -418,6 +428,19 @@ public class JDlgUsuarios extends javax.swing.JDialog {
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
         // TODO add your handling code here:
+        
+        
+        
+        if (jCboNivel.getSelectedIndex() == 0) {
+    JOptionPane.showMessageDialog(
+        this,
+        "Selecione o Nivel de Usuario",
+        "Campo obrigatório",
+        JOptionPane.WARNING_MESSAGE
+    );
+    jCboNivel.requestFocus();
+    return;
+}
         
          if (!validarDataNascimento(jFmtDataNascimento.getText())) {
         return; 
@@ -439,10 +462,14 @@ public class JDlgUsuarios extends javax.swing.JDialog {
         Util.limpar(jTxtCodigo,jTxtNome,  jTxtApelido,
                 jFmtCpf, jFmtDataNascimento, jPwdSenha, jCboNivel, 
                 jChbAtivo);
+         jCboNivel.setSelectedIndex(0);
     }//GEN-LAST:event_jBtnConfirmarActionPerformed
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
         // TODO add your handling code here:
+        
+        jChbAtivo.setVisible(false);
+    jChbAtivo.setSelected(false);
        Util.habilitar(false, jTxtCodigo,jTxtNome,  jTxtApelido,
                 jFmtCpf, jFmtDataNascimento, jPwdSenha, jCboNivel, 
                 jChbAtivo,    jBtnConfirmar, jBtnCancelar);
@@ -451,6 +478,7 @@ public class JDlgUsuarios extends javax.swing.JDialog {
          Util.limpar(jTxtCodigo,jTxtNome,  jTxtApelido,
                 jFmtCpf, jFmtDataNascimento, jPwdSenha, jCboNivel, 
                 jChbAtivo);
+         jCboNivel.setSelectedIndex(0);
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
@@ -466,6 +494,7 @@ public class JDlgUsuarios extends javax.swing.JDialog {
                 jChbAtivo,    jBtnConfirmar, jBtnCancelar);
                 
         Util.habilitar(false,  jTxtCodigo,jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+         
            incluir = false;
            jTxtNome.grabFocus();
     }//GEN-LAST:event_jBtnAlterarActionPerformed

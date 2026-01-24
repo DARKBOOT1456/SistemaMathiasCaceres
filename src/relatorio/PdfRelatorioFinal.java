@@ -17,6 +17,9 @@ import java.awt.Desktop;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import javax.swing.JOptionPane;
 
@@ -76,7 +79,6 @@ public class PdfRelatorioFinal {
             cal.set(Calendar.SECOND, 59);
             Date dataFim = cal.getTime();
             
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             SimpleDateFormat sdfMesAno = new SimpleDateFormat("MMMM/yyyy");
             String periodo = sdfMesAno.format(dataInicio);
             
@@ -103,11 +105,18 @@ public class PdfRelatorioFinal {
             File pdfFile = new File(nomeArquivo);
             if (pdfFile.exists()) {
                 Desktop.getDesktop().open(pdfFile);
+                
+                double totalGeral = (Double) dadosRelatorio.get("totalGeral");
+                double totalRecebido = (Double) dadosRelatorio.get("totalRecebido");
+                int ordensNaoRetiradas = (Integer) dadosRelatorio.get("ordensNaoRetiradas");
+                
                 JOptionPane.showMessageDialog(null,
                     "✅ Relatório gerado com sucesso!\n" +
                     "📅 Período: " + periodo + "\n" +
                     "📋 Total de ordens: " + ordens.size() + "\n" +
-                    "💰 Valor total: R$ " + String.format("%.2f", (Double)dadosRelatorio.get("totalGeral")) + "\n" +
+                    "📦 Ordens não retiradas: " + ordensNaoRetiradas + "\n" +
+                    "💰 Valor total (incl. pendentes): R$ " + String.format("%.2f", totalGeral) + "\n" +
+                    "💰 Valor recebido: R$ " + String.format("%.2f", totalRecebido) + "\n" +
                     "📄 Arquivo: " + nomeArquivo,
                     "Relatório Gerado",
                     JOptionPane.INFORMATION_MESSAGE);
@@ -123,139 +132,131 @@ public class PdfRelatorioFinal {
     }
     
     private static Map<String, Object> processarDados(List<MscOrdensServico> ordens) {
-    Map<String, Object> dados = new HashMap<>();
-    
-    double totalGeral = 0;
-    double totalPix = 0;
-    double totalCartaoCredito = 0;
-    double totalCartaoDebito = 0;
-    double totalDinheiro = 0;
-    int totalAparelhos = 0;
-    int totalOrdens = ordens.size();
-    
-    Map<String, Integer> servicosContagem = new HashMap<>();
-    Map<String, Integer> marcasContagem = new HashMap<>();
-    Map<String, Double> tecnicosValor = new HashMap<>();
-    
-    // DAO para buscar itens das ordens
-    OrdemServicoAparelhoDao itemDao = new OrdemServicoAparelhoDao();
-    
-    for (MscOrdensServico ordem : ordens) {
-        // Buscar itens da ordem usando o método listAparelhos que já existe
-        List<MscOrdemServicoAparelho> itens = new ArrayList<>();
-        try {
-            Object resultado = itemDao.listAparelhos(ordem);
-            if (resultado instanceof List) {
-                itens = (List<MscOrdemServicoAparelho>) resultado;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Map<String, Object> dados = new HashMap<>();
         
-        double totalOrdem = 0;
-        if (itens != null && !itens.isEmpty()) {
-            for (MscOrdemServicoAparelho item : itens) {
-                double valorItem = item.getMscQuantidade() * item.getMscValorUnitario();
-                totalOrdem += valorItem;
-                totalAparelhos += item.getMscQuantidade();
-                
-                // Contar serviços
-                if (item.getMscServicos() != null) {
-                    String servico = item.getMscServicos().getMscNomeServico();
-                    servicosContagem.put(servico, servicosContagem.getOrDefault(servico, 0) + 1);
+        double totalGeral = 0;
+        double totalPix = 0;
+        double totalCartaoCredito = 0;
+        double totalCartaoDebito = 0;
+        double totalDinheiro = 0;
+        double totalNaoRetirado = 0;
+        int totalAparelhos = 0;
+        int totalOrdens = ordens.size();
+        int ordensNaoRetiradas = 0;
+        
+        Map<String, Integer> servicosContagem = new HashMap<>();
+        Map<String, Integer> marcasContagem = new HashMap<>();
+        Map<String, Double> tecnicosValor = new HashMap<>();
+        Map<String, Double> tecnicosValorRecebido = new HashMap<>();
+        
+        // DAO para buscar itens das ordens
+        OrdemServicoAparelhoDao itemDao = new OrdemServicoAparelhoDao();
+        
+        for (MscOrdensServico ordem : ordens) {
+            // Buscar itens da ordem usando o método listAparelhos que já existe
+            List<MscOrdemServicoAparelho> itens = new ArrayList<>();
+            try {
+                Object resultado = itemDao.listAparelhos(ordem);
+                if (resultado instanceof List) {
+                    itens = (List<MscOrdemServicoAparelho>) resultado;
                 }
-                
-                // Contar marcas
-                if (item.getMscAparelhos() != null && item.getMscAparelhos().getMscMarca() != null) {
-                    String marca = item.getMscAparelhos().getMscMarca();
-                    marcasContagem.put(marca, marcasContagem.getOrDefault(marca, 0) + 1);
-                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        }
-        
-        totalGeral += totalOrdem;
-        
-        // ============ CORREÇÃO AQUI ============
-        // Use o campo real que armazena a forma de pagamento
-        // Verifique qual é o nome correto do método no seu bean MscOrdensServico
-        
-        String formaPagamento = null;
-        
-        // Opção 1: Se tiver um método getFormaPagamento()
-        try {
-            // Tente diferentes nomes de métodos (ajuste conforme sua classe)
-            if (ordem.getMscFormaPagamento() != null) {
-                formaPagamento = ordem.getMscFormaPagamento();
-            } else if (ordem.getMscFormaPagamento() != null) {
-                formaPagamento = ordem.getMscFormaPagamento();
-            } else if (ordem.getMscFormaPagamento() != null) {
-                formaPagamento = ordem.getMscFormaPagamento();
-            }
-        } catch (Exception e) {
-            // Método não existe, continue
-        }
-        
-        // Se não encontrar, verifique se existe um campo diretamente
-        if (formaPagamento == null) {
-            // Tente acessar via reflexão ou verifique o nome real
-            System.out.println("DEBUG: Verifique os métodos disponíveis em MscOrdensServico:");
-            System.out.println("Métodos: " + ordem.getClass().getDeclaredMethods());
-        }
-        
-        // Agora use a forma de pagamento real
-        if (formaPagamento != null && !formaPagamento.trim().isEmpty()) {
-            String formaPagamentoUpper = formaPagamento.toUpperCase().trim();
             
-            if (formaPagamentoUpper.contains("PIX")) {
-                totalPix += totalOrdem;
-            } else if (formaPagamentoUpper.contains("CRÉDITO") || 
-                      formaPagamentoUpper.contains("CREDITO") || 
-                      formaPagamentoUpper.contains("CARTAO CREDITO")) {
-                totalCartaoCredito += totalOrdem;
-            } else if (formaPagamentoUpper.contains("DÉBITO") || 
-                      formaPagamentoUpper.contains("DEBITO") || 
-                      formaPagamentoUpper.contains("CARTAO DEBITO")) {
-                totalCartaoDebito += totalOrdem;
-            } else if (formaPagamentoUpper.contains("DINHEIRO")) {
-                totalDinheiro += totalOrdem;
-            } else {
-                // Se não reconhecer, adicione a um campo "Outros" ou ao mais provável
-                // Por padrão, vamos colocar em Dinheiro (ou ajuste conforme sua necessidade)
-                totalDinheiro += totalOrdem;
+            double totalOrdem = 0;
+            if (itens != null && !itens.isEmpty()) {
+                for (MscOrdemServicoAparelho item : itens) {
+                    double valorItem = item.getMscQuantidade() * item.getMscValorUnitario();
+                    totalOrdem += valorItem;
+                    totalAparelhos += item.getMscQuantidade();
+                    
+                    // Contar serviços
+                    if (item.getMscServicos() != null) {
+                        String servico = item.getMscServicos().getMscNomeServico();
+                        servicosContagem.put(servico, servicosContagem.getOrDefault(servico, 0) + 1);
+                    }
+                    
+                    // Contar marcas
+                    if (item.getMscAparelhos() != null && item.getMscAparelhos().getMscMarca() != null) {
+                        String marca = item.getMscAparelhos().getMscMarca();
+                        marcasContagem.put(marca, marcasContagem.getOrDefault(marca, 0) + 1);
+                    }
+                }
             }
-        } else {
-            // Se não houver forma de pagamento cadastrada
-            // REMOVA a simulação abaixo e defina como 0 ou distribua conforme necessidade
-            // totalDinheiro += totalOrdem; // Ou 0 se quiser separado
+            
+            totalGeral += totalOrdem;
+            
+            // VERIFICAR FORMA DE PAGAMENTO
+            String formaPagamento = ordem.getMscFormaPagamento();
+            
+            if (formaPagamento == null || formaPagamento.trim().isEmpty() || 
+                formaPagamento.equals("Pagamento não Realizado")) {
+                // ORDEM NÃO RETIRADA/NÃO PAGA
+                totalNaoRetirado += totalOrdem;
+                ordensNaoRetiradas++;
+                
+                // Para técnico, conta o valor total (mesmo não recebido)
+                String tecnico = ordem.getMscTecnicoResponsavel();
+                if (tecnico != null && !tecnico.isEmpty()) {
+                    tecnicosValor.put(tecnico, tecnicosValor.getOrDefault(tecnico, 0.0) + totalOrdem);
+                }
+                
+            } else {
+                // ORDEM PAGA/RETIRADA
+                String formaPagamentoUpper = formaPagamento.toUpperCase().trim();
+                
+                if (formaPagamentoUpper.contains("PIX")) {
+                    totalPix += totalOrdem;
+                } else if (formaPagamentoUpper.contains("CRÉDITO") || 
+                          formaPagamentoUpper.contains("CREDITO")) {
+                    totalCartaoCredito += totalOrdem;
+                } else if (formaPagamentoUpper.contains("DÉBITO") || 
+                          formaPagamentoUpper.contains("DEBITO")) {
+                    totalCartaoDebito += totalOrdem;
+                } else if (formaPagamentoUpper.contains("DINHEIRO")) {
+                    totalDinheiro += totalOrdem;
+                } else {
+                    // Forma de pagamento não reconhecida
+                    totalDinheiro += totalOrdem;
+                }
+                
+                // Para técnico, conta o valor RECEBIDO
+                String tecnico = ordem.getMscTecnicoResponsavel();
+                if (tecnico != null && !tecnico.isEmpty()) {
+                    tecnicosValorRecebido.put(tecnico, tecnicosValorRecebido.getOrDefault(tecnico, 0.0) + totalOrdem);
+                    tecnicosValor.put(tecnico, tecnicosValor.getOrDefault(tecnico, 0.0) + totalOrdem);
+                }
+            }
         }
-        // ============ FIM DA CORREÇÃO ============
         
-        // Contar por técnico
-        String tecnico = ordem.getMscTecnicoResponsavel();
-        if (tecnico != null && !tecnico.isEmpty()) {
-            tecnicosValor.put(tecnico, tecnicosValor.getOrDefault(tecnico, 0.0) + totalOrdem);
-        }
+        // Calcular valores recebidos
+        double totalRecebido = totalPix + totalCartaoCredito + totalCartaoDebito + totalDinheiro;
+        
+        // Ordenar mapas
+        Map<String, Integer> servicosOrdenados = ordenarMapa(servicosContagem);
+        Map<String, Integer> marcasOrdenadas = ordenarMapa(marcasContagem);
+        Map<String, Double> tecnicosOrdenados = ordenarMapaDouble(tecnicosValor);
+        Map<String, Double> tecnicosRecebidoOrdenados = ordenarMapaDouble(tecnicosValorRecebido);
+        
+        // Armazenar dados
+        dados.put("totalGeral", totalGeral);
+        dados.put("totalRecebido", totalRecebido);
+        dados.put("totalPix", totalPix);
+        dados.put("totalCartaoCredito", totalCartaoCredito);
+        dados.put("totalCartaoDebito", totalCartaoDebito);
+        dados.put("totalDinheiro", totalDinheiro);
+        dados.put("totalNaoRetirado", totalNaoRetirado);
+        dados.put("ordensNaoRetiradas", ordensNaoRetiradas);
+        dados.put("totalAparelhos", totalAparelhos);
+        dados.put("totalOrdens", totalOrdens);
+        dados.put("servicos", servicosOrdenados);
+        dados.put("marcas", marcasOrdenadas);
+        dados.put("tecnicos", tecnicosOrdenados);
+        dados.put("tecnicosRecebido", tecnicosRecebidoOrdenados);
+        
+        return dados;
     }
-    
-    // Ordenar mapas
-    Map<String, Integer> servicosOrdenados = ordenarMapa(servicosContagem);
-    Map<String, Integer> marcasOrdenadas = ordenarMapa(marcasContagem);
-    Map<String, Double> tecnicosOrdenados = ordenarMapaDouble(tecnicosValor);
-    
-    // Armazenar dados
-    dados.put("totalGeral", totalGeral);
-    dados.put("totalPix", totalPix);
-    dados.put("totalCartaoCredito", totalCartaoCredito);
-    dados.put("totalCartaoDebito", totalCartaoDebito);
-    dados.put("totalDinheiro", totalDinheiro);
-    dados.put("totalAparelhos", totalAparelhos);
-    dados.put("totalOrdens", totalOrdens);
-    dados.put("servicos", servicosOrdenados);
-    dados.put("marcas", marcasOrdenadas);
-    dados.put("tecnicos", tecnicosOrdenados);
-    
-    return dados;
-}
     
     private static void gerarPDF(String nomeArquivo, String periodo, Map<String, Object> dados, List<MscOrdensServico> ordens) {
         try {
@@ -322,13 +323,16 @@ public class PdfRelatorioFinal {
         relatorioTitulo.setAlignment(Element.ALIGN_CENTER);
         document.add(relatorioTitulo);
         
-        // Data de emissão
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-        Paragraph dataEmissao = new Paragraph("Emitido em: " + sdf.format(new Date()), SMALL_FONT);
+        // Data de emissão com fuso horário do Brasil
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        ZonedDateTime agora = ZonedDateTime.now(ZoneId.of("Canada/Atlantic"));
+        
+        Paragraph dataEmissao = new Paragraph(
+            "Emitido em: " + agora.format(formatter),
+            SMALL_FONT
+        );
         dataEmissao.setAlignment(Element.ALIGN_RIGHT);
         document.add(dataEmissao);
-        
-        document.add(new Paragraph("\n\n"));
     }
     
     private static void adicionarResumoGeral(Document document, Map<String, Object> dados) throws Exception {
@@ -338,10 +342,16 @@ public class PdfRelatorioFinal {
         
         PdfPTable tabela = new PdfPTable(2);
         tabela.setWidthPercentage(100);
-        tabela.setSpacingBefore(5);
+        tabela.setSpacingBefore(15);
         
         adicionarLinhaResumo(tabela, "Total de Ordens de Serviço:", dados.get("totalOrdens").toString());
         adicionarLinhaResumo(tabela, "Total de Aparelhos Atendidos:", dados.get("totalAparelhos").toString());
+        
+        int ordensNaoRetiradas = (Integer) dados.get("ordensNaoRetiradas");
+        if (ordensNaoRetiradas > 0) {
+            adicionarLinhaResumo(tabela, "Ordens não retiradas:", ordensNaoRetiradas + " ordens");
+        }
+        
         adicionarLinhaResumo(tabela, "Valor Total Geral:", String.format("R$ %.2f", (Double)dados.get("totalGeral")));
         
         document.add(tabela);
@@ -360,13 +370,21 @@ public class PdfRelatorioFinal {
             MscClientes cliente = ordem.getMscClientes();
             
             // Cabeçalho da ordem
-            Paragraph ordemHeader = new Paragraph(
-                "OS Nº: " + ordem.getIdmscOrdensServico() + 
-                " | Cliente: " + (cliente != null ? cliente.getMscNome() : "N/A") +
-                " | Data: " + sdf.format(ordem.getMscDataInicio()) +
-                " | Técnico: " + (ordem.getMscTecnicoResponsavel() != null ? ordem.getMscTecnicoResponsavel() : "N/A"),
-                NORMAL_FONT
-            );
+            StringBuilder ordemHeaderText = new StringBuilder();
+            ordemHeaderText.append("OS Nº: ").append(ordem.getIdmscOrdensServico())
+                          .append(" | Cliente: ").append(cliente != null ? cliente.getMscNome() : "N/A")
+                          .append(" | Data: ").append(sdf.format(ordem.getMscDataInicio()))
+                          .append(" | Técnico: ").append(ordem.getMscTecnicoResponsavel() != null ? ordem.getMscTecnicoResponsavel() : "N/A");
+            
+            // Adicionar status de pagamento
+            String formaPagamento = ordem.getMscFormaPagamento();
+            if (formaPagamento == null || formaPagamento.isEmpty() || formaPagamento.equals("Pagamento não Realizado")) {
+                ordemHeaderText.append(" | Status: NÃO RETIRADO");
+            } else {
+                ordemHeaderText.append(" | Pagamento: ").append(formaPagamento);
+            }
+            
+            Paragraph ordemHeader = new Paragraph(ordemHeaderText.toString(), NORMAL_FONT);
             ordemHeader.setSpacingBefore(10);
             document.add(ordemHeader);
             
@@ -487,8 +505,8 @@ public class PdfRelatorioFinal {
             document.add(semMarcas);
         }
         
-        // Técnicos que mais renderam
-        Paragraph tecnicosTitulo = new Paragraph("\nTécnicos (por valor atendido):", NORMAL_FONT);
+        // Técnicos que mais renderam (VALOR TOTAL)
+        Paragraph tecnicosTitulo = new Paragraph("\nTécnicos (por valor total atendido):", NORMAL_FONT);
         tecnicosTitulo.setSpacingBefore(5);
         document.add(tecnicosTitulo);
         
@@ -504,15 +522,52 @@ public class PdfRelatorioFinal {
             Paragraph semTecnicos = new Paragraph("   (Nenhum técnico registrado)", SMALL_FONT);
             document.add(semTecnicos);
         }
+        
+        // Técnicos por valor RECEBIDO (apenas se houver valor recebido)
+        Map<String, Double> tecnicosRecebido = (Map<String, Double>) dados.get("tecnicosRecebido");
+        double totalRecebido = (Double) dados.get("totalRecebido");
+        
+        if (tecnicosRecebido != null && !tecnicosRecebido.isEmpty() && totalRecebido > 0) {
+            Paragraph tecnicosRecebidoTitulo = new Paragraph("\nTécnicos (por valor efetivamente recebido):", NORMAL_FONT);
+            tecnicosRecebidoTitulo.setSpacingBefore(5);
+            document.add(tecnicosRecebidoTitulo);
+            
+            int count = 0;
+            for (Map.Entry<String, Double> entry : tecnicosRecebido.entrySet()) {
+                if (count++ >= 5) break;
+                Paragraph tecnico = new Paragraph("   • " + entry.getKey() + ": R$ " + String.format("%.2f", entry.getValue()), SMALL_FONT);
+                document.add(tecnico);
+            }
+        }
     }
     
     private static void adicionarResumoFinanceiro(Document document, Map<String, Object> dados) throws Exception {
-        Paragraph titulo = new Paragraph("RESUMO FINANCEIRO POR FORMA DE PAGAMENTO", BOLD_FONT);
+        Paragraph titulo = new Paragraph("RESUMO FINANCEIRO", BOLD_FONT);
         titulo.setSpacingBefore(20);
         document.add(titulo);
         
+        // Obter valores
+        double totalRecebido = (Double) dados.get("totalRecebido");
+        double totalNaoRetirado = (Double) dados.get("totalNaoRetirado");
+        int ordensNaoRetiradas = (Integer) dados.get("ordensNaoRetiradas");
+        
+        // Se houver ordens não retiradas, mostrar aviso
+        if (ordensNaoRetiradas > 0) {
+            Paragraph aviso = new Paragraph(
+                "⚠ " + ordensNaoRetiradas + " ordens ainda não foram retiradas/pagas", 
+                new Font(Font.FontFamily.HELVETICA, 10, Font.BOLDITALIC, com.itextpdf.text.BaseColor.RED)
+            );
+            aviso.setSpacingBefore(5);
+            aviso.setSpacingAfter(5);
+            document.add(aviso);
+        }
+        
+        Paragraph subtitulo = new Paragraph("VALORES EFETIVAMENTE RECEBIDOS:", BOLD_FONT);
+        subtitulo.setSpacingBefore(10);
+        document.add(subtitulo);
+        
         PdfPTable tabela = new PdfPTable(2);
-        tabela.setWidthPercentage(60);
+        tabela.setWidthPercentage(70);
         tabela.setHorizontalAlignment(Element.ALIGN_CENTER);
         tabela.setSpacingBefore(10);
         
@@ -521,20 +576,43 @@ public class PdfRelatorioFinal {
         adicionarLinhaResumo(tabela, "Cartão Débito:", String.format("R$ %.2f", (Double)dados.get("totalCartaoDebito")));
         adicionarLinhaResumo(tabela, "Dinheiro:", String.format("R$ %.2f", (Double)dados.get("totalDinheiro")));
         
-        // Linha de total
-        PdfPCell cellTotalLabel = new PdfPCell(new Phrase("TOTAL GERAL:", new Font(Font.FontFamily.HELVETICA, 11, Font.BOLD)));
+        // Linha de total recebido
+        PdfPCell cellTotalLabel = new PdfPCell(new Phrase("TOTAL RECEBIDO:", 
+            new Font(Font.FontFamily.HELVETICA, 11, Font.BOLD)));
         cellTotalLabel.setBorder(0);
         cellTotalLabel.setHorizontalAlignment(Element.ALIGN_RIGHT);
         tabela.addCell(cellTotalLabel);
         
         PdfPCell cellTotalValor = new PdfPCell(new Phrase(
-            String.format("R$ %.2f", (Double)dados.get("totalGeral")), 
+            String.format("R$ %.2f", totalRecebido), 
             new Font(Font.FontFamily.HELVETICA, 11, Font.BOLD)));
         cellTotalValor.setBorder(0);
         cellTotalValor.setHorizontalAlignment(Element.ALIGN_RIGHT);
         tabela.addCell(cellTotalValor);
         
         document.add(tabela);
+        
+        // Se houver valores não retirados, mostrar separado
+        if (totalNaoRetirado > 0) {
+            Paragraph pendentes = new Paragraph(
+                "\nVALORES PENDENTES (não retirados): " + 
+                String.format("R$ %.2f", totalNaoRetirado) + 
+                " (" + ordensNaoRetiradas + " ordens)", 
+                new Font(Font.FontFamily.HELVETICA, 10, Font.ITALIC, com.itextpdf.text.BaseColor.GRAY)
+            );
+            pendentes.setSpacingBefore(10);
+            document.add(pendentes);
+        }
+        
+        // Mostrar o total geral (incluindo pendentes)
+        double totalGeral = (Double) dados.get("totalGeral");
+        Paragraph totalGeralParagrafo = new Paragraph(
+            "\nTOTAL GERAL DE SERVIÇOS (incluindo pendentes): " + 
+            String.format("R$ %.2f", totalGeral), 
+            new Font(Font.FontFamily.HELVETICA, 11, Font.BOLD)
+        );
+        totalGeralParagrafo.setSpacingBefore(10);
+        document.add(totalGeralParagrafo);
     }
     
     private static void adicionarRodape(Document document) throws Exception {
@@ -573,53 +651,53 @@ public class PdfRelatorioFinal {
         tabela.addCell(cell);
     }
     
-   private static Map<String, Integer> ordenarMapa(Map<String, Integer> mapa) {
-    if (mapa == null || mapa.isEmpty()) {
-        return new LinkedHashMap<>();
-    }
-    
-    // Converte para lista para ordenar
-    List<Map.Entry<String, Integer>> entries = new LinkedList<>(mapa.entrySet());
-    
-    // Ordena a lista
-    java.util.Collections.sort(entries, new java.util.Comparator<Map.Entry<String, Integer>>() {
-        public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
-            // Ordem decrescente
-            return o2.getValue().compareTo(o1.getValue());
+    private static Map<String, Integer> ordenarMapa(Map<String, Integer> mapa) {
+        if (mapa == null || mapa.isEmpty()) {
+            return new LinkedHashMap<>();
         }
-    });
-    
-    // Converte de volta para mapa
-    Map<String, Integer> sortedMap = new LinkedHashMap<>();
-    for (Map.Entry<String, Integer> entry : entries) {
-        sortedMap.put(entry.getKey(), entry.getValue());
-    }
-    
-    return sortedMap;
-}
-
-private static Map<String, Double> ordenarMapaDouble(Map<String, Double> mapa) {
-    if (mapa == null || mapa.isEmpty()) {
-        return new LinkedHashMap<>();
-    }
-    
-    // Converte para lista para ordenar
-    List<Map.Entry<String, Double>> entries = new LinkedList<>(mapa.entrySet());
-    
-    // Ordena a lista
-    java.util.Collections.sort(entries, new java.util.Comparator<Map.Entry<String, Double>>() {
-        public int compare(Map.Entry<String, Double> o1, Map.Entry<String, Double> o2) {
-            // Ordem decrescente
-            return o2.getValue().compareTo(o1.getValue());
+        
+        // Converte para lista para ordenar
+        List<Map.Entry<String, Integer>> entries = new LinkedList<>(mapa.entrySet());
+        
+        // Ordena a lista
+        Collections.sort(entries, new Comparator<Map.Entry<String, Integer>>() {
+            public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
+                // Ordem decrescente
+                return o2.getValue().compareTo(o1.getValue());
+            }
+        });
+        
+        // Converte de volta para mapa
+        Map<String, Integer> sortedMap = new LinkedHashMap<>();
+        for (Map.Entry<String, Integer> entry : entries) {
+            sortedMap.put(entry.getKey(), entry.getValue());
         }
-    });
-    
-    // Converte de volta para mapa
-    Map<String, Double> sortedMap = new LinkedHashMap<>();
-    for (Map.Entry<String, Double> entry : entries) {
-        sortedMap.put(entry.getKey(), entry.getValue());
+        
+        return sortedMap;
     }
     
-    return sortedMap;
-}
+    private static Map<String, Double> ordenarMapaDouble(Map<String, Double> mapa) {
+        if (mapa == null || mapa.isEmpty()) {
+            return new LinkedHashMap<>();
+        }
+        
+        // Converte para lista para ordenar
+        List<Map.Entry<String, Double>> entries = new LinkedList<>(mapa.entrySet());
+        
+        // Ordena a lista
+        Collections.sort(entries, new Comparator<Map.Entry<String, Double>>() {
+            public int compare(Map.Entry<String, Double> o1, Map.Entry<String, Double> o2) {
+                // Ordem decrescente
+                return o2.getValue().compareTo(o1.getValue());
+            }
+        });
+        
+        // Converte de volta para mapa
+        Map<String, Double> sortedMap = new LinkedHashMap<>();
+        for (Map.Entry<String, Double> entry : entries) {
+            sortedMap.put(entry.getKey(), entry.getValue());
+        }
+        
+        return sortedMap;
+    }
 }

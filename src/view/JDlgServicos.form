@@ -275,15 +275,16 @@
     <Component class="javax.swing.JComboBox" name="jCboCat">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="8">
-            <StringItem index="0" value="Celular"/>
-            <StringItem index="1" value="Tablet"/>
-            <StringItem index="2" value="Fone"/>
-            <StringItem index="3" value="Notebook"/>
-            <StringItem index="4" value="Computador"/>
-            <StringItem index="5" value="Televis&#xe3;o"/>
-            <StringItem index="6" value="Console de Videogame"/>
-            <StringItem index="7" value="Outros Aparelhos Eletr&#xf4;nicos"/>
+          <StringArray count="9">
+            <StringItem index="0" value="Selecione"/>
+            <StringItem index="1" value="Celular"/>
+            <StringItem index="2" value="Tablet"/>
+            <StringItem index="3" value="Fone"/>
+            <StringItem index="4" value="Notebook"/>
+            <StringItem index="5" value="Computador"/>
+            <StringItem index="6" value="Televis&#xe3;o"/>
+            <StringItem index="7" value="Console de Videogame"/>
+            <StringItem index="8" value="Outros Aparelhos Eletr&#xf4;nicos"/>
           </StringArray>
         </Property>
       </Properties>

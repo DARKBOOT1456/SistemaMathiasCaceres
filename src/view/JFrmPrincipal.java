@@ -14,6 +14,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import relatorio.PdfRelatorioDiario;
 
 /**
  *
@@ -70,6 +71,9 @@ public class JFrmPrincipal extends javax.swing.JFrame {
         jMnuMovimentos2 = new javax.swing.JMenu();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
         menuRelatorio = new javax.swing.JMenuItem();
+        jMnuMovimentos3 = new javax.swing.JMenu();
+        jSeparator5 = new javax.swing.JPopupMenu.Separator();
+        menuRelatorio1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -278,6 +282,23 @@ public class JFrmPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMnuMovimentos2);
 
+        jMnuMovimentos3.setMnemonic('M');
+        jMnuMovimentos3.setText("Relatório do Dia");
+        jMnuMovimentos3.add(jSeparator5);
+
+        menuRelatorio1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
+        menuRelatorio1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/diaroaa.png"))); // NOI18N
+        menuRelatorio1.setMnemonic('O');
+        menuRelatorio1.setText("Imprimir Relatório Diario");
+        menuRelatorio1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuRelatorio1ActionPerformed(evt);
+            }
+        });
+        jMnuMovimentos3.add(menuRelatorio1);
+
+        jMenuBar1.add(jMnuMovimentos3);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -405,6 +426,11 @@ JDlgClientes telaClientes = new JDlgClientes(this, true);
     relatorio.PdfRelatorioFinal.gerarRelatorioMensal();
     }//GEN-LAST:event_menuRelatorioActionPerformed
 
+    private void menuRelatorio1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRelatorio1ActionPerformed
+        // TODO add your handling code here:
+          PdfRelatorioDiario.gerarRelatorioDiario();
+    }//GEN-LAST:event_menuRelatorio1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -461,12 +487,15 @@ JDlgClientes telaClientes = new JDlgClientes(this, true);
     private javax.swing.JMenu jMnuMovimentos;
     private javax.swing.JMenu jMnuMovimentos1;
     private javax.swing.JMenu jMnuMovimentos2;
+    private javax.swing.JMenu jMnuMovimentos3;
     private javax.swing.JMenuItem jMnuSair;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
+    private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JMenuItem menuRelatorio;
+    private javax.swing.JMenuItem menuRelatorio1;
     // End of variables declaration//GEN-END:variables
 }

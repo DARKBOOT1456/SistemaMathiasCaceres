@@ -45,9 +45,14 @@ public class ControllerOrdemDeServico extends AbstractTableModel {
             return mscOrdensServico.getMscDataInicio();        
         } else if (columnIndex ==2) {
             return mscOrdensServico.getMscValorTotal();
-        } else if (columnIndex ==3) {
-            return mscOrdensServico.getMscClientes().getMscNome();
+        }  else if (columnIndex == 3) {
+        
+        if (mscOrdensServico.getMscClientes() == null) {
+            return "CLIENTE NÃO SELECIONADO";
         }
+        return mscOrdensServico.getMscClientes().getMscNome() != null ? 
+               mscOrdensServico.getMscClientes().getMscNome() : "Cliente sem nome";
+    }
         return ""; 
     }
 
